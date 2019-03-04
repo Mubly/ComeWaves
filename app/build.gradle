@@ -1,0 +1,82 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.mubly.comewaves"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        debug {
+            keyAlias 'comewaves'
+            keyPassword 'comewaves'
+            storeFile file('comewaves.jks')
+            storePassword 'comewaves'
+        }
+        release {
+            keyAlias 'comewaves'
+            keyPassword 'comewaves'
+            storeFile file('comewaves.jks')
+            storePassword 'comewaves'
+        }
+    }
+    buildTypes {
+
+        release {
+            buildConfigField "String", "BASE_WEBSOCKET_URL", "\"http://ws.fydianping.com\""
+            buildConfigField "String", "BASE_URL", "\"https://dingou.wang/api/\""
+            buildConfigField "String", "BASE_H5_URL", "\"http://h5.fydianping.com/\""
+            buildConfigField "String", "BASE_OFFICE_URL", "\"http://fydianping.com\""
+            buildConfigField "String", "BASE_GAME_URL", "\"http://game.chest.fydianping.com\""
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            multiDexEnabled true
+            zipAlignEnabled true
+            shrinkResources false
+//                manifestPlaceholders = [hx_key: "1148180717177336#fantertainment"]
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField "String", "BASE_WEBSOCKET_URL", "\"http://ws.fydp.ushiji.club\""
+            buildConfigField "String", "BASE_URL", "\"https://dingou.wang/api/\""
+            buildConfigField "String", "BASE_H5_URL", "\"http://h5.fydp.ushiji.club/\""
+            buildConfigField "String", "BASE_OFFICE_URL", "\"http://fydp.ushiji.club\""
+            buildConfigField "String", "BASE_GAME_URL", "\"http://game.chest.ushiji.club\""
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            multiDexEnabled true
+//                manifestPlaceholders = [hx_key: "1148180717177336#eee"]
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    //网络请求
+    //okrx2
+    implementation 'com.lzy.net:okrx2:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    configurations {
+        all*.exclude group: 'com.android.support', module: 'support-v13'
+    }
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
+}
