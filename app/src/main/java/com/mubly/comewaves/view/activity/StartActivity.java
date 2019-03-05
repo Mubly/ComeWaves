@@ -30,7 +30,7 @@ public class StartActivity extends BaseActivity<StartPresent,StartView> implemen
     @Override
     public void initData() {
         super.initData();
-        mPresenter.getStartImage();
+//        mPresenter.getStartImage();
     }
 
     @Override
