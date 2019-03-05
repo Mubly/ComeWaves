@@ -7,13 +7,16 @@ import com.lzy.okgo.convert.Converter;
 import com.lzy.okrx2.adapter.ObservableBody;
 import com.mubly.comewaves.common.base.ResponseData;
 import com.mubly.comewaves.model.model.LoginResBean;
+import com.mubly.comewaves.model.model.StartBean;
 
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.Response;
 
+import static com.mubly.comewaves.common.network.ApiUrls.START_IMAGE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.loginUrl;
 
 
@@ -54,7 +57,20 @@ public class Apis {
                 .adapt(new ObservableBody<ResponseData<LoginResBean>>());
 
     }
+    // 启动页
+    public static Observable<ResponseData<List<StartBean>>> getStartImage() {
+        return OkGo.<ResponseData<List<StartBean>>>post(START_IMAGE_URL)
+                .converter(new Converter<ResponseData<List<StartBean>>>() {
+                    @Override
+                    public ResponseData<List<StartBean>> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<List<StartBean>>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<List<StartBean>>>());
 
+    }
 //    public static Observable<ResponseData<LoginResBean>> oneLogin(String phone, String process_id, String accessscode) {
 //        return OkGo.<ResponseData<LoginResBean>>post(ONE_PASS_login_Url)
 //                .params("process_id", process_id)

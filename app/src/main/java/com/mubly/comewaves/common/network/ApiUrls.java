@@ -10,30 +10,30 @@ import static com.mubly.comewaves.BuildConfig.BASE_URL;
 public class ApiUrls {
 
 
-    public static final String getVerifyCode = BASE_URL + "user/sms/";    //获取验证码
+    public static final String GET_CODE_URL = BASE_URL + "login/sendMsg";    //获取验证码
 
-    public static final String loginUrl = BASE_URL + "login/loginByPhone";  //登录
-    public static final String ONE_PASS_login_Url = BASE_URL + "gt/check-gateway";  //登录
-    public static final String UserInfoUrl = BASE_URL + "user/info";  //获取用户信息
-    public static final String CHECK_PHONE_Url = BASE_URL + "gt/check-gateway-lock";  //登录账号check
+    public static final String loginUrl = BASE_URL + "login/loginByPhone";  //验证码登录
+    public static final String ONE_PASS_login_Url = BASE_URL + "gt/check-gateway";  //密码登录
+    public static final String GETCATEGORY_URL = BASE_URL + "category/getcategory";  //获取分类
+    public static final String REGISTERED_URL = BASE_URL + "login/adduser";  //注册
+    public static final String BACKGROUND_UPDATE_URL = BASE_URL + "user/postupdatebackground";  //修改用户背景图
+    public static final String AVATAR_UPDATE_URL = BASE_URL + "user/postupdateimg";  //修改用户头像
+    public static final String USERINFO_UPDATE_URL = BASE_URL + "user/postpersonal";  //修改用户信息
 
-    public static final String QNUrl = BASE_URL + "upload/token";  //获取七牛云token
+    public static final String IMAGE_UPLOAD_URL = BASE_URL + "post/postaddpictureweChat";  //图片上传
 
-    public static final String createActUrl = BASE_URL + "event/insert";  //创建活动
+    public static final String VIDEO_UPLOAD_URL = BASE_URL + "post/postaddvideo";  //视频上传
 
-    public static final String TypeUrl = BASE_URL + "event/type";  //获取类型
+    public static final String GET_USERINFO_URL = BASE_URL + "user/getpersonal";  //用户信息获取
 
-    public static final String TicketUrl = BASE_URL + "event/ticket";  //获取票种类型
+    public static final String PRAISE_URL = BASE_H5_URL + "user/posttextlike";  //点赞
 
-    public static final String AddTicketUrl = BASE_URL + "event/addTicket";  //获取票种类型
+    public static final String START_IMAGE_URL = BASE_URL + "login/first";  //启动页面
 
-    public static final String DeleteTicketUrl = BASE_URL + "event/deleteTicket";  //删除票种
+    public static final String HOME_INFO_URL = BASE_URL + "index/index";  //首页信息
 
-    public static final String DetailUrl = BASE_H5_URL + "editor/";  //打开富文本链接
 
-    public static final String ReleaseUrl = BASE_URL + "/event/publish";  //发布活动
 
-    public static final String GetActListUrl = BASE_URL + "/event/getNoToken";  //获取活动列表信息
 
     public static final String GetActPreviewUrl = BASE_H5_URL + "event/preview/";  //获取活动列表信息
 
