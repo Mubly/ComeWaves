@@ -61,7 +61,7 @@ public class HomeFragment extends BaseFragment  {
         titles.add("图片");
         fragments.add(HomeInFragment.newInstance(1 ));
         fragments.add(HomeInFragment.newInstance(2));
-        myViewPageAdapter = new MyViewPageAdapter(getActivity().getSupportFragmentManager(), titles, fragments);
+        myViewPageAdapter = new MyViewPageAdapter(getChildFragmentManager(), titles, fragments);
         mViewPager.setAdapter(myViewPageAdapter);
 //        mViewPager.setOffscreenPageLimit(2);//解决fragment重新创建的问题
         mTablayout.setupWithViewPager(mViewPager);

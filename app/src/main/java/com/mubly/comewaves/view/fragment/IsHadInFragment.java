@@ -104,7 +104,7 @@ public class IsHadInFragment extends BaseFragment {
             @Override
             public void dealView(VH holder, String data, int position) {
                 ImageView mImageView = (ImageView) holder.getChildView(R.id.ishad_content_img);
-                Glide.with(mContext).load(imgList.get(position)).apply(RequestOptions.bitmapTransform(new RoundedCorners(10))).into(mImageView);
+                Glide.with(mContext).load(imgList.get(position)).apply(RequestOptions.bitmapTransform(new RoundedCorners(40))).into(mImageView);
                 ImageView avtarImg = (ImageView) holder.getChildView(R.id.ishad_avtar_img);
                 Glide.with(mContext).load(R.drawable.start_img).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(avtarImg);
             }
@@ -112,9 +112,11 @@ public class IsHadInFragment extends BaseFragment {
 
         };
 
-//        mRecyclerView.setNestedScrollingEnabled(false);
-//        new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setNestedScrollingEnabled(false);
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(manager);
+
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(smartAdapter);
         SpacesItemDecoration decoration = new SpacesItemDecoration(12);
         mRecyclerView.addItemDecoration(decoration);

@@ -95,7 +95,7 @@ public class IsHadFragment extends BaseFragment {
         commentRv.setNestedScrollingEnabled(false);
         commentRv.setLayoutManager(layoutManager);
         commentRv.setAdapter(smartAdapter);
-        mViewPage.setAdapter(new myPageAdapter(getActivity().getSupportFragmentManager(), title));
+        mViewPage.setAdapter(new myPageAdapter(getChildFragmentManager(), title));
         mTabLayout.setupWithViewPager(mViewPage);
     }
     public void initPraises(PileLayout pileLayout) {
