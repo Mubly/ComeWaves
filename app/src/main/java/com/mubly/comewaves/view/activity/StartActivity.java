@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseActivity;
 import com.mubly.comewaves.common.base.BaseMvpView;
@@ -24,6 +25,7 @@ public class StartActivity extends BaseActivity<StartPresent,StartView> implemen
 
     @Override
     protected int getLayoutId() {
+        ImmersionBar.with(this).init();
         return R.layout.activity_start;
     }
 
@@ -42,11 +44,17 @@ public class StartActivity extends BaseActivity<StartPresent,StartView> implemen
                 startActivity(new Intent(StartActivity.this,MainActivity.class));
                 finish();
             }
-        },2000);
+        },1000);
     }
 
     @Override
     public void showStart(List<StartBean> startBeanList) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImmersionBar.with(this).destroy();
     }
 }

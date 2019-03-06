@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
+
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.mubly.comewaves.R;
+
 
 import butterknife.ButterKnife;
 

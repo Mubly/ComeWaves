@@ -4,7 +4,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by waber on 2018/6/26.
+ *
  */
 
 public  abstract class RxObserver<T> implements Observer<T> {

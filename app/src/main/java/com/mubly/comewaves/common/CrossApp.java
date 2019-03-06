@@ -27,6 +27,7 @@ public class CrossApp extends Application {
     public void onCreate() {
         super.onCreate();
         sCrossApp = this;
+        initOkGo();
     }
     private void initOkGo() {
 

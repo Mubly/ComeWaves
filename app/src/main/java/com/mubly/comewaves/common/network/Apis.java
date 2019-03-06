@@ -1,11 +1,14 @@
 package com.mubly.comewaves.common.network;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.convert.Converter;
 import com.lzy.okrx2.adapter.ObservableBody;
 import com.mubly.comewaves.common.base.ResponseData;
+import com.mubly.comewaves.model.model.HomeBean;
 import com.mubly.comewaves.model.model.LoginResBean;
 import com.mubly.comewaves.model.model.StartBean;
 
@@ -16,6 +19,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import okhttp3.Response;
 
+import static com.mubly.comewaves.common.network.ApiUrls.HOME_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.START_IMAGE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.loginUrl;
 
@@ -42,21 +46,27 @@ public class Apis {
                 .adapt(new ObservableBody<ResponseData<LoginResBean>>());
 
     }
-    public static Observable<ResponseData<LoginResBean>> getHomeData(String phone, String verCode) {
-        return OkGo.<ResponseData<LoginResBean>>post(loginUrl)
-                .params("phone", phone)
-                .params("code", verCode)
-                .converter(new Converter<ResponseData<LoginResBean>>() {
+
+    public static Observable<ResponseData<List<HomeBean>>> getHomeData(int status) {
+        return OkGo.<ResponseData<List<HomeBean>>>post(HOME_INFO_URL)
+                .params("status", status)
+                .converter(new Converter<ResponseData<List<HomeBean>>>() {
                     @Override
-                    public ResponseData<LoginResBean> convertResponse(Response response) throws Throwable {
-                        Type type = new TypeToken<ResponseData<LoginResBean>>() {
+                    public ResponseData<List<HomeBean>> convertResponse(Response response) throws Throwable {
+
+                        Type type = new TypeToken<ResponseData<List<HomeBean>>>() {
                         }.getType();
-                        return gson.fromJson(response.body().string(), type);
+//                        Log.i("asef",type.getTypeName()+"^^^");
+//                        return gson.fromJson(response.body().string(), type);
+                        ResponseData<List<HomeBean>> data = gson.fromJson(response.body().string(), type);
+
+                        return data;
                     }
                 })
-                .adapt(new ObservableBody<ResponseData<LoginResBean>>());
+                .adapt(new ObservableBody<ResponseData<List<HomeBean>>>());
 
     }
+
     // 启动页
     public static Observable<ResponseData<List<StartBean>>> getStartImage() {
         return OkGo.<ResponseData<List<StartBean>>>post(START_IMAGE_URL)

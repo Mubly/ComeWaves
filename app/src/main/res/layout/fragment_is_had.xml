@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.IsHadFragment">
+    android:orientation="vertical"
+    tools:context=".view.fragment.IsHadInFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="有吗" />
+        android:layout_height="@dimen/size_80dp">
 
-</FrameLayout>
+        <ImageView
+            android:layout_width="@dimen/size_30dp"
+            android:layout_height="@dimen/size_30dp"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:layout_marginBottom="@dimen/size_10dp"
+            android:src="@mipmap/comments_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1px"
+        android:background="@color/line_353536">
+    </View>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/ishad_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_40dp"
+        app:tabIndicatorColor="@color/colorPrimary">
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="热门讨论"
+                android:textColor="@color/text_121317"
+                android:textSize="@dimen/size_18dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/ishad_comment_rv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_80dp">
+            </android.support.v7.widget.RecyclerView>
+
+            <com.mubly.comewaves.view.costomview.ScrollViewPage
+                android:id="@+id/isHad_vp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.mubly.comewaves.view.costomview.ScrollViewPage>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

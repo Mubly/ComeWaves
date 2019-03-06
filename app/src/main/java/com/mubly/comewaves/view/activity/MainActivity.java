@@ -1,15 +1,16 @@
 package com.mubly.comewaves.view.activity;
 
 import android.content.Intent;
+
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseActivity;
 import com.mubly.comewaves.common.base.BasePresenter;
@@ -23,6 +24,7 @@ import com.mubly.comewaves.view.fragment.SearchFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -60,6 +62,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
+        ImmersionBar.with(this).statusBarColor(R.color.gray_aph).init();
+//        ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).fitsSystemWindows(true).init();
         return R.layout.activity_main;
     }
 
@@ -142,5 +146,11 @@ public class MainActivity extends BaseActivity {
             return list.get(arg0);
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImmersionBar.with(this).destroy();
     }
 }

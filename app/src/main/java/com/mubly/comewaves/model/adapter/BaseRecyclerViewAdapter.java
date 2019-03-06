@@ -1,6 +1,7 @@
 package com.mubly.comewaves.model.adapter;
 
 import android.content.Context;
+
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spanned;
@@ -18,6 +19,7 @@ import com.mubly.comewaves.common.utils.ImagelodersUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewAdapter.VH> {
 

@@ -2,7 +2,7 @@ package com.mubly.comewaves.view.fragment;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,13 +13,18 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.gyf.barlibrary.ImmersionBar;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.utils.GlideRoundTransform;
+import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
+import com.mubly.comewaves.model.model.HomeBean;
+import com.mubly.comewaves.present.HomePresent;
 import com.mubly.comewaves.view.costomview.CircleImageView;
 import com.mubly.comewaves.view.costomview.PileLayout;
+import com.mubly.comewaves.view.interfaceview.HomeView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
@@ -27,12 +32,10 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import butterknife.BindView;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class HomeInFragment extends BaseFragment {
+public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implements HomeView {
     @BindView(R.id.home_in_rv)
     RecyclerView mRecyclerView;
     @BindView(R.id.mSmartRefreshLayout)
@@ -40,18 +43,20 @@ public class HomeInFragment extends BaseFragment {
     List<String> dataList = new ArrayList<>();
     SmartAdapter smartAdapter;
 
-    public static HomeInFragment newInstance(int type, int status) {
+    public static HomeInFragment newInstance(int status) {
         HomeInFragment fragment = new HomeInFragment();
         Bundle args = new Bundle();
-        args.putInt("type", type);
         args.putInt("status", status);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    public void initData() {
+        super.initData();
+        //1视频 2图文
+//        ImmersionBar
+        mPresenter.getHomeData(getArguments().getInt("status"));
     }
 
     @Override
@@ -103,6 +108,11 @@ public class HomeInFragment extends BaseFragment {
     }
 
     @Override
+    protected HomePresent createPresenter() {
+        return new HomePresent();
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_home_in;
     }
@@ -114,18 +124,31 @@ public class HomeInFragment extends BaseFragment {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 refreshlayout.finishLoadmore();
-                dataList.add("asyg");
-                smartAdapter.notifyDataSetChanged();
+//                dataList.add("asyg");
+//                smartAdapter.notifyDataSetChanged();
 
             }
 
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                dataList.clear();
-                dataList.add("asyg");
+//                dataList.clear();
+//                dataList.add("asyg");
                 refreshlayout.finishRefresh();
-                smartAdapter.notifyDataSetChanged();
+                mPresenter.getHomeData(getArguments().getInt("status"));
+//                smartAdapter.notifyDataSetChanged();
             }
         });
     }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void shoSuccess(List<HomeBean> homeBean) {
+//        ToastUtils.showToast("获取成功");
+    }
+
+
 }

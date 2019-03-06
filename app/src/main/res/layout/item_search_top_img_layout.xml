@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/search_top_img_iv"
+        android:layout_width="@dimen/size_100dp"
+        android:layout_height="@dimen/size_52dp"
+        android:layout_marginLeft="@dimen/size_12dp"
+        android:src="@drawable/start_img"
+        android:scaleType="fitXY"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/search_top_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_8dp"
+        android:layout_marginBottom="@dimen/size_6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:text="238967" />
+
+    <TextView
+        android:id="@+id/search_top_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_8dp"
+        app:layout_constraintBottom_toTopOf="@id/search_top_amount"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:text="238967" />
+</android.support.constraint.ConstraintLayout>

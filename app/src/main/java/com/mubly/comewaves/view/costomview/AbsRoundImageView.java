@@ -1,5 +1,6 @@
 package com.mubly.comewaves.view.costomview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -16,7 +17,8 @@ import android.widget.ImageView;
 
 import com.mubly.comewaves.R;
 
-public abstract class AbsRoundImageView extends android.support.v7.widget.AppCompatImageView {
+@SuppressLint("AppCompatCustomView")
+public abstract class AbsRoundImageView extends ImageView {
     private static final PorterDuffXfermode xFermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
 
     private Paint mBitmapPaint;

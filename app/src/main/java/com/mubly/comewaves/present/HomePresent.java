@@ -1,36 +1,52 @@
 package com.mubly.comewaves.present;
 
+import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.base.ResponseData;
 import com.mubly.comewaves.common.network.Apis;
 import com.mubly.comewaves.common.network.RxObserver;
+import com.mubly.comewaves.model.model.HomeBean;
 import com.mubly.comewaves.model.model.LoginResBean;
 import com.mubly.comewaves.view.interfaceview.HomeView;
+
+import java.util.List;
 
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class HomePresent extends BasePresenter<HomeView> {
-    public void getHomeData() {
-        Apis.login("15572837654","897654")
+    public void getHomeData(int status) {
+        Apis.getHomeData(status)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new RxObserver<ResponseData<LoginResBean>>() {
+                .subscribe(new RxObserver<ResponseData<List<HomeBean>>>() {
                     @Override
-                    public void _onNext(ResponseData<LoginResBean> actWeekBeanResponseData) {
-                        if (null == getMvpView()) {
-                            return;
+                    public void _onNext(ResponseData<List<HomeBean>> listResponseData) {
+                        if (isAttachView()) {
+                            if (listResponseData.getCode() == Constant.SuccessCode) {
+                                getMvpView().shoSuccess(listResponseData.getData());
+                            } else {
+                                getMvpView().checkNetCode(listResponseData.getCode(), listResponseData.getMsg());
+                            }
                         }
-                        getMvpView().showError("成功");
+
+
+                    }
+
+                    @Override
+                    public void _onComplete() {
+                        super._onComplete();
+                        getMvpView().showError("完成");
                     }
 
                     @Override
                     public void _onError(String errorMessage) {
-                        if (null == getMvpView()) {
-                            return;
+                        if (isAttachView()) {
+                            getMvpView().showError(errorMessage);
                         }
-                        getMvpView().showError("出错");
+
+
                     }
                 });
     }

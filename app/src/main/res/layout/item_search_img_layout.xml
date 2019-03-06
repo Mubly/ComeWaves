@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="3:2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/search_img_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/start_img" />
+
+                <ImageView
+                    android:id="@+id/search_img_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/start_img" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/search_img_3"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:scaleType="fitXY"
+                android:src="@drawable/start_img" />
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/mid_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="3:1"
+        app:layout_constraintTop_toBottomOf="@id/top_layout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/search_img_4"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/start_img"
+                android:layout_weight="1" />
+            <ImageView
+                android:id="@+id/search_img_5"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/start_img"
+                android:scaleType="fitXY"
+                android:layout_weight="1" />
+            <ImageView
+                android:id="@+id/search_img_6"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/start_img"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="3:2"
+        app:layout_constraintTop_toBottomOf="@id/mid_layout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/search_img_7"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/start_img"
+                android:layout_weight="2" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/search_img_8"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/start_img"
+                    android:scaleType="fitXY"
+                    android:layout_height="@dimen/size_0dp" />
+                <ImageView
+                    android:id="@+id/search_img_9"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/start_img"
+                    android:scaleType="fitXY"
+                    android:layout_height="@dimen/size_0dp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

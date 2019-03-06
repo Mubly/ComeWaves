@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/size_20dp"
+    android:layout_marginRight="@dimen/size_20dp"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="@dimen/size_46dp"
+        android:layout_height="@dimen/size_20dp"
+        android:src="@mipmap/comments_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:text="有奖/今年冬季穿什么保暖？" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_8dp"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:orientation="horizontal">
+
+        <com.mubly.comewaves.view.costomview.PileLayout
+            android:id="@+id/comment_avtar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:PileLayout_pileWidth="@dimen/size_10dp">
+
+        </com.mubly.comewaves.view.costomview.PileLayout>
+
+        <TextView
+            android:id="@+id/comment_amount_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="等166人加入讨论" />
+    </LinearLayout>
+</LinearLayout>
