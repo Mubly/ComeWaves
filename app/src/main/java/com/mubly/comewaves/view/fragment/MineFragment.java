@@ -3,20 +3,55 @@ package com.mubly.comewaves.view.fragment;
 
 import android.os.Bundle;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
+import com.mubly.comewaves.view.costomview.ScrollViewPage;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 
 public class MineFragment extends BaseFragment {
+    @BindView(R.id.top_bg_img)
+    ImageView topBgImg;
+    @BindView(R.id.wallet_btn)
+    TextView walletBtn;
+    @BindView(R.id.openMore)
+    Button openMoreBtn;
+    @BindView(R.id.mine_avtar_img)
+    ImageView userAvtarImg;
+    @BindView(R.id.attention_amount)
+    TextView attentAmountTv;
+    @BindView(R.id.fans_amount)
+    TextView fansAmountTv;
+    @BindView(R.id.mine_user_name)
+    TextView userNameTv;
+    @BindView(R.id.account_of_ding)
+    TextView accountDingTv;
+    @BindView(R.id.motto_of_person)
+    TextView mottoContentTv;
+    @BindView(R.id.mine_tab)
+    TabLayout mTabLayout;
+    @BindView(R.id.mine_viewpage)
+    ScrollViewPage mViewPage;
 
-
-    public MineFragment() {
-        // Required empty public constructor
-    }
+    List<String> title = new ArrayList<>();
+    List<Fragment> fragmentList = new ArrayList<>();
 
 
     @Override
@@ -27,5 +62,24 @@ public class MineFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_mine;
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+
+    }
+
+    @Override
+    public void initView(View rootView) {
+        super.initView(rootView);
+        Glide.with(this).load(R.drawable.ishad_2).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
+        title.add("我的帖子");
+        title.add("我的收藏");
+        fragmentList.add(MineInFragment.newInstance(0));
+        fragmentList.add(MineInFragment.newInstance(1));
+        mViewPage.setAdapter(new MyViewPageAdapter(getChildFragmentManager(), title,fragmentList));
+        mViewPage.setOffscreenPageLimit(2);
+        mTabLayout.setupWithViewPager(mViewPage);
     }
 }

@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+
 import com.mubly.comewaves.R;
 
 import java.io.File;
@@ -95,7 +96,6 @@ public class CommUtil {
     }
 
 
-
     /**
      * 设置TextView文本
      *
@@ -129,8 +129,6 @@ public class CommUtil {
         }
         imageView.setImageResource(ivToMipmapXml);
     }
-
-
 
 
     /**
@@ -580,6 +578,21 @@ public class CommUtil {
     }
 
     /**
+     * 时间戳转日期
+     *
+     * @param s
+     * @return
+     */
+    public static String stampTodate(int s ){
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+        long lt = s;
+        Date date = new Date(lt);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
+
+    /**
      * 保留2位小数
      *
      * @param s
@@ -652,8 +665,9 @@ public class CommUtil {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return  code;
+        return code;
     }
+
     /**
      * 获取应用版本号
      *
@@ -671,6 +685,7 @@ public class CommUtil {
         }
         return name;
     }
+
     /**
      * 获取版本号内容
      *
@@ -823,7 +838,7 @@ public class CommUtil {
     public static String getDateFromDetailTimeAndDate(String string) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
-        String nowDate=null;
+        String nowDate = null;
         try {
             date = dateFormat.parse(string);
             GregorianCalendar calendar = new GregorianCalendar();
@@ -831,7 +846,7 @@ public class CommUtil {
             nowDate = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
         } catch (ParseException e) {
             e.printStackTrace();
-            nowDate=string;
+            nowDate = string;
         }
 
         return nowDate;
@@ -853,8 +868,6 @@ public class CommUtil {
         }
         return numberStr;
     }
-
-
 
 
 }

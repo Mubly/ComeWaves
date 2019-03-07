@@ -1,4 +1,4 @@
-package com.mubly.comewaves.common.base;
+package com.mubly.comewaves.view.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,7 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.base.BaseMvpView;
+import com.mubly.comewaves.common.base.BasePresenter;
 
 
 import butterknife.ButterKnife;

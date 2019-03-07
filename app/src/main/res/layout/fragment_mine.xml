@@ -1,14 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.fragment.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="我的" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/top_bg_img"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_0dp"
+            android:background="@drawable/ishad_1"
+            app:layout_constraintDimensionRatio="375:92"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+        <TextView
+            android:id="@+id/wallet_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:layout_marginBottom="@dimen/size_12dp"
+            android:gravity="center"
+            android:paddingLeft="@dimen/size_12dp"
+            android:paddingTop="@dimen/size_6dp"
+            android:paddingRight="@dimen/size_12dp"
+            android:paddingBottom="@dimen/size_6dp"
+            android:text="钱包"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_12dp"
+            app:layout_constraintBottom_toBottomOf="@id/top_bg_img"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <Button
+            android:id="@+id/openMore"
+            android:layout_width="@dimen/size_30dp"
+            android:layout_height="@dimen/size_30dp"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:layout_marginBottom="@dimen/size_20dp"
+            android:background="@null"
+            android:text="..."
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_20dp"
+            app:layout_constraintBottom_toTopOf="@id/wallet_btn"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/mine_avtar_img"
+            android:layout_width="@dimen/size_64dp"
+            android:layout_height="@dimen/size_64dp"
+            android:layout_marginLeft="@dimen/size_16dp"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wallet_btn" />
+
+        <LinearLayout
+            android:id="@+id/attention_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_16dp"
+            android:layout_marginRight="@dimen/size_16dp"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/size_20dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_bg_img">
+
+            <TextView
+                android:id="@+id/attention_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/text_555555"
+                android:textSize="@dimen/size_12dp"
+                tools:text="5435435" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/text_555555"
+                android:textSize="@dimen/size_12dp"
+                tools:text="关注" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/ver_line"
+            android:layout_width="@dimen/size_1dp"
+            android:layout_height="@dimen/size_30dp"
+            android:layout_marginTop="@dimen/size_4dp"
+            android:layout_marginBottom="@dimen/size_4dp"
+            android:background="@color/line_C0BFBF"
+            app:layout_constraintBottom_toBottomOf="@id/attention_layout"
+            app:layout_constraintRight_toLeftOf="@id/attention_layout"
+            app:layout_constraintTop_toTopOf="@id/attention_layout"></View>
+
+        <LinearLayout
+            android:id="@+id/fans_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_16dp"
+            android:layout_marginRight="@dimen/size_16dp"
+
+            android:orientation="vertical"
+            android:paddingRight="@dimen/size_20dp"
+            app:layout_constraintRight_toLeftOf="@id/ver_line"
+            app:layout_constraintTop_toBottomOf="@id/top_bg_img">
+
+            <TextView
+                android:id="@+id/fans_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/text_555555"
+                android:textSize="@dimen/size_12dp"
+                tools:text="54335" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/text_555555"
+                android:textSize="@dimen/size_12dp"
+                tools:text="粉丝" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/mine_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_16dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:text="詹姆斯·邦德"
+            android:textColor="@color/text_555555"
+            android:textSize="@dimen/size_18dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mine_avtar_img" />
+
+        <TextView
+            android:id="@+id/account_of_ding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_16dp"
+            android:layout_marginTop="@dimen/size_6dp"
+            android:text="钉钉账号:34865"
+            android:textColor="@color/text_555555"
+            android:textSize="@dimen/size_12dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mine_user_name" />
+
+        <TextView
+            android:id="@+id/motto_of_person_lebel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_16dp"
+            android:layout_marginTop="@dimen/size_6dp"
+            android:text="个人签名:"
+            android:textColor="@color/text_555555"
+            android:textSize="@dimen/size_12dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account_of_ding" />
+
+        <TextView
+            android:id="@+id/motto_of_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_16dp"
+            android:layout_marginTop="@dimen/size_6dp"
+            android:lineSpacingMultiplier="1.5"
+            android:text="我就是不一样的烟火，像风一样\n像水一样，快乐的像个傻逼一样"
+            android:textColor="@color/text_555555"
+            android:textSize="@dimen/size_12dp"
+            app:layout_constraintLeft_toRightOf="@id/motto_of_person_lebel"
+            app:layout_constraintTop_toBottomOf="@id/account_of_ding" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/mine_tab"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_40dp"
+            android:layout_marginTop="@dimen/size_16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/motto_of_person"
+            app:tabMode="fixed"
+            tools:background="@color/line_C0BFBF">
+        </android.support.design.widget.TabLayout>
+
+        <com.mubly.comewaves.view.costomview.ScrollViewPage
+            android:id="@+id/mine_viewpage"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/mine_tab"
+            tools:background="@color/colorPrimary">
+
+        </com.mubly.comewaves.view.costomview.ScrollViewPage>
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

@@ -82,5 +82,8 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar:2.3.3'
     //    刷新
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-4'
-//    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+//    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    //视频播放
+//    implementation 'com.github.open-android:IjkPlayer:1.0.0'
 }

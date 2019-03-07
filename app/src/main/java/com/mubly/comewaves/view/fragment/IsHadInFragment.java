@@ -116,7 +116,6 @@ public class IsHadInFragment extends BaseFragment {
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
 
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(smartAdapter);
         SpacesItemDecoration decoration = new SpacesItemDecoration(12);
         mRecyclerView.addItemDecoration(decoration);
