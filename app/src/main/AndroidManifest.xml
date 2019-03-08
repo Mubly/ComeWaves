@@ -2,15 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mubly.comewaves">
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 允许程序设置内置sd卡的写权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许程序获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许程序访问WiFi网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许程序读写手机状态和身份 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".common.CrossApp"
@@ -22,7 +26,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme_App"
         tools:replace="android:theme">
-        <activity android:name=".view.activity.SettingActivity"></activity>
+        <activity
+            android:name=".view.activity.HotLebelActivity"
+            android:label="@string/title_activity_hot_lebel"
+            android:theme="@style/AppTheme_App.NoActionBar"></activity>
+        <activity android:name=".view.activity.SettingActivity" />
         <activity android:name=".view.activity.CommentActivity" />
         <activity android:name=".view.activity.IsHadInfoActivity" />
         <activity android:name=".view.activity.MerchantActivity" />
@@ -48,6 +56,9 @@
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="3f56585fc0b95c4a3592f96a8750178e" />
     </application>
 
 </manifest>

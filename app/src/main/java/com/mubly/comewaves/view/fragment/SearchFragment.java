@@ -1,6 +1,7 @@
 package com.mubly.comewaves.view.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
+import com.mubly.comewaves.view.activity.HotLebelActivity;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
 
 import java.util.ArrayList;
@@ -114,6 +116,12 @@ public class SearchFragment extends BaseFragment {
             public void dealView(VH holder, String data, int position) {
                 holder.setText(R.id.search_top_amount, "232");
                 holder.setText(R.id.search_top_title, "周边店铺");
+                holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(mContext, HotLebelActivity.class));
+                    }
+                });
 //                holder.setNetImage(mContext,R.id.search_top_img_iv,R.drawable.start_img);
             }
 
