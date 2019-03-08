@@ -1,8 +1,6 @@
 package com.mubly.comewaves.view.fragment;
 
 import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -87,9 +85,9 @@ public class ReleaseFragment extends BaseFragment implements SurfaceHolder.Callb
     @Override
     public void initView(View rootView) {
         super.initView(rootView);
-        initSurfaceView();
-        initPlayer();
-        initEvents();
+//        initSurfaceView();
+//        initPlayer();
+//        initEvents();
     }
 
 

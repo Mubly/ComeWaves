@@ -8,13 +8,13 @@
     <RelativeLayout
         android:id="@+id/root_rl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="500dp"
         android:background="#000000">
 
         <SurfaceView
             android:id="@+id/surfaceView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="500dp" />
         <ImageView
             android:id="@+id/playOrPause"
             android:layout_width="60dp"

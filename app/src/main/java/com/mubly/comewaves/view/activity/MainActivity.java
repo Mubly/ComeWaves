@@ -67,7 +67,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        ImmersionBar.with(this).statusBarColor(R.color.black_aph80).init();
         rxPermissions = new RxPermissions(this);
 //        ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).fitsSystemWindows(true).init();
         return R.layout.activity_main;
@@ -191,9 +190,5 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ImmersionBar.with(this).destroy();
-    }
+
 }

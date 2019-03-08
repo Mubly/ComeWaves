@@ -1,6 +1,7 @@
 package com.mubly.comewaves.view.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
 import com.mubly.comewaves.model.model.HomeBean;
 import com.mubly.comewaves.present.HomePresent;
+import com.mubly.comewaves.view.activity.GoodsInfoActivity;
 import com.mubly.comewaves.view.costomview.CircleImageView;
 import com.mubly.comewaves.view.costomview.PileLayout;
 import com.mubly.comewaves.view.interfaceview.HomeView;
@@ -40,8 +42,9 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
     RecyclerView mRecyclerView;
     @BindView(R.id.mSmartRefreshLayout)
     SmartRefreshLayout mSmartRefreshLayout;
-    List<String> dataList = new ArrayList<>();
+    List<HomeBean> dataList = new ArrayList<>();
     SmartAdapter smartAdapter;
+    int type;
 
     public static HomeInFragment newInstance(int status) {
         HomeInFragment fragment = new HomeInFragment();
@@ -62,31 +65,35 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
     @Override
     public void initView(View rootView) {
         super.initView(rootView);
-        dataList.add("121");
-        dataList.add("121");
-        dataList.add("121");
-        dataList.add("121");
-        smartAdapter = new SmartAdapter<String>(dataList) {
+        smartAdapter = new SmartAdapter<HomeBean>(dataList) {
             @Override
             public int getLayout(int viewType) {
                 return R.layout.item_home_layout;
             }
 
             @Override
-            public void dealView(VH holder, String data, int position) {
-                holder.setText(R.id.user_name, "杰克琼斯");
-                holder.setText(R.id.user_location, "清明上和城");
+            public void dealView(VH holder, HomeBean data, int position) {
+                holder.setText(R.id.user_name, data.getUser_name());
+                holder.setText(R.id.user_location, data.getLocation());
                 holder.setText(R.id.user_distance, "1.2km");
-                holder.setText(R.id.praise_tv, "1.2k");
-                holder.setText(R.id.comment_tv, "889");
+                holder.setText(R.id.praise_tv, data.getFabulous_num() + "");
+                holder.setText(R.id.comment_tv, data.getReport_num() + "");
                 holder.setText(R.id.praise_man_tv, "赵子龙，张翼德，刘玄德等人觉得很赞");
-                holder.setText(R.id.content_tv, "下雨的日子，适合打秋风，看我家的小喵，是不是很好看");
+                holder.setText(R.id.content_tv, data.getPost_info());
+                ImageView mImageView = (ImageView) holder.getChildView(R.id.user_photo_img);
+                Glide.with(mContext).load(data.getFirst_url()).into(mImageView);
                 ImageView imageView = (ImageView) holder.getChildView(R.id.avatar_image);
-//                RequestOptions.bitmapTransform(new CircleCrop())
-//                RequestOptions requestOptions = RequestOptions.circleCropTransform();
-                Glide.with(mContext).load(R.drawable.start_img).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(imageView);
+                Glide.with(mContext).load(data.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(imageView);
                 PileLayout mPileLayout = (PileLayout) holder.getChildView(R.id.pileLayout);
                 initPraises(mPileLayout);
+                holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, GoodsInfoActivity.class);
+                        intent.putExtra("type", type);
+                        startActivity(intent);
+                    }
+                });
             }
 
 
@@ -114,6 +121,7 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
 
     @Override
     protected int getLayoutId() {
+        type=getArguments().getInt("status");
         return R.layout.fragment_home_in;
     }
 
@@ -123,19 +131,13 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
         mSmartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadmore();
-//                dataList.add("asyg");
-//                smartAdapter.notifyDataSetChanged();
+                mPresenter.getHomeData(getArguments().getInt("status"));
 
             }
 
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-//                dataList.clear();
-//                dataList.add("asyg");
-                refreshlayout.finishRefresh();
                 mPresenter.getHomeData(getArguments().getInt("status"));
-//                smartAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -147,7 +149,15 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
 
     @Override
     public void shoSuccess(List<HomeBean> homeBean) {
-//        ToastUtils.showToast("获取成功");
+        if (mSmartRefreshLayout.isRefreshing()) {
+            dataList.clear();
+            mSmartRefreshLayout.finishRefresh();
+        }
+        if (mSmartRefreshLayout.isLoading()) {
+            mSmartRefreshLayout.finishLoadmore();
+        }
+        dataList.addAll(homeBean);
+        smartAdapter.notifyDataSetChanged();
     }
 
 

@@ -2,6 +2,7 @@ package com.mubly.comewaves.common.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,7 +42,9 @@ public abstract class BaseFragment<P extends BasePresenter<V>, V extends BaseMvp
 
     //得到当前界面的布局文件id(由子类实现)
     protected abstract int getLayoutId();
+
     private ProgressDialog progressDialog;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +81,7 @@ public abstract class BaseFragment<P extends BasePresenter<V>, V extends BaseMvp
 
     public void initEvent() {
     }
+
     @Override
     public void showProgress(String msg) {
         progressDialog = new ProgressDialog(mContext);//实例化progressDialog
@@ -91,6 +95,7 @@ public abstract class BaseFragment<P extends BasePresenter<V>, V extends BaseMvp
         if (progressDialog.isShowing())
             progressDialog.dismiss();
     }
+
     @Override
     public void checkNetCode(int code, String msg) {
         switch (code) {
@@ -103,11 +108,12 @@ public abstract class BaseFragment<P extends BasePresenter<V>, V extends BaseMvp
             case UUIDERROR://多端登陆
                 OffsiteLanding("账号已经在别处登录,请重新登录");
                 break;
-                default:
-                    ToastUtils.showToast(msg);
-                    break;
+            default:
+                ToastUtils.showToast(msg);
+                break;
         }
     }
+
     public void OffsiteLanding(String msg) {
 //        NiceDialog.init()
 //                .setLayoutId(R.layout.logoutlanding_layout)
@@ -134,5 +140,6 @@ public abstract class BaseFragment<P extends BasePresenter<V>, V extends BaseMvp
 //                .setAnimStyle(R.style.EnterExitAnimation)
 //                .show(getFragmentManager());
     }
+
 
 }

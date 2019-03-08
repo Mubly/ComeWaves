@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.UserInfoFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/user_info_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ishad_3"
+            app:layout_constraintDimensionRatio="375:160"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/setting_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/start_img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_info_top" />
+
+        <ImageView
+            android:id="@+id/user_avtar_iv"
+            android:layout_width="@dimen/size_60dp"
+            android:layout_height="@dimen/size_60dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ishad_3"
+            app:layout_constraintBottom_toBottomOf="@id/user_info_top"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/user_info_top" />
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/setting_bg_">
+
+        <View
+            android:id="@+id/guide_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_0dp"
+            app:layout_constraintDimensionRatio="375:160"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </View>
+
+        <ImageView
+            android:id="@+id/take_photo"
+            android:layout_width="@dimen/size_40dp"
+            android:layout_height="@dimen/size_40dp"
+            android:src="@drawable/takephoto_icon"
+            app:layout_constraintBottom_toBottomOf="@id/guide_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guide_view" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/size_20dp"
+            android:paddingBottom="@dimen/size_10dp"
+            android:text="编辑"
+            android:textColor="@color/color_f5f5f5"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/guide_view"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/guide_view">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_36dp"
+                android:layout_marginTop="@dimen/size_40dp">
+
+                <TextView
+                    android:id="@+id/store_name_lebel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="店铺名称"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:gravity="bottom|right"
+                    android:paddingRight="@dimen/size_20dp"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="香奈儿·万达分店"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toRightOf="@id/store_name_lebel"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1dp"
+                    android:background="@color/color_f5f5f5"
+                    app:layout_constraintBottom_toBottomOf="parent"></View>
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_36dp">
+
+                <TextView
+                    android:id="@+id/ding_account_lebel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="钉钉账号"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="(仅一次修改机会)"
+                    android:textColor="@color/color_dfdfdf"
+                    android:textSize="@dimen/size_10dp"
+                    app:layout_constraintLeft_toRightOf="@id/ding_account_lebel"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:gravity="bottom|right"
+                    android:paddingRight="@dimen/size_20dp"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="245235"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toRightOf="@id/ding_account_lebel"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1dp"
+                    android:background="@color/color_f5f5f5"
+                    app:layout_constraintBottom_toBottomOf="parent"></View>
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/motto_lebel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_marginTop="@dimen/size_16dp"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="个人签名"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_16dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:gravity="bottom|right"
+                    android:lineSpacingMultiplier="1.5"
+                    android:paddingLeft="@dimen/size_30dp"
+                    android:paddingRight="@dimen/size_20dp"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="一花一世界，一叶一菩提\n阿弥陀佛国，众生皆摩尼"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toRightOf="@id/motto_lebel"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1dp"
+                    android:background="@color/color_f5f5f5"
+                    app:layout_constraintBottom_toBottomOf="parent"></View>
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_36dp">
+
+                <TextView
+                    android:id="@+id/sell_about_lebel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="经营范围"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:gravity="bottom|right"
+                    android:paddingRight="@dimen/size_20dp"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="美妆/服饰/包包"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toRightOf="@id/sell_about_lebel"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1dp"
+                    android:background="@color/color_f5f5f5"
+                    app:layout_constraintBottom_toBottomOf="parent"></View>
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_36dp">
+
+                <TextView
+                    android:id="@+id/store_phone_lebel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="店铺电话"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:gravity="bottom|right"
+                    android:paddingRight="@dimen/size_20dp"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="021-110"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toRightOf="@id/store_phone_lebel"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1dp"
+                    android:background="@color/color_f5f5f5"
+                    app:layout_constraintBottom_toBottomOf="parent"></View>
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_36dp">
+
+                <TextView
+                    android:id="@+id/work_time_lebel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="营业时间"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:gravity="bottom|right"
+                    android:paddingRight="@dimen/size_20dp"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="10:00-22:00"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toRightOf="@id/work_time_lebel"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1dp"
+                    android:background="@color/color_f5f5f5"
+                    app:layout_constraintBottom_toBottomOf="parent"></View>
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/size_16dp">
+
+                <TextView
+                    android:id="@+id/store_address_lebel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="店铺地址"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:gravity="bottom|right"
+                    android:paddingRight="@dimen/size_20dp"
+                    android:paddingBottom="@dimen/size_4dp"
+                    android:text="上海市 嘉定区 江桥镇 华江路468号\n205室"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_14dp"
+                    app:layout_constraintLeft_toRightOf="@id/store_address_lebel"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1dp"
+                    android:background="@color/color_f5f5f5"
+                    app:layout_constraintBottom_toBottomOf="parent"></View>
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

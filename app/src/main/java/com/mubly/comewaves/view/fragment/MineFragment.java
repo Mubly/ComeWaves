@@ -1,6 +1,7 @@
 package com.mubly.comewaves.view.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.design.widget.TabLayout;
@@ -19,12 +20,14 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
+import com.mubly.comewaves.view.activity.SettingActivity;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MineFragment extends BaseFragment {
     @BindView(R.id.top_bg_img)
@@ -81,5 +84,16 @@ public class MineFragment extends BaseFragment {
         mViewPage.setAdapter(new MyViewPageAdapter(getChildFragmentManager(), title,fragmentList));
         mViewPage.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPage);
+    }
+
+    @Override
+    public void initEvent() {
+        super.initEvent();
+        openMoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext, SettingActivity.class));
+            }
+        });
     }
 }

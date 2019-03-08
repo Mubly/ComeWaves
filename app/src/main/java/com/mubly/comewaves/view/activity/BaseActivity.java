@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,8 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
+import com.gyf.barlibrary.ImmersionBar;
+import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseMvpView;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.utils.AdaptScreenUtils;
 
 
 import butterknife.ButterKnife;
@@ -39,6 +43,7 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseMvp
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        ImmersionBar.with(this).statusBarColor(R.color.black_aph80).init();
         //ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
         //隐藏状态栏、标题栏
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -131,7 +136,7 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseMvp
             mHandler = null;
         }
 
-//        ImmersionBar.with(this).destroy();
+        ImmersionBar.with(this).destroy();
     }
 
     /**
@@ -213,5 +218,9 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseMvp
     private void dealMain() {
 //        Intent intents = new Intent(this, MainActivity.class);
 //        startActivity(intents);
+    }
+    @Override
+    public Resources getResources() {
+        return AdaptScreenUtils.adaptWidth(super.getResources(),1080);
     }
 }

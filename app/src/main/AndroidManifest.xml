@@ -22,7 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme_App"
         tools:replace="android:theme">
-        <activity android:name=".view.activity.IsHadInfoActivity"></activity>
+        <activity android:name=".view.activity.SettingActivity"></activity>
+        <activity android:name=".view.activity.CommentActivity" />
+        <activity android:name=".view.activity.IsHadInfoActivity" />
         <activity android:name=".view.activity.MerchantActivity" />
         <activity android:name=".view.activity.GoodsInfoActivity" />
         <activity android:name=".view.activity.SearchInfoActivity" />

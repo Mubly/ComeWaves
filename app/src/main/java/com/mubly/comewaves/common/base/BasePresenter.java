@@ -1,6 +1,9 @@
 package com.mubly.comewaves.common.base;
 
-public abstract class BasePresenter <V extends BaseMvpView>{
+import android.app.Activity;
+import android.content.Intent;
+
+public abstract class BasePresenter<V extends BaseMvpView> {
 
     public V mvpView;
 
@@ -29,4 +32,6 @@ public abstract class BasePresenter <V extends BaseMvpView>{
     public V getMvpView() {
         return mvpView;
     }
+
+
 }
