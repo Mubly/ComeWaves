@@ -18,6 +18,7 @@ import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.common.utils.ImagelodersUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -58,7 +59,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
 
     public abstract int getItemViewTypes(int poition, List<T> data);
 
-   public static class VH extends RecyclerView.ViewHolder {
+    public static class VH extends RecyclerView.ViewHolder {
         private SparseArray<View> mViews;
         private View mConvertView;
 
@@ -118,9 +119,9 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
             view.setImageResource(value);
         }
 
-        public void setNetImage(Context context,int id, String value) {
+        public void setNetImage(Context context, int id, String value) {
             ImageView view = getView(id);
-            ImagelodersUtils.glideLoadImage(context,value,view,10, R.mipmap.ic_launcher);
+            ImagelodersUtils.glideLoadImage(context, value, view, 10, R.mipmap.ic_launcher);
         }
 
         public void setViewShowHide(int id, boolean isShowHide) {
@@ -168,5 +169,13 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
         }
     }
 
+    public void onItemDataChange(int fromPosition, int toPosition) {
+        //交换位置
+        Collections.swap(mDatas, fromPosition, toPosition);
+    }
+
+    public void onItemdelete(int position) {
+        mDatas.remove(position);
+    }
 }
 

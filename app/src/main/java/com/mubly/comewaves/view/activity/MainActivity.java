@@ -59,7 +59,8 @@ public class MainActivity extends BaseActivity {
     MineFragment mineFragment = new MineFragment();
     SearchFragment searchFragment = new SearchFragment();
     private List<Fragment> fragmentList = new ArrayList<>();
-     RxPermissions rxPermissions=null;
+    RxPermissions rxPermissions = null;
+
     @Override
     protected BasePresenter createPresenter() {
         return null;
@@ -117,7 +118,8 @@ public class MainActivity extends BaseActivity {
                 main_mypager.setCurrentItem(1);
                 break;
             case R.id.ll_release:
-                main_mypager.setCurrentItem(2);
+                startActivity(new Intent(mContext, MessageCreateActivity.class));
+//                main_mypager.setCurrentItem(2);
 //                rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
 //                    @Override
 //                    public void accept(Boolean aBoolean) throws Exception {

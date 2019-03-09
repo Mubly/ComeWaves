@@ -1,6 +1,7 @@
 package com.mubly.comewaves.view.fragment;
 
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,6 +23,8 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
+import com.mubly.comewaves.view.activity.IsHadCommentActivity;
+import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +110,12 @@ public class IsHadInFragment extends BaseFragment {
                 Glide.with(mContext).load(imgList.get(position)).apply(RequestOptions.bitmapTransform(new RoundedCorners(40))).into(mImageView);
                 ImageView avtarImg = (ImageView) holder.getChildView(R.id.ishad_avtar_img);
                 Glide.with(mContext).load(R.drawable.start_img).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(avtarImg);
+                holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(mContext, IsHadCommentActivity.class));
+                    }
+                });
             }
 
 
@@ -126,22 +135,4 @@ public class IsHadInFragment extends BaseFragment {
         return R.layout.fragment_is_had_in;
     }
 
-    private class SpacesItemDecoration extends RecyclerView.ItemDecoration {
-
-        private int space;
-
-        public SpacesItemDecoration(int space) {
-            this.space = space;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            outRect.left = space;
-            outRect.right = space;
-            outRect.bottom = space;
-            if (parent.getChildAdapterPosition(view) == 0) {
-                outRect.top = space;
-            }
-        }
-    }
 }

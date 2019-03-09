@@ -26,10 +26,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme_App"
         tools:replace="android:theme">
+        <activity android:name=".view.activity.AttentionsActivity"></activity>
+        <activity android:name=".view.activity.IsHadCommentActivity" />
+        <activity android:name=".view.activity.MessageCreateActivity" />
         <activity
             android:name=".view.activity.HotLebelActivity"
             android:label="@string/title_activity_hot_lebel"
-            android:theme="@style/AppTheme_App.NoActionBar"></activity>
+            android:theme="@style/AppTheme_App.NoActionBar" />
         <activity android:name=".view.activity.SettingActivity" />
         <activity android:name=".view.activity.CommentActivity" />
         <activity android:name=".view.activity.IsHadInfoActivity" />

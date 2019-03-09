@@ -20,6 +20,7 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
+import com.mubly.comewaves.view.activity.AttentionsActivity;
 import com.mubly.comewaves.view.activity.SettingActivity;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
 
@@ -93,6 +94,12 @@ public class MineFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(mContext, SettingActivity.class));
+            }
+        });
+        userAvtarImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext, AttentionsActivity.class));
             }
         });
     }

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ishad_comment_top_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ishad_comment_avtar_iv"
+        android:layout_width="@dimen/size_30dp"
+        android:layout_height="@dimen/size_30dp"
+        android:layout_marginLeft="@dimen/size_26dp"
+        android:layout_marginTop="@dimen/size_16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ishad_1" />
+
+    <TextView
+        android:id="@+id/ishad_comment_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/size_4dp"
+        android:textColor="@color/text_0f1622"
+        android:textSize="@dimen/size_10dp"
+        app:layout_constraintBottom_toTopOf="@id/ishad_comment_createtime"
+        app:layout_constraintLeft_toRightOf="@id/ishad_comment_avtar_iv"
+        app:layout_constraintTop_toTopOf="@id/ishad_comment_avtar_iv"
+        android:text="帕米尔·龙" />
+
+    <TextView
+        android:id="@+id/ishad_comment_createtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/size_4dp"
+        android:textColor="@color/text_0f1622"
+        android:textSize="@dimen/size_8dp"
+        app:layout_constraintBottom_toBottomOf="@id/ishad_comment_avtar_iv"
+        app:layout_constraintLeft_toRightOf="@id/ishad_comment_avtar_iv"
+        app:layout_constraintTop_toBottomOf="@id/ishad_comment_username"
+        android:text="12-27 15:32" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/size_26dp"
+        android:text="···"
+        android:textStyle="bold"
+        android:textSize="@dimen/size_16dp"
+        app:layout_constraintBottom_toBottomOf="@id/ishad_comment_avtar_iv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ishad_comment_avtar_iv" />
+
+    <TextView
+        android:id="@+id/ishad_comment_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_8dp"
+        android:paddingLeft="@dimen/size_4dp"
+        android:paddingRight="@dimen/size_26dp"
+        android:textColor="@color/text_0f1622"
+        android:textSize="@dimen/size_12dp"
+        app:layout_constraintLeft_toRightOf="@id/ishad_comment_avtar_iv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ishad_comment_avtar_iv"
+        android:text="当灿烂的太阳跳出东海的碧波，帕米尔高原，依然是群星闪烁当北国还是银装素裹的世界，南疆早已洋溢着盎然的春色。啊，我们爱你，中国！" />
+
+
+
+
+
+
+    <TextView
+        android:id="@+id/ishad_comment_parise_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_60dp"
+        android:layout_marginTop="@dimen/size_8dp"
+        android:drawableLeft="@mipmap/praise_icon"
+        android:drawablePadding="@dimen/size_4dp"
+        android:textColor="@color/text_555555"
+        android:textSize="@dimen/size_10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ishad_comment_content"
+        android:text="23" />
+
+    <TextView
+        android:id="@+id/ishad_comment_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginTop="@dimen/size_8dp"
+        android:drawableLeft="@mipmap/comments_icon"
+        android:drawablePadding="@dimen/size_4dp"
+        android:textColor="@color/text_555555"
+        android:textSize="@dimen/size_10dp"
+        app:layout_constraintLeft_toRightOf="@id/ishad_comment_parise_tv"
+        app:layout_constraintTop_toBottomOf="@id/ishad_comment_content"
+        android:text="45" />
+
+    <TextView
+        android:id="@+id/ishad_comment_share_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_8dp"
+        android:drawableLeft="@drawable/share_icon"
+        android:drawablePadding="@dimen/size_4dp"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/size_26dp"
+        android:textColor="@color/text_555555"
+        android:textSize="@dimen/size_10dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ishad_comment_content"
+        android:text="12" />
+</android.support.constraint.ConstraintLayout>

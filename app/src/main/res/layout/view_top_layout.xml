@@ -11,10 +11,9 @@
 
     <ImageButton
         android:id="@+id/top_back_btn"
-        android:layout_width="@dimen/size_60dp"
-        android:layout_height="@dimen/size_60dp"
+        android:layout_width="@dimen/size_50dp"
+        android:layout_height="@dimen/size_50dp"
         android:background="@null"
-        android:padding="@dimen/size_10dp"
         android:src="@drawable/back_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
