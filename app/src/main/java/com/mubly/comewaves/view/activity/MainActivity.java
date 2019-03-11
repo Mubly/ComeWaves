@@ -25,6 +25,7 @@ import com.mubly.comewaves.view.fragment.IsHadFragment;
 import com.mubly.comewaves.view.fragment.MineFragment;
 import com.mubly.comewaves.view.fragment.ReleaseFragment;
 import com.mubly.comewaves.view.fragment.SearchFragment;
+import com.mubly.comewaves.view.fragment.VoidesListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,7 @@ public class MainActivity extends BaseActivity {
     HomeFragment homeFragment = new HomeFragment();
     ReleaseFragment releaseFragment = new ReleaseFragment();
     IsHadFragment isHadFragment = new IsHadFragment();
+    VoidesListFragment videoFragment = new VoidesListFragment();
     MineFragment mineFragment = new MineFragment();
     SearchFragment searchFragment = new SearchFragment();
     private List<Fragment> fragmentList = new ArrayList<>();
@@ -78,7 +80,7 @@ public class MainActivity extends BaseActivity {
         super.initView();
         fragmentList.add(homeFragment);
         fragmentList.add(searchFragment);
-        fragmentList.add(releaseFragment);
+        fragmentList.add(videoFragment);
         fragmentList.add(isHadFragment);
         fragmentList.add(mineFragment);
         main_mypager.setOffscreenPageLimit(5);
@@ -118,8 +120,8 @@ public class MainActivity extends BaseActivity {
                 main_mypager.setCurrentItem(1);
                 break;
             case R.id.ll_release:
-                startActivity(new Intent(mContext, MessageCreateActivity.class));
-//                main_mypager.setCurrentItem(2);
+//                startActivity(new Intent(mContext, MessageCreateActivity.class));
+                main_mypager.setCurrentItem(2);
 //                rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
 //                    @Override
 //                    public void accept(Boolean aBoolean) throws Exception {
