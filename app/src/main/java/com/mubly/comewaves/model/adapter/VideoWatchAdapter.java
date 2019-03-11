@@ -91,7 +91,6 @@ public class VideoWatchAdapter extends RecyclerView.Adapter<VideoWatchAdapter.Vi
                     mIvCover.setVisibility(View.VISIBLE);
                 }
             };
-
             mVpvPlayer.addMediaPlayerListener(mPlayerListener);
         }
 
