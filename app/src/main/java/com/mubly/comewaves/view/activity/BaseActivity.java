@@ -19,10 +19,15 @@ import android.view.Window;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.CrossApp;
 import com.mubly.comewaves.common.base.BaseMvpView;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.utils.AdaptScreenUtils;
+import com.umeng.analytics.MobclickAgent;
 
+
+
+import java.util.Map;
 
 import butterknife.ButterKnife;
 
@@ -159,13 +164,13 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseMvp
     @Override
     protected void onResume() {
         super.onResume();
-//        MobclickAgent.onResume(this);
+        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        MobclickAgent.onPause(this);
+        MobclickAgent.onPause(this);
     }
 
     @Override
@@ -219,8 +224,42 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseMvp
 //        Intent intents = new Intent(this, MainActivity.class);
 //        startActivity(intents);
     }
+
     @Override
     public Resources getResources() {
-        return AdaptScreenUtils.adaptWidth(super.getResources(),1080);
+        return AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
     }
+
+//    public void weChatLogin() {
+//        CrossApp.get().getmShareAPI().getPlatformInfo(this, SHARE_MEDIA.WEIXIN, umAuthListener);//QQ登录
+//    }
+//    UMAuthListener umAuthListener = new UMAuthListener() {
+//        @Override
+//        public void onStart(SHARE_MEDIA platform) {}
+//        @Override
+//        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+////                KLog.e("openid: " + data.get("uid"));
+////                KLog.e("昵称: " + data.get("name"));
+////                KLog.e("头像: " + data.get("iconurl"));
+////                KLog.e("性别: " + data.get("gender"));
+//        }
+//
+//        @Override
+//        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+//
+//        }
+//
+//        @Override
+//        public void onCancel(SHARE_MEDIA share_media, int i) {
+//
+//        }
+//
+//
+//    };
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+//    }
 }

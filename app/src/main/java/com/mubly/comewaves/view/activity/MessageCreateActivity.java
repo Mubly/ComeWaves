@@ -52,7 +52,7 @@ public class MessageCreateActivity extends BaseActivity {
     @BindView(R.id.labels_tv)
     TextView labelsTv;
     SmartAdapter smartAdapter;
-    List<String> voideImageList = new ArrayList<>();
+    List<LocalMedia> voideImageList = new ArrayList<>();
 
     @Override
     protected BasePresenter createPresenter() {
@@ -69,37 +69,49 @@ public class MessageCreateActivity extends BaseActivity {
         super.initView();
         topLayoutRightTv.setText("发布");
         topTittle.setText("");
-        voideImageList.add("启动拍照");
-        smartAdapter = new SmartAdapter<String>(voideImageList) {
+        voideImageList.add(new LocalMedia());
+        smartAdapter = new SmartAdapter<LocalMedia>(voideImageList) {
             @Override
             public int getLayout(int viewType) {
                 return R.layout.item_square_img_layout;
             }
 
             @Override
-            public void dealView(VH holder, final String data, final int position) {
+            public void dealView(VH holder, final LocalMedia data, final int position) {
                 final ImageView imageView = (ImageView) holder.getChildView(R.id.square_img);
                 ImageView takePhoto = (ImageView) holder.getChildView(R.id.take_photo_iv);
+                ImageView startVideo = (ImageView) holder.getChildView(R.id.start_video);
 
                 if (position == voideImageList.size() - 1) {
                     takePhoto.setVisibility(View.VISIBLE);
                     imageView.setVisibility(View.GONE);
+                    startVideo.setVisibility(View.GONE);
                     Glide.with(mContext).load(R.drawable.add_black_icon).apply(RequestOptions.overrideOf(60, 60).centerInside()).into(imageView);
                 } else {
                     imageView.setVisibility(View.VISIBLE);
                     takePhoto.setVisibility(View.GONE);
-                    Glide.with(mContext).load(data).into(imageView);
+                    if (data.getPictureType().contains("mp4")) {
+                        startVideo.setVisibility(View.VISIBLE);
+                    } else {
+                        startVideo.setVisibility(View.GONE);
+                    }
+                    Glide.with(mContext).load(data.getPath()).into(imageView);
                 }
                 holder.getConvertView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (position == voideImageList.size() - 1) {
                             PictureSelector.create(MessageCreateActivity.this)
-                                    .openGallery(PictureMimeType.ofImage())
+                                    .openGallery(PictureMimeType.ofAll())
                                     .previewImage(true)
-                                    .compress(true)
+                                    .previewVideo(true)
                                     .forResult(PictureConfig.CHOOSE_REQUEST);
                         } else {
+                            if (data.getPictureType().contains("mp4")) {
+                                PictureSelector.create(MessageCreateActivity.this).externalPictureVideo(data.getPath());
+                            } else {
+                                PictureSelector.create(MessageCreateActivity.this).themeStyle(R.style.picture_default_style).openExternalPreview(position, voideImageList);
+                            }
 
                         }
                     }
@@ -113,7 +125,7 @@ public class MessageCreateActivity extends BaseActivity {
         imgOrVideoRv.setAdapter(smartAdapter);
         SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         imgOrVideoRv.addItemDecoration(decoration);
-        LinearLayoutManager manager=new LinearLayoutManager(this);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
 
     }
 
@@ -137,7 +149,6 @@ public class MessageCreateActivity extends BaseActivity {
                     // 图片、视频、音频选择结果回调
                     List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
                     dealImageOrVideo(selectList);
-
                     // 例如 LocalMedia 里面返回三种path
                     // 1.media.getPath(); 为原图path
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
@@ -150,7 +161,7 @@ public class MessageCreateActivity extends BaseActivity {
 
     private void dealImageOrVideo(List<LocalMedia> selectList) {
         for (LocalMedia localMedia : selectList) {
-            voideImageList.add(voideImageList.size()-1,localMedia.getCompressPath());
+            voideImageList.add(voideImageList.size() - 1, localMedia);
         }
         smartAdapter.notifyDataSetChanged();
     }

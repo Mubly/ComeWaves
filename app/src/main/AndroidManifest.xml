@@ -14,7 +14,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许程序访问WiFi网络信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许程序读写手机状态和身份 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 用于申请调用A-GPS模块 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:name=".common.CrossApp"
@@ -26,7 +31,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme_App"
         tools:replace="android:theme">
-        <activity android:name=".view.activity.AttentionsActivity"></activity>
+        <activity android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+        <activity android:name=".view.activity.AttestActivity" />
+        <activity android:name=".view.activity.AttentionsActivity" />
         <activity android:name=".view.activity.IsHadCommentActivity" />
         <activity android:name=".view.activity.MessageCreateActivity" />
         <activity
@@ -62,6 +73,14 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="3f56585fc0b95c4a3592f96a8750178e" />
+
+        <service android:name="com.amap.api.location.APSService" /> <!-- 友盟 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5c874eff3fc195a170000c59" /> <!-- 友盟  渠道号，多渠道用一占位符表示即可 -->
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="unKnow" />
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.permissions.RxPermissions;
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.CrossApp;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.view.costomview.MyViewPager;
 import com.mubly.comewaves.view.fragment.HomeFragment;
@@ -26,9 +28,14 @@ import com.mubly.comewaves.view.fragment.MineFragment;
 import com.mubly.comewaves.view.fragment.ReleaseFragment;
 import com.mubly.comewaves.view.fragment.SearchFragment;
 import com.mubly.comewaves.view.fragment.VoidesListFragment;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 import butterknife.BindView;
@@ -54,6 +61,11 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.ll_mine)
     LinearLayout mineTab;
 
+    @BindView(R.id.login_btn)
+    Button loginBtn;
+    @BindView(R.id.share_btn)
+    Button shareBtn;
+
     HomeFragment homeFragment = new HomeFragment();
     ReleaseFragment releaseFragment = new ReleaseFragment();
     IsHadFragment isHadFragment = new IsHadFragment();
@@ -62,6 +74,17 @@ public class MainActivity extends BaseActivity {
     SearchFragment searchFragment = new SearchFragment();
     private List<Fragment> fragmentList = new ArrayList<>();
     RxPermissions rxPermissions = null;
+    String[] mPermissionList = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.READ_LOGS,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.SET_DEBUG_APP,
+            Manifest.permission.SYSTEM_ALERT_WINDOW,
+            Manifest.permission.GET_ACCOUNTS,
+            Manifest.permission.WRITE_APN_SETTINGS};
 
     @Override
     protected BasePresenter createPresenter() {
@@ -71,16 +94,17 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         rxPermissions = new RxPermissions(this);
-//        ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).fitsSystemWindows(true).init();
         return R.layout.activity_main;
     }
 
     @Override
     public void initView() {
         super.initView();
+        requestRxPermissions();
         fragmentList.add(homeFragment);
         fragmentList.add(searchFragment);
-        fragmentList.add(videoFragment);
+//        fragmentList.add(videoFragment);
+        fragmentList.add(releaseFragment);
         fragmentList.add(isHadFragment);
         fragmentList.add(mineFragment);
         main_mypager.setOffscreenPageLimit(5);
@@ -110,7 +134,19 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.ll_home, R.id.ll_live, R.id.ll_release, R.id.ll_info, R.id.ll_mine,})
+    private void requestRxPermissions() {
+        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                if (!aBoolean) {
+                    finish();
+                }
+            }
+
+        });
+    }
+
+    @OnClick({R.id.ll_home, R.id.ll_live, R.id.ll_release, R.id.ll_info, R.id.ll_mine, R.id.share_btn, R.id.login_btn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_home:
@@ -120,8 +156,8 @@ public class MainActivity extends BaseActivity {
                 main_mypager.setCurrentItem(1);
                 break;
             case R.id.ll_release:
-//                startActivity(new Intent(mContext, MessageCreateActivity.class));
-                main_mypager.setCurrentItem(2);
+                startActivity(new Intent(mContext, MessageCreateActivity.class));
+//                main_mypager.setCurrentItem(2);
 //                rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
 //                    @Override
 //                    public void accept(Boolean aBoolean) throws Exception {
@@ -151,6 +187,14 @@ public class MainActivity extends BaseActivity {
 //                    startActivity(new Intent(this, LoginActivity.class));
 //                }else
                 main_mypager.setCurrentItem(4);
+                break;
+            case R.id.share_btn:
+                new ShareAction(MainActivity.this).withText("hello")
+                        .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN)
+                        .setCallback(umShareListener).open();
+                break;
+            case R.id.login_btn:
+             CrossApp.get().getmShareAPI().getPlatformInfo(MainActivity.this, SHARE_MEDIA.WEIXIN, umAuthListener);
                 break;
         }
 
@@ -194,5 +238,88 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    private UMShareListener umShareListener = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
 
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(MainActivity.this,"成功                                        了",Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(MainActivity.this,"失                                            败"+t.getMessage(),Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(MainActivity.this,"取消                                          了",Toast.LENGTH_LONG).show();
+
+        }
+    };
+    private UMAuthListener umAuthListener = new UMAuthListener() {
+        /**
+         * @desc 授权开始的回调
+         * @param platform 平台名称
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+
+        }
+
+        /**
+         * @desc 授权成功的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         * @param data 用户资料返回
+         */
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+
+            Toast.makeText(mContext, "成功了", Toast.LENGTH_LONG).show();
+
+        }
+
+        /**
+         * @desc 授权失败的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+
+            Toast.makeText(mContext, "失败：" + t.getMessage(),                                     Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @desc 授权取消的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            Toast.makeText(mContext, "取消了", Toast.LENGTH_LONG).show();
+        }
+    };
 }

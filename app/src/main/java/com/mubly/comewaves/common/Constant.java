@@ -49,4 +49,6 @@ public class Constant {
     public static final int ADVENTURER_CODE = 1125; // 玩咖策划，events进入原生此详情CODE
 
 
+    public static final String WX_APPID = "wx2b033b393329cde8";//微信appid
+    public static final String WX_APPSECRET = "232d40daf0540da312a615970a6267f1";//微信APPSECRET
 }

@@ -11,6 +11,10 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
+
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -19,16 +23,32 @@ import okhttp3.OkHttpClient;
 
 public class CrossApp extends Application {
     private static CrossApp sCrossApp;
+    private static UMShareAPI mShareAPI;
 
     public static CrossApp get() {
         return sCrossApp;
     }
+
+    public UMShareAPI getmShareAPI() {
+        return mShareAPI;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         sCrossApp = this;
+        iniyoumen();
         initOkGo();
     }
+
+    private void iniyoumen() {
+        UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, null);
+        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+//        PlatformConfig.setWeixin(Constant.WX_APPID, Constant.WX_APPSECRET);//微信平台的appkey与appsecret
+        mShareAPI= UMShareAPI.get(this);
+
+    }
+
     private void initOkGo() {
 
 //        HttpHeaders headers = new HttpHeaders();
@@ -52,7 +72,7 @@ public class CrossApp extends Application {
         OkGo.getInstance()
                 .init(this)
 //                .addCommonHeaders(headers)
-                .addCommonParams(new HttpParams("T",AppConfig.token.get()==null?"6ZKJ5aSfMTU1MTUxMDI2OTQz":AppConfig.token.get()))
+                .addCommonParams(new HttpParams("T", AppConfig.token.get() == null ? "6ZKJ5aSfMTU1MTUxMDI2OTQz" : AppConfig.token.get()))
                 .setOkHttpClient(builder.build()) //设置OkHttpClient，不设置将使用默认的
                 .setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
                 .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)
