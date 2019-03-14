@@ -1,8 +1,7 @@
 package com.mubly.comewaves.view.activity;
 
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
+
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -13,6 +12,7 @@ import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.view.fragment.UserInfoFragment;
 import com.mubly.comewaves.view.fragment.UserSettingFragment;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

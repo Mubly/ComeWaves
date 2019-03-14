@@ -1,9 +1,7 @@
 package com.mubly.comewaves.view.fragment;
 
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,7 +15,7 @@ import com.mubly.comewaves.common.base.BasePresenter;
 import butterknife.BindView;
 
 /**
- * A simple {@link Fragment} subclass.
+ *
  */
 public class UserInfoFragment extends BaseFragment {
     @BindView(R.id.user_avtar_iv)

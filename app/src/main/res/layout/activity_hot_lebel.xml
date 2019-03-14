@@ -9,11 +9,11 @@
 
     <include layout="@layout/view_top_layout"></include>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:descendantFocusability="blocksDescendants"
             android:layout_height="wrap_content">
@@ -25,7 +25,7 @@
                 app:layout_constraintDimensionRatio="375:120"
                 app:layout_constraintTop_toTopOf="parent"></com.amap.api.maps2d.MapView>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_44dp"
                 android:background="@color/black_aph80"
@@ -42,16 +42,16 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </android.support.constraint.ConstraintLayout>
-            <android.support.v7.widget.RecyclerView
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/hot_label_rv"
                 android:layout_width="match_parent"
                 app:layout_constraintTop_toBottomOf="@id/mapView"
                 android:layout_height="wrap_content">
 
-            </android.support.v7.widget.RecyclerView>
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v4.widget.NestedScrollView>
+            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
 </LinearLayout>

@@ -1,6 +1,6 @@
 package com.mubly.comewaves.wxapi;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 
 import com.mubly.comewaves.R;
@@ -11,6 +11,6 @@ public class WXEntryActivity extends WXCallbackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wxentry3);
+        setContentView(R.layout.activity_wxentry);
     }
 }

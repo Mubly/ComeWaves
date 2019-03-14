@@ -13,7 +13,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/start_img" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/setting_bg_">
@@ -82,5 +82,5 @@
             android:textColor="@color/color_f5f5f5"
             android:text="注销登录"
             android:layout_height="wrap_content" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

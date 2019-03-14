@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.UserInfoFragment">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -40,10 +40,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/user_info_top" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/setting_bg_">
@@ -86,7 +86,7 @@
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/guide_view">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/user_name_layout"
                 android:layout_width="match_parent"
                 android:visibility="gone"
@@ -126,8 +126,8 @@
                     android:layout_height="@dimen/size_1dp"
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
-            </android.support.constraint.ConstraintLayout>
-            <android.support.constraint.ConstraintLayout
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp"
                 android:layout_marginTop="@dimen/size_40dp">
@@ -165,9 +165,9 @@
                     android:layout_height="@dimen/size_1dp"
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
 
@@ -215,9 +215,9 @@
                     android:layout_height="@dimen/size_1dp"
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -258,9 +258,9 @@
                     android:layout_height="@dimen/size_1dp"
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
 
@@ -297,9 +297,9 @@
                     android:layout_height="@dimen/size_1dp"
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
 
@@ -336,9 +336,9 @@
                     android:layout_height="@dimen/size_1dp"
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
 
@@ -375,9 +375,9 @@
                     android:layout_height="@dimen/size_1dp"
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/size_16dp">
@@ -415,9 +415,9 @@
                     android:layout_height="@dimen/size_1dp"
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 <!--个人-->
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
 
@@ -454,8 +454,8 @@
                     android:layout_height="@dimen/size_1dp"
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
-            </android.support.constraint.ConstraintLayout>
-            <android.support.constraint.ConstraintLayout
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
 
@@ -492,8 +492,8 @@
                     android:layout_height="@dimen/size_1dp"
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
-            </android.support.constraint.ConstraintLayout>
-            <android.support.constraint.ConstraintLayout
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
 
@@ -530,8 +530,8 @@
                     android:layout_height="@dimen/size_1dp"
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
-            </android.support.constraint.ConstraintLayout>
-            <android.support.constraint.ConstraintLayout
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
 
@@ -568,7 +568,7 @@
                     android:layout_height="@dimen/size_1dp"
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

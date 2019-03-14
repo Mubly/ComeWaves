@@ -2,11 +2,7 @@ package com.mubly.comewaves.view.fragment;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +17,12 @@ import com.mubly.comewaves.model.model.SimpleItemTouchHelperCallback;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link } subclass.
  */
 public class AttentionsFragment extends BaseFragment {
     @BindView(R.id.drap_skip_rv)

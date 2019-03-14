@@ -8,7 +8,7 @@
     tools:context=".view.fragment.IsHadInFragment">
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_80dp">
 
@@ -20,7 +20,7 @@
             android:src="@mipmap/comments_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:layout_width="match_parent"
@@ -28,14 +28,14 @@
         android:background="@color/line_353536">
     </View>
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/ishad_tablayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_40dp"
         app:tabIndicatorColor="@color/colorPrimary">
-    </android.support.design.widget.TabLayout>
+    </com.google.android.material.tabs.TabLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -51,11 +51,11 @@
                 android:textColor="@color/text_121317"
                 android:textSize="@dimen/size_18dp" />
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ishad_comment_rv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_80dp">
-            </android.support.v7.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
 
             <com.mubly.comewaves.view.costomview.ScrollViewPage
                 android:id="@+id/isHad_vp"
@@ -63,6 +63,6 @@
                 android:layout_height="wrap_content">
             </com.mubly.comewaves.view.costomview.ScrollViewPage>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

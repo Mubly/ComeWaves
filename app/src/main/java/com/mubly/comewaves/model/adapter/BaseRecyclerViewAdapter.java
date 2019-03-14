@@ -2,8 +2,7 @@ package com.mubly.comewaves.model.adapter;
 
 import android.content.Context;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
 import android.text.Spanned;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -20,6 +19,9 @@ import com.mubly.comewaves.common.utils.ImagelodersUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewAdapter.VH> {

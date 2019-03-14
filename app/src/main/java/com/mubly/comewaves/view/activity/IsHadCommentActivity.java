@@ -1,14 +1,12 @@
 package com.mubly.comewaves.view.activity;
 
 
-import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+
 import android.view.View;
+
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +18,9 @@ import com.mubly.comewaves.model.adapter.SmartAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -58,6 +59,10 @@ public class IsHadCommentActivity extends BaseActivity {
         topTittle.setText("评论详情");
         dataList.add("6745");
         dataList.add("6745");
+        dataList.add("6745");
+        dataList.add("6745");
+        dataList.add("6745");
+        dataList.add("6745");
         Glide.with(mContext).load(R.drawable.ishad_1).apply(RequestOptions.circleCropTransform()).into(avtarImage);
         smartAdapter = new SmartAdapter<String>(dataList) {
             @Override
@@ -72,6 +77,8 @@ public class IsHadCommentActivity extends BaseActivity {
         };
         ishadCommentRv.setLayoutManager(new LinearLayoutManager(this));
         ishadCommentRv.setAdapter(smartAdapter);
+
+
     }
 
 
@@ -79,4 +86,6 @@ public class IsHadCommentActivity extends BaseActivity {
     public void onViewClicked() {
         finish();
     }
+
+
 }

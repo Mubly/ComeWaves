@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.SearchFragment">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/size_32dp"
@@ -62,7 +62,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_line" />
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/top_label_rv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_52dp"
@@ -70,16 +70,16 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lebel_tv">
 
-            </android.support.v7.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
 
-            <android.support.design.widget.TabLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/search_tablayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_40dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/top_label_rv"
                 app:tabIndicatorColor="@color/colorPrimary"
-                app:tabMode="scrollable"></android.support.design.widget.TabLayout>
+                app:tabMode="scrollable"></com.google.android.material.tabs.TabLayout>
 
             <com.mubly.comewaves.view.costomview.ScrollViewPage
                 android:id="@+id/search_viewpage"
@@ -88,7 +88,7 @@
                 app:layout_constraintTop_toBottomOf="@id/search_tablayout"
                 tools:background="@color/colorPrimary">
             </com.mubly.comewaves.view.costomview.ScrollViewPage>
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v4.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>

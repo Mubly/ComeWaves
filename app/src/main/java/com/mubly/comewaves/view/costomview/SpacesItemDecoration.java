@@ -1,8 +1,10 @@
 package com.mubly.comewaves.view.costomview;
 
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * recycleView 间隔

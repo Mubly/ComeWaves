@@ -2,20 +2,14 @@ package com.mubly.comewaves.view.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.permissions.RxPermissions;
 import com.mubly.comewaves.R;
@@ -38,6 +32,11 @@ import java.util.List;
 import java.util.Map;
 
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
@@ -100,6 +99,8 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         super.initView();
+        loginBtn.setVisibility(View.GONE);
+        shareBtn.setVisibility(View.GONE);
         requestRxPermissions();
         fragmentList.add(homeFragment);
         fragmentList.add(searchFragment);
