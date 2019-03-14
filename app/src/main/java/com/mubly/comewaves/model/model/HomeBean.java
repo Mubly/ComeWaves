@@ -38,6 +38,12 @@ public class HomeBean implements Serializable {
     private int share_num;
     private int collection_num;
     private String location;
+    private int status;
+    private int is_push;
+    private int video_status;
+    private int img_status;
+    private int like_status;
+    private int collect_status;
     private String weft;
     private String through;
     private String add_time;

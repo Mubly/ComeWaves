@@ -20,6 +20,9 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".common.CrossApp"
@@ -66,9 +69,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".videoplayer.SwitchDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Transitions"></activity>
+        <activity
             android:name=".view.activity.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".view.activity.MainActivity" />
+        <activity android:name=".view.activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.BaseActivity" />
 
         <meta-data

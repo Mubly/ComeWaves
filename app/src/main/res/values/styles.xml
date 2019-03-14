@@ -32,4 +32,10 @@
     <style name="AppTheme_App.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme_App.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!-- window 透明的-->
+    <style name="Theme.AppCompat.Transitions" parent="AppTheme">
+        <item name="android:windowContentTransitions">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
