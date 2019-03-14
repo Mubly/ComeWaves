@@ -45,6 +45,7 @@ public class SettingActivity extends BaseActivity {
         super.initView();
         titleTv.setText("编辑个人资料");
         topRightTv.setText("设置");
+        topRightTv.setVisibility(View.VISIBLE);
         getSupportFragmentManager().beginTransaction().add(R.id.setting_bg, new UserInfoFragment()).addToBackStack("userInfo").commit();
     }
 

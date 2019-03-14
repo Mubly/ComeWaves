@@ -64,20 +64,32 @@
             tools:text="清明上河城" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/user_photo_img"
+    <FrameLayout
+        android:id="@+id/show_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_0dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/start_img"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintTop_toBottomOf="@id/top_layout" />
+        app:layout_constraintTop_toBottomOf="@id/top_layout"
+        android:layout_height="@dimen/size_0dp">
+        <ImageView
+            android:id="@+id/user_photo_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            android:src="@drawable/start_img" />
+
+        <com.mubly.comewaves.videoplayer.SwitchVideo
+            android:id="@+id/video_item_player"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/user_photo_img">
+        app:layout_constraintTop_toBottomOf="@id/show_layout">
 
         <TextView
             android:id="@+id/praise_tv"

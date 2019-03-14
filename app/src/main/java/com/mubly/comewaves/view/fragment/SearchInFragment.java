@@ -11,6 +11,7 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
+import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +76,6 @@ public class SearchInFragment extends BaseFragment {
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(smartAdapter);
+
     }
 }

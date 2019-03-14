@@ -1,6 +1,7 @@
 package com.mubly.comewaves.view.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -9,11 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
+import com.mubly.comewaves.view.activity.MessageCreateActivity;
 import com.mubly.comewaves.view.costomview.CircleImageView;
 import com.mubly.comewaves.view.costomview.PileLayout;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
@@ -38,6 +42,8 @@ public class IsHadFragment extends BaseFragment {
     TabLayout mTabLayout;
     @BindView(R.id.isHad_vp)
     ScrollViewPage mViewPage;
+    @BindView(R.id.relase_ishad_fb)
+    FloatingActionButton relaseFb;
 
     List<String> title = new ArrayList<>();
     List<Fragment> fragmentList = new ArrayList<>();
@@ -48,6 +54,17 @@ public class IsHadFragment extends BaseFragment {
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+    @Override
+    public void initEvent() {
+        super.initEvent();
+        relaseFb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext, MessageCreateActivity.class));
+            }
+        });
     }
 
     @Override
@@ -99,16 +116,18 @@ public class IsHadFragment extends BaseFragment {
         mViewPage.setAdapter(new myPageAdapter(getChildFragmentManager(), title));
         mTabLayout.setupWithViewPager(mViewPage);
     }
+
     public void initPraises(PileLayout pileLayout) {
         pileLayout.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(mContext);
         for (int i = 0; i < 3; i++) {
-            CircleImageView imageView = (CircleImageView) inflater.inflate(R.layout.item_praise, pileLayout, false);
+            CircleImageView imageView = (CircleImageView) inflater.inflate(R.layout.item_praise2, pileLayout, false);
             Glide.with(mContext).load(R.drawable.start_img).into(imageView);
             pileLayout.addView(imageView);
         }
 
     }
+
     private class myPageAdapter extends FragmentStatePagerAdapter {
         List<String> titleList;
 

@@ -1,68 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+
     tools:context=".view.fragment.IsHadInFragment">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_80dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="@dimen/size_30dp"
-            android:layout_height="@dimen/size_30dp"
-            android:layout_marginRight="@dimen/size_20dp"
-            android:layout_marginBottom="@dimen/size_10dp"
-            android:src="@mipmap/comments_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_1px"
-        android:background="@color/line_353536">
-    </View>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/ishad_tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_40dp"
-        app:tabIndicatorColor="@color/colorPrimary">
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="@dimen/size_80dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="@dimen/size_32dp"
+                android:layout_height="@dimen/size_32dp"
+                android:layout_marginRight="@dimen/size_20dp"
+                android:layout_marginBottom="@dimen/size_10dp"
+                android:padding="@dimen/size_6dp"
+                android:src="@mipmap/message_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1px"
+            android:background="@color/line_C0BFBF"></View>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/ishad_tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_40dp"
+            app:tabIndicatorColor="@color/colorPrimary"></com.google.android.material.tabs.TabLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="热门讨论"
-                android:textColor="@color/text_121317"
-                android:textSize="@dimen/size_18dp" />
+                android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ishad_comment_rv"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_80dp">
-            </androidx.recyclerview.widget.RecyclerView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/size_20dp"
+                    android:text="热门讨论"
+                    android:textColor="@color/text_121317"
+                    android:textSize="@dimen/size_18dp" />
 
-            <com.mubly.comewaves.view.costomview.ScrollViewPage
-                android:id="@+id/isHad_vp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </com.mubly.comewaves.view.costomview.ScrollViewPage>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ishad_comment_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_80dp"></androidx.recyclerview.widget.RecyclerView>
 
-</LinearLayout>
+                <com.mubly.comewaves.view.costomview.ScrollViewPage
+                    android:id="@+id/isHad_vp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></com.mubly.comewaves.view.costomview.ScrollViewPage>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/relase_ishad_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="@dimen/size_20dp"
+        android:layout_marginBottom="@dimen/size_20dp"
+        app:backgroundTint="@color/color_4E628D"
+        android:src="@mipmap/edit_relase_icon"
+        app:elevation="@dimen/size_10dp"
+        app:fabSize="normal"
+        app:rippleColor="@color/black_aph80" />
+
+</FrameLayout>

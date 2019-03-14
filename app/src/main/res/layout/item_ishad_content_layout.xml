@@ -21,12 +21,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/size_4dp"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/ishad_avtar_img"
-            android:layout_width="@dimen/size_40dp"
-            android:layout_height="@dimen/size_40dp"
+            android:layout_width="@dimen/size_22dp"
+            android:layout_height="@dimen/size_22dp"
             android:scaleType="fitXY"
             android:src="@drawable/start_img"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -61,10 +62,11 @@
             android:id="@+id/ishad_comment_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/size_20dp"
+            android:layout_marginRight="@dimen/size_10dp"
             android:drawableLeft="@mipmap/comments_icon"
-            android:drawablePadding="@dimen/size_4dp"
+            android:drawablePadding="@dimen/size_2dp"
             android:text="34"
+            android:textSize="@dimen/size_10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -73,9 +75,10 @@
             android:id="@+id/ishad_praise_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/size_20dp"
+            android:layout_marginRight="@dimen/size_10dp"
             android:drawableLeft="@mipmap/praise_icon"
-            android:drawablePadding="@dimen/size_4dp"
+            android:drawablePadding="@dimen/size_2dp"
+            android:textSize="@dimen/size_10dp"
             android:text="26"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/ishad_comment_amount"

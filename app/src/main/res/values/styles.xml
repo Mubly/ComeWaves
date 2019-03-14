@@ -19,7 +19,7 @@
     </style>
 
     <style name="splash_theme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/start_img</item>
+        <item name="android:windowBackground">@drawable/splash_img</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowIsTranslucent">false</item>
     </style>

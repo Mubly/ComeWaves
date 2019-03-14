@@ -10,8 +10,8 @@
         android:layout_width="@dimen/size_100dp"
         android:layout_height="@dimen/size_52dp"
         android:layout_marginLeft="@dimen/size_12dp"
-        android:src="@drawable/start_img"
         android:scaleType="fitXY"
+        android:src="@drawable/start_img"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,7 +20,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/size_8dp"
-        android:layout_marginBottom="@dimen/size_6dp"
+        android:layout_marginBottom="@dimen/size_4dp"
+        android:paddingLeft="@dimen/size_6dp"
+        android:drawableLeft="@drawable/fire_red_icon"
+        android:textColor="@color/white"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/size_4dp"
+        android:textSize="@dimen/size_10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         tools:text="238967" />
@@ -30,6 +36,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/size_8dp"
+        android:paddingLeft="@dimen/size_6dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_12dp"
         app:layout_constraintBottom_toTopOf="@id/search_top_amount"
         app:layout_constraintLeft_toLeftOf="parent"
         tools:text="238967" />

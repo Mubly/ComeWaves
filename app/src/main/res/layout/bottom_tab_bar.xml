@@ -55,7 +55,7 @@
             android:id="@+id/iv_tabbar_live_icon"
             android:layout_width="@dimen/size_22dp"
             android:layout_height="@dimen/size_22dp"
-            android:background="@mipmap/mine_icon"
+            android:background="@mipmap/search_icon"
             android:scaleType="fitCenter" />
 
         <TextView
@@ -84,8 +84,10 @@
             android:id="@+id/iv_tabbar_discover_icon"
             android:layout_width="@dimen/size_22dp"
             android:layout_height="@dimen/size_22dp"
-            android:background="@mipmap/mine_icon"
-            android:scaleType="fitCenter" />
+            android:background="@mipmap/relase_bg"
+            android:scaleType="fitCenter"
+            android:padding="@dimen/size_4dp"
+            android:src="@mipmap/relase_icon" />
 
         <TextView
             android:id="@+id/tv_tabbar_discover_title"
@@ -113,7 +115,7 @@
             android:id="@+id/iv_tabbar_explore_icon"
             android:layout_width="@dimen/size_22dp"
             android:layout_height="@dimen/size_22dp"
-            android:background="@mipmap/mine_icon"
+            android:background="@mipmap/ishad_icon"
             android:scaleType="fitCenter" />
 
         <TextView

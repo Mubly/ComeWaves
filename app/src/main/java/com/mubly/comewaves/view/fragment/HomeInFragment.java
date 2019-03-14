@@ -128,6 +128,7 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
                     holder.setText(R.id.praise_man_tv, "赵子龙，张翼德，刘玄德等人觉得很赞");
                     holder.setText(R.id.content_tv, data.getPost_info());
                     ImageView mImageView = (ImageView) holder.getChildView(R.id.user_photo_img);
+                    mImageView.setVisibility(View.VISIBLE);
                     Glide.with(mContext).load(data.getFirst_url()).into(mImageView);
                     ImageView imageView = (ImageView) holder.getChildView(R.id.avatar_image);
                     Glide.with(mContext).load(data.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(imageView);

@@ -29,6 +29,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:paddingRight="@dimen/size_4dp"
+                    android:paddingBottom="@dimen/size_4dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/start_img" />
 
@@ -37,6 +39,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:paddingRight="@dimen/size_4dp"
+                    android:paddingBottom="@dimen/size_4dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/start_img" />
             </LinearLayout>
@@ -69,23 +73,30 @@
                 android:id="@+id/search_img_4"
                 android:layout_width="@dimen/size_0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingRight="@dimen/size_4dp"
+                android:paddingBottom="@dimen/size_4dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/start_img"
-                android:layout_weight="1" />
+                android:src="@drawable/start_img" />
+
             <ImageView
                 android:id="@+id/search_img_5"
                 android:layout_width="@dimen/size_0dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/start_img"
+                android:layout_weight="1"
+                android:paddingRight="@dimen/size_4dp"
+                android:paddingBottom="@dimen/size_4dp"
                 android:scaleType="fitXY"
-                android:layout_weight="1" />
+                android:src="@drawable/start_img" />
+
             <ImageView
                 android:id="@+id/search_img_6"
                 android:layout_width="@dimen/size_0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/size_4dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/start_img"
-                android:layout_weight="1" />
+                android:src="@drawable/start_img" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -102,32 +113,40 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:id="@+id/search_img_7"
                 android:layout_width="@dimen/size_0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:paddingRight="@dimen/size_4dp"
+                android:paddingBottom="@dimen/size_4dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/start_img"
-                android:layout_weight="2" />
+                android:src="@drawable/start_img" />
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
+
                 <ImageView
                     android:id="@+id/search_img_8"
                     android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_0dp"
                     android:layout_weight="1"
-                    android:src="@drawable/start_img"
+                    android:paddingBottom="@dimen/size_4dp"
                     android:scaleType="fitXY"
-                    android:layout_height="@dimen/size_0dp" />
+                    android:src="@drawable/start_img" />
+
                 <ImageView
                     android:id="@+id/search_img_9"
                     android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_0dp"
                     android:layout_weight="1"
-                    android:src="@drawable/start_img"
+                    android:paddingBottom="@dimen/size_4dp"
                     android:scaleType="fitXY"
-                    android:layout_height="@dimen/size_0dp" />
+                    android:src="@drawable/start_img" />
 
             </LinearLayout>
 

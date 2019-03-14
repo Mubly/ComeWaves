@@ -21,7 +21,6 @@ import com.mubly.comewaves.view.fragment.IsHadFragment;
 import com.mubly.comewaves.view.fragment.MineFragment;
 import com.mubly.comewaves.view.fragment.ReleaseFragment;
 import com.mubly.comewaves.view.fragment.SearchFragment;
-import com.mubly.comewaves.view.fragment.VoidesListFragment;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareListener;
@@ -68,22 +67,10 @@ public class MainActivity extends BaseActivity {
     HomeFragment homeFragment = new HomeFragment();
     ReleaseFragment releaseFragment = new ReleaseFragment();
     IsHadFragment isHadFragment = new IsHadFragment();
-    VoidesListFragment videoFragment = new VoidesListFragment();
     MineFragment mineFragment = new MineFragment();
     SearchFragment searchFragment = new SearchFragment();
     private List<Fragment> fragmentList = new ArrayList<>();
     RxPermissions rxPermissions = null;
-    String[] mPermissionList = new String[]{
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.CALL_PHONE,
-            Manifest.permission.READ_LOGS,
-            Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.SET_DEBUG_APP,
-            Manifest.permission.SYSTEM_ALERT_WINDOW,
-            Manifest.permission.GET_ACCOUNTS,
-            Manifest.permission.WRITE_APN_SETTINGS};
 
     @Override
     protected BasePresenter createPresenter() {

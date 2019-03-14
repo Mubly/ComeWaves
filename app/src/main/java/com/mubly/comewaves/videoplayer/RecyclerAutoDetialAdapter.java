@@ -30,7 +30,7 @@ public class RecyclerAutoDetialAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                       int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.switch_list_video_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_home_layout, parent, false);
         final RecyclerView.ViewHolder holder = new RecyclerItemAutoDetiallHolder(context, v);
         return holder;
 
