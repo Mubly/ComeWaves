@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_bottom_tabbar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/size_48dp"
+    android:layout_height="@dimen/size_50dp"
     android:background="@drawable/layout_bottom_border"
     android:gravity="center"
     android:orientation="horizontal"
     android:paddingTop="1dp"
-    android:paddingBottom="@dimen/size_2dp">
+    android:paddingBottom="@dimen/size_4dp">
 
     <LinearLayout
         android:id="@+id/ll_home"
@@ -23,9 +23,9 @@
 
         <ImageView
             android:id="@+id/iv_tabbar_home_icon"
-            android:layout_width="@dimen/size_26dp"
-            android:layout_height="@dimen/size_26dp"
-            android:background="@mipmap/home_icon"
+            android:layout_width="@dimen/size_22dp"
+            android:layout_height="@dimen/size_22dp"
+            android:background="@drawable/selected_home_icon"
             android:scaleType="fitCenter" />
 
         <TextView
@@ -55,7 +55,7 @@
             android:id="@+id/iv_tabbar_live_icon"
             android:layout_width="@dimen/size_22dp"
             android:layout_height="@dimen/size_22dp"
-            android:background="@mipmap/search_icon"
+            android:background="@drawable/selected_search_icon"
             android:scaleType="fitCenter" />
 
         <TextView
@@ -84,10 +84,9 @@
             android:id="@+id/iv_tabbar_discover_icon"
             android:layout_width="@dimen/size_22dp"
             android:layout_height="@dimen/size_22dp"
-            android:background="@mipmap/relase_bg"
-            android:scaleType="fitCenter"
+            android:background="@drawable/selected_relase_icon"
             android:padding="@dimen/size_4dp"
-            android:src="@mipmap/relase_icon" />
+            android:scaleType="fitCenter" />
 
         <TextView
             android:id="@+id/tv_tabbar_discover_title"
@@ -115,7 +114,7 @@
             android:id="@+id/iv_tabbar_explore_icon"
             android:layout_width="@dimen/size_22dp"
             android:layout_height="@dimen/size_22dp"
-            android:background="@mipmap/ishad_icon"
+            android:background="@drawable/selected_ishad_icon"
             android:scaleType="fitCenter" />
 
         <TextView
@@ -144,7 +143,7 @@
             android:id="@+id/iv_tabbar_me_icon"
             android:layout_width="@dimen/size_22dp"
             android:layout_height="@dimen/size_22dp"
-            android:background="@mipmap/mine_icon"
+            android:background="@drawable/selected_mine_icon"
             android:scaleType="fitCenter" />
 
         <TextView

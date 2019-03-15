@@ -2,9 +2,10 @@ package com.mubly.comewaves.view.activity;
 
 import android.Manifest;
 import android.content.Intent;
-
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import com.luck.picture.lib.permissions.RxPermissions;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.CrossApp;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.view.costomview.MyViewPager;
 import com.mubly.comewaves.view.fragment.HomeFragment;
 import com.mubly.comewaves.view.fragment.IsHadFragment;
@@ -30,13 +32,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
@@ -63,12 +65,22 @@ public class MainActivity extends BaseActivity {
     Button loginBtn;
     @BindView(R.id.share_btn)
     Button shareBtn;
-
+    @BindView(R.id.iv_tabbar_home_icon)
+    ImageView ivTabbarHomeIcon;
+    @BindView(R.id.iv_tabbar_live_icon)
+    ImageView ivTabbarLiveIcon;
+    @BindView(R.id.iv_tabbar_discover_icon)
+    ImageView ivTabbarDiscoverIcon;
+    @BindView(R.id.iv_tabbar_explore_icon)
+    ImageView ivTabbarExploreIcon;
+    @BindView(R.id.iv_tabbar_me_icon)
+    ImageView ivTabbarMeIcon;
     HomeFragment homeFragment = new HomeFragment();
     ReleaseFragment releaseFragment = new ReleaseFragment();
     IsHadFragment isHadFragment = new IsHadFragment();
     MineFragment mineFragment = new MineFragment();
     SearchFragment searchFragment = new SearchFragment();
+
     private List<Fragment> fragmentList = new ArrayList<>();
     RxPermissions rxPermissions = null;
 
@@ -86,6 +98,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         super.initView();
+        ivTabbarHomeIcon.setSelected(true);
         loginBtn.setVisibility(View.GONE);
         shareBtn.setVisibility(View.GONE);
         requestRxPermissions();
@@ -139,13 +152,16 @@ public class MainActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.ll_home:
                 main_mypager.setCurrentItem(0);
+                tabSelect(0);
                 break;
             case R.id.ll_live:
                 main_mypager.setCurrentItem(1);
+                tabSelect(1);
                 break;
             case R.id.ll_release:
                 startActivity(new Intent(mContext, MessageCreateActivity.class));
 //                main_mypager.setCurrentItem(2);
+//                tabSelect(2);
 //                rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
 //                    @Override
 //                    public void accept(Boolean aBoolean) throws Exception {
@@ -168,21 +184,25 @@ public class MainActivity extends BaseActivity {
 
                 break;
             case R.id.ll_info:
+                tabSelect(3);
                 main_mypager.setCurrentItem(3);
+
                 break;
             case R.id.ll_mine:
-//                if (AppConfig.token.get() == null) {
-//                    startActivity(new Intent(this, LoginActivity.class));
-//                }else
-                main_mypager.setCurrentItem(4);
+                if (AppConfig.token.get() == null) {
+                    startActivity(new Intent(this, LoginActivity.class));
+                } else {
+                    tabSelect(4);
+                    main_mypager.setCurrentItem(4);
+                }
                 break;
             case R.id.share_btn:
                 new ShareAction(MainActivity.this).withText("hello")
-                        .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN)
+                        .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN)
                         .setCallback(umShareListener).open();
                 break;
             case R.id.login_btn:
-             CrossApp.get().getmShareAPI().getPlatformInfo(MainActivity.this, SHARE_MEDIA.WEIXIN, umAuthListener);
+                CrossApp.get().getmShareAPI().getPlatformInfo(MainActivity.this, SHARE_MEDIA.WEIXIN, umAuthListener);
                 break;
         }
 
@@ -205,6 +225,7 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
+
 
     public class MyViewPagerAdapter extends FragmentPagerAdapter {
         List<Fragment> list;
@@ -242,7 +263,7 @@ public class MainActivity extends BaseActivity {
          */
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(MainActivity.this,"成功                                        了",Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "成功                                        了", Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -252,7 +273,7 @@ public class MainActivity extends BaseActivity {
          */
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(MainActivity.this,"失                                            败"+t.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "失                                            败" + t.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -261,7 +282,7 @@ public class MainActivity extends BaseActivity {
          */
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(MainActivity.this,"取消                                          了",Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "取消                                          了", Toast.LENGTH_LONG).show();
 
         }
     };
@@ -297,7 +318,7 @@ public class MainActivity extends BaseActivity {
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
 
-            Toast.makeText(mContext, "失败：" + t.getMessage(),                                     Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "失败：" + t.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -310,4 +331,30 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(mContext, "取消了", Toast.LENGTH_LONG).show();
         }
     };
+
+    void tabSelect(int index) {
+        ivTabbarHomeIcon.setSelected(false);
+        ivTabbarLiveIcon.setSelected(false);
+        ivTabbarDiscoverIcon.setSelected(false);
+        ivTabbarExploreIcon.setSelected(false);
+        ivTabbarMeIcon.setSelected(false);
+        switch (index) {
+            case 0:
+                ivTabbarHomeIcon.setSelected(true);
+                break;
+            case 1:
+                ivTabbarLiveIcon.setSelected(true);
+                break;
+            case 2:
+                ivTabbarDiscoverIcon.setSelected(true);
+                break;
+            case 3:
+                ivTabbarExploreIcon.setSelected(true);
+                break;
+            case 4:
+                ivTabbarMeIcon.setSelected(true);
+                break;
+        }
+
+    }
 }
