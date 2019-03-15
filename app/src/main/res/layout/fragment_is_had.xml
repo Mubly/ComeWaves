@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_80dp">
 
@@ -25,20 +25,20 @@
                 android:src="@mipmap/message_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_1px"
             android:background="@color/line_C0BFBF"></View>
 
-        <com.google.android.material.tabs.TabLayout
+        <android.support.design.widget.TabLayout
             android:id="@+id/ishad_tablayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_40dp"
-            app:tabIndicatorColor="@color/colorPrimary"></com.google.android.material.tabs.TabLayout>
+            app:tabIndicatorColor="@color/colorPrimary"></android.support.design.widget.TabLayout>
 
-        <androidx.core.widget.NestedScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -55,20 +55,22 @@
                     android:textColor="@color/text_121317"
                     android:textSize="@dimen/size_18dp" />
 
-                <androidx.recyclerview.widget.RecyclerView
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/ishad_comment_rv"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_80dp"></androidx.recyclerview.widget.RecyclerView>
+                    android:layout_height="@dimen/size_80dp"></android.support.v7.widget.RecyclerView>
 
                 <com.mubly.comewaves.view.costomview.ScrollViewPage
                     android:id="@+id/isHad_vp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></com.mubly.comewaves.view.costomview.ScrollViewPage>
+                    android:layout_height="wrap_content">
+
+                </com.mubly.comewaves.view.costomview.ScrollViewPage>
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/relase_ishad_fb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

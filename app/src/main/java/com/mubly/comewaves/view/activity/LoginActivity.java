@@ -1,14 +1,17 @@
 package com.mubly.comewaves.view.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.TextView;
 
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.sharedpreference.AppConfig;
 
 import butterknife.BindView;
 
@@ -18,6 +21,8 @@ import butterknife.BindView;
 public class LoginActivity extends BaseActivity {
     @BindView(R.id.email_sign_in_button)
     Button ack;
+    @BindView(R.id.register_new_amount)
+    TextView registerAmount;
     String[] autoString = new String[]
             {"690317264@qq.com", "218734619", "54876239", "b235235b", "5345", "bcdvSvf", "wetwet",
                     "Google Map", "Google Android"};
@@ -46,9 +51,16 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initEvent() {
         super.initEvent();
+        registerAmount.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
         ack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfig.token.put("6ZKJ5aSfMTU1MTUxMDI2OTQz");
                 finish();
             }
         });

@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.SearchInFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/search_content_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </androidx.recyclerview.widget.RecyclerView>
+    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

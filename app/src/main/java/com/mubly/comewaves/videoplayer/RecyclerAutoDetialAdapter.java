@@ -1,6 +1,7 @@
 package com.mubly.comewaves.videoplayer;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,7 @@ import com.mubly.comewaves.model.model.HomeBean;
 
 import java.util.List;
 
-import androidx.recyclerview.widget.RecyclerView;
+
 
 /**
  * Created by guoshuyu on 2017/1/9.

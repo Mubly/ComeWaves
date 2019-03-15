@@ -2,6 +2,10 @@ package com.mubly.comewaves.view.activity;
 
 import android.content.Intent;
 
+import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -10,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -22,10 +27,8 @@ import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -52,6 +55,7 @@ public class MessageCreateActivity extends BaseActivity {
     TextView labelsTv;
     SmartAdapter smartAdapter;
     List<LocalMedia> voideImageList = new ArrayList<>();
+    private final static int REQUEST_CODE = 0110;
 
     @Override
     protected BasePresenter createPresenter() {
@@ -100,6 +104,11 @@ public class MessageCreateActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         if (position == voideImageList.size() - 1) {
+//                            Phoenix.with().theme(PhoenixOption.THEME_DEFAULT) // 主题
+//                                    .fileType(MimeType.ofAll())//显示的文件类型图片、视频、图片和视频
+//                                    .maxPickNumber(9).spanCount(3).enablePreview(true)
+//                                    //如果是在Activity里使用就传Activity，如果是在Fragment里使用就传Fragment
+//                                    .start(MessageCreateActivity.this, PhoenixOption.TYPE_PICK_MEDIA, REQUEST_CODE);
                             PictureSelector.create(MessageCreateActivity.this)
                                     .openGallery(PictureMimeType.ofAll())
                                     .previewImage(true)
@@ -154,9 +163,17 @@ public class MessageCreateActivity extends BaseActivity {
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     break;
+//                case REQUEST_CODE:
+//                    List<MediaEntity> result = Phoenix.result(data);
+//                    dealImageOrVideo2(result);
+//                    break;
             }
         }
     }
+
+//    private void dealImageOrVideo2(List<MediaEntity> result) {
+//
+//    }
 
     private void dealImageOrVideo(List<LocalMedia> selectList) {
         for (LocalMedia localMedia : selectList) {

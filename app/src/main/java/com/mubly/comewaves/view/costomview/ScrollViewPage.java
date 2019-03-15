@@ -2,12 +2,13 @@ package com.mubly.comewaves.view.costomview;
 
 import android.content.Context;
 
+import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.ViewPager;
+import android.support.annotation.NonNull;
+
 
 public class ScrollViewPage extends ViewPager {
     public ScrollViewPage(@NonNull Context context) {

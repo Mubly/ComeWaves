@@ -1,8 +1,9 @@
 package com.mubly.comewaves.videoplayer;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import androidx.recyclerview.widget.RecyclerView;
+
 
 /**
  * Created by shuyu on 2016/12/3.

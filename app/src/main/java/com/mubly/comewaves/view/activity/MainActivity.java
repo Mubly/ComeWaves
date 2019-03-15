@@ -3,6 +3,11 @@ package com.mubly.comewaves.view.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,11 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -93,6 +95,13 @@ public class MainActivity extends BaseActivity {
     protected int getLayoutId() {
         rxPermissions = new RxPermissions(this);
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int type = intent.getIntExtra("type", 0);
+        main_mypager.setCurrentItem(type);
     }
 
     @Override
@@ -159,9 +168,9 @@ public class MainActivity extends BaseActivity {
                 tabSelect(1);
                 break;
             case R.id.ll_release:
-                startActivity(new Intent(mContext, MessageCreateActivity.class));
-//                main_mypager.setCurrentItem(2);
-//                tabSelect(2);
+//                startActivity(new Intent(mContext, MessageCreateActivity.class));
+                main_mypager.setCurrentItem(2);
+                tabSelect(2);
 //                rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
 //                    @Override
 //                    public void accept(Boolean aBoolean) throws Exception {

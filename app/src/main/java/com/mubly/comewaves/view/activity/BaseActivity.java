@@ -12,6 +12,8 @@ import android.os.Looper;
 import android.os.StrictMode;
 
 
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -28,8 +30,8 @@ import com.umeng.analytics.MobclickAgent;
 
 import java.util.Map;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+
+
 import butterknife.ButterKnife;
 
 

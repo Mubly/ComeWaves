@@ -6,26 +6,26 @@
 
     <include layout="@layout/view_top_layout"></include>
 
-    <androidx.core.widget.NestedScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/top_layout">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <include layout="@layout/view_ishad_comment_top_layout"></include>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/ishad_comment_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/ishad_comment_top_layout"></androidx.recyclerview.widget.RecyclerView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toBottomOf="@id/ishad_comment_top_layout"></android.support.v7.widget.RecyclerView>
+        </android.support.constraint.ConstraintLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <FrameLayout
         android:layout_width="match_parent"

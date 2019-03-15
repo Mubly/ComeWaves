@@ -1,56 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".view.fragment.SearchFragment">
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
+        android:id="@+id/top_search_et_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_32dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_30dp"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableLeft="@mipmap/search_icon"
+            android:drawablePadding="@dimen/size_10dp"
+            android:gravity="center_vertical"
+            android:hint="单品/店铺/搭配/话题"
+            android:textSize="@dimen/size_12dp" />
+
+        <ImageView
+            android:layout_width="@dimen/size_32dp"
+            android:layout_height="@dimen/size_32dp"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:padding="@dimen/size_6dp"
+            android:src="@mipmap/message_icon" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1px"
+        android:background="@color/line_353536"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_search_et_layout"></View>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/size_32dp"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/top_search_et_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <EditText
-                    android:layout_width="@dimen/size_0dp"
-                    android:layout_height="@dimen/size_30dp"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:textSize="@dimen/size_12dp"
-                    android:drawableLeft="@mipmap/search_icon"
-                    android:drawablePadding="@dimen/size_10dp"
-                    android:gravity="center_vertical"
-                    android:hint="单品/店铺/搭配/话题" />
-
-                <ImageView
-                    android:layout_width="@dimen/size_32dp"
-                    android:layout_height="@dimen/size_32dp"
-                    android:padding="@dimen/size_6dp"
-                    android:layout_marginRight="@dimen/size_20dp"
-                    android:src="@mipmap/message_icon" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/view_line"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_1px"
-                android:background="@color/line_353536"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/top_search_et_layout"></View>
 
             <TextView
                 android:id="@+id/lebel_tv"
@@ -62,9 +63,9 @@
                 android:textColor="@color/text_121317"
                 android:textSize="@dimen/size_14dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_line" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/top_label_rv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_52dp"
@@ -72,25 +73,23 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lebel_tv">
 
-            </androidx.recyclerview.widget.RecyclerView>
+            </android.support.v7.widget.RecyclerView>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/search_tablayout"
+            <FrameLayout
+                android:id="@+id/search_tablayout_2"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/top_label_rv"
-                app:tabIndicatorColor="@color/colorPrimary"
-                app:tabMode="scrollable"></com.google.android.material.tabs.TabLayout>
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/top_label_rv">
+                <include layout="@layout/view_tab_layout"></include>
+            </FrameLayout>
 
             <com.mubly.comewaves.view.costomview.ScrollViewPage
                 android:id="@+id/search_viewpage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/search_tablayout"
-                tools:background="@color/colorPrimary">
-            </com.mubly.comewaves.view.costomview.ScrollViewPage>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                app:layout_constraintTop_toBottomOf="@id/search_tablayout_2"
+                tools:background="@color/colorPrimary"></com.mubly.comewaves.view.costomview.ScrollViewPage>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-</FrameLayout>
+</LinearLayout>

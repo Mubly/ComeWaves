@@ -2,9 +2,12 @@ package com.mubly.comewaves.view.fragment;
 
 
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.google.android.material.tabs.TabLayout;
+
 
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
@@ -16,8 +19,7 @@ import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
+
 import butterknife.BindView;
 
 /**

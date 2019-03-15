@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,7 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.material.tabs.TabLayout;
+
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
@@ -26,7 +28,7 @@ import com.mubly.comewaves.view.costomview.ScrollViewPage;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.fragment.app.Fragment;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 

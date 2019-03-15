@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/post_detail_nested_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
 
         </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <com.mubly.comewaves.videoplayer.SwitchVideo
         android:id="@+id/detail_player"

@@ -39,13 +39,14 @@ public class CrossApp extends Application {
         sCrossApp = this;
         iniyoumen();
         initOkGo();
+//        initPictureSelect();
     }
 
     private void iniyoumen() {
         UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, null);
         PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
 //        PlatformConfig.setWeixin(Constant.WX_APPID, Constant.WX_APPSECRET);//微信平台的appkey与appsecret
-        mShareAPI= UMShareAPI.get(this);
+        mShareAPI = UMShareAPI.get(this);
 
     }
 
@@ -79,4 +80,17 @@ public class CrossApp extends Application {
                 .setRetryCount(3);
 
     }
+
+//    private void initPictureSelect() {
+//        Phoenix.config()
+//                .imageLoader(new ImageLoader() {
+//                    @Override
+//                    public void loadImage(Context mContext, ImageView imageView
+//                            , String imagePath, int type) {
+//                        Glide.with(mContext)
+//                                .load(imagePath)
+//                                .into(imageView);
+//                    }
+//                });
+//    }
 }

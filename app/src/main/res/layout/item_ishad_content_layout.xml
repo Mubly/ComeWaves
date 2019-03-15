@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:text="读一人苍老，识一城风雨;往事，朦胧;老井;初春迟迟，随想丝丝;一辆开往春天的列车;南行记;俯仰山水" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/size_4dp"
         android:layout_height="wrap_content">
@@ -83,5 +83,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/ishad_comment_amount"
             app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 </LinearLayout>

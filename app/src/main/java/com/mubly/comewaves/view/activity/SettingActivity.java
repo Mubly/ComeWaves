@@ -1,7 +1,9 @@
 package com.mubly.comewaves.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -9,10 +11,11 @@ import android.widget.TextView;
 
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.view.fragment.UserInfoFragment;
 import com.mubly.comewaves.view.fragment.UserSettingFragment;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -46,7 +49,7 @@ public class SettingActivity extends BaseActivity {
         titleTv.setText("编辑个人资料");
         topRightTv.setText("设置");
         topRightTv.setVisibility(View.VISIBLE);
-        getSupportFragmentManager().beginTransaction().add(R.id.setting_bg, new UserInfoFragment()).addToBackStack("userInfo").commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.setting_bg, new UserInfoFragment()).addToBackStack(null).commit();
     }
 
 
@@ -69,8 +72,14 @@ public class SettingActivity extends BaseActivity {
                 isSetting = true;
                 topRightTv.setVisibility(View.GONE);
                 titleTv.setText("设置");
-                getSupportFragmentManager().beginTransaction().replace(R.id.setting_bg, new UserSettingFragment()).addToBackStack("setting").commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_right_in,R.anim.slide_left_out).replace(R.id.setting_bg, new UserSettingFragment()).addToBackStack(null).commit();
                 break;
         }
+    }
+
+    public void finishActivity() {
+        AppConfig.token.put(null);
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

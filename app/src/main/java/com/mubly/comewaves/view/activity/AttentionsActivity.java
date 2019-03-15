@@ -2,10 +2,14 @@ package com.mubly.comewaves.view.activity;
 
 import android.os.Bundle;
 
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.android.material.tabs.TabLayout;
+
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
@@ -14,12 +18,8 @@ import com.mubly.comewaves.view.fragment.AttentionsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.viewpager.widget.ViewPager;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
