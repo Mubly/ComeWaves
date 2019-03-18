@@ -21,8 +21,10 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
+import com.mubly.comewaves.present.IsHadPresent;
 import com.mubly.comewaves.view.activity.IsHadCommentActivity;
 import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
+import com.mubly.comewaves.view.interfaceview.IsHadView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ import butterknife.BindView;
 /**
  * A simple {@link } subclass.
  */
-public class IsHadInFragment extends BaseFragment {
+public class IsHadInFragment extends BaseFragment<IsHadPresent, IsHadView> implements IsHadView {
     @BindView(R.id.ishadin_comment_rv)
     RecyclerView mRecyclerView;
     SmartAdapter smartAdapter;
@@ -51,10 +53,7 @@ public class IsHadInFragment extends BaseFragment {
     }
 
 
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
+
 
     @Override
     public void initData() {
@@ -127,6 +126,11 @@ public class IsHadInFragment extends BaseFragment {
         mRecyclerView.setAdapter(smartAdapter);
         SpacesItemDecoration decoration = new SpacesItemDecoration(12);
         mRecyclerView.addItemDecoration(decoration);
+    }
+
+    @Override
+    protected IsHadPresent createPresenter() {
+        return new IsHadPresent();
     }
 
     @Override

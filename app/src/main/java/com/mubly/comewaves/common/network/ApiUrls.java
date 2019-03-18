@@ -19,7 +19,6 @@ public class ApiUrls {
     public static final String BACKGROUND_UPDATE_URL = BASE_URL + "user/postupdatebackground";  //修改用户背景图
     public static final String AVATAR_UPDATE_URL = BASE_URL + "user/postupdateimg";  //修改用户头像
     public static final String USERINFO_UPDATE_URL = BASE_URL + "user/postpersonal";  //修改用户信息
-
     public static final String IMAGE_UPLOAD_URL = BASE_URL + "post/postaddpictureweChat";  //图片上传
 
     public static final String VIDEO_UPLOAD_URL = BASE_URL + "post/postaddvideo";  //视频上传
@@ -31,8 +30,7 @@ public class ApiUrls {
     public static final String START_IMAGE_URL = BASE_URL + "login/first";  //启动页面
 
     public static final String HOME_INFO_URL = BASE_URL + "index/index";  //首页信息
-
-
+    public static final String COMMENT_INFO_URL = BASE_URL + "report/getReportByPostId";
 
 
     public static final String GetActPreviewUrl = BASE_H5_URL + "event/preview/";  //获取活动列表信息
@@ -178,7 +176,7 @@ public class ApiUrls {
     public static final String TRANSACTION_MONEY_OUT_URL = BASE_URL + "account/transfer/out";//确认提现
     public static final String TRANSACTION_MONEY_OUT_INFO_URL = BASE_URL + "account/transfer/config";//提现费率规则
     public static final String NAST_TO_ETH_URL = BASE_URL + "account/transfer/nastToEth";//NAST转ETH
-    public static final String QIANLIAO_URL="http://www.xmypage.top/model6_75418.html";
+    public static final String QIANLIAO_URL = "http://www.xmypage.top/model6_75418.html";
     public static final String EARN_MONEY_URL = BASE_URL + "banner/earnBanner";//赚钱首页
     public static final String EARN_MONEY_DETIAL_URL = BASE_URL + "account/myBonusCollection";//赚钱详情
     public static final String FIND_DATA_URL = BASE_URL + "discovery/get";//发现获取

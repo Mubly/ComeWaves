@@ -7,20 +7,30 @@ import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.convert.Converter;
 import com.lzy.okrx2.adapter.ObservableBody;
+import com.mubly.comewaves.common.base.BaseModel;
 import com.mubly.comewaves.common.base.ResponseData;
+import com.mubly.comewaves.model.model.CategoryVo;
+import com.mubly.comewaves.model.model.CommentInfo;
 import com.mubly.comewaves.model.model.HomeBean;
 import com.mubly.comewaves.model.model.LoginResBean;
 import com.mubly.comewaves.model.model.StartBean;
 
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.Response;
 
+import static com.mubly.comewaves.common.network.ApiUrls.COMMENT_INFO_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.GETCATEGORY_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.GET_CODE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.HOME_INFO_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.ONE_PASS_login_Url;
+import static com.mubly.comewaves.common.network.ApiUrls.REGISTERED_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.START_IMAGE_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.VIDEO_UPLOAD_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.loginUrl;
 
 
@@ -47,6 +57,23 @@ public class Apis {
 
     }
 
+    //发送验证码
+    public static Observable<ResponseData<BaseModel>> getCode(String phone) {
+        return OkGo.<ResponseData<BaseModel>>post(GET_CODE_URL)
+                .params("phone", phone)
+                .converter(new Converter<ResponseData<BaseModel>>() {
+                    @Override
+                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<BaseModel>>());
+
+    }
+
+    //首页信息获取
     public static Observable<ResponseData<List<HomeBean>>> getHomeData(int status) {
         return OkGo.<ResponseData<List<HomeBean>>>post(HOME_INFO_URL)
                 .params("status", status)
@@ -81,38 +108,43 @@ public class Apis {
                 .adapt(new ObservableBody<ResponseData<List<StartBean>>>());
 
     }
-//    public static Observable<ResponseData<LoginResBean>> oneLogin(String phone, String process_id, String accessscode) {
-//        return OkGo.<ResponseData<LoginResBean>>post(ONE_PASS_login_Url)
-//                .params("process_id", process_id)
-//                .params("phone", phone)
-//                .params("accesscode", accessscode)
-//                .converter(new Converter<ResponseData<LoginResBean>>() {
-//                    @Override
-//                    public ResponseData<LoginResBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<LoginResBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<LoginResBean>>());
-//
-//    }
-//
-//    public static Observable<ResponseData<PhoneCheckVo>> checkPhone(String phone) {
-//        return OkGo.<ResponseData<PhoneCheckVo>>get(CHECK_PHONE_Url)
-//                .params("phone", phone)
-//                .converter(new Converter<ResponseData<PhoneCheckVo>>() {
-//                    @Override
-//                    public ResponseData<PhoneCheckVo> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<PhoneCheckVo>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<PhoneCheckVo>>());
-//
-//    }
-//
+
+    //用户注册
+    public static Observable<ResponseData<LoginResBean>> register(String phone, String userName, String tagArr, String sex, File imgFile) {
+        return OkGo.<ResponseData<LoginResBean>>post(REGISTERED_URL)
+                .params("user_name", userName)
+                .params("phone", phone)
+                .params("cate_id", tagArr)
+                .params("sex", sex)
+                .params("header_img", imgFile)
+                .converter(new Converter<ResponseData<LoginResBean>>() {
+                    @Override
+                    public ResponseData<LoginResBean> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<LoginResBean>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<LoginResBean>>());
+
+    }
+
+    //注册页面标签获取
+    public static Observable<ResponseData<List<CategoryVo>>> getTagData() {
+        return OkGo.<ResponseData<List<CategoryVo>>>get(GETCATEGORY_URL)
+                .converter(new Converter<ResponseData<List<CategoryVo>>>() {
+                    @Override
+                    public ResponseData<List<CategoryVo>> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<List<CategoryVo>>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<List<CategoryVo>>>());
+
+    }
+
+    //
 //    // 获取用户信息
 //    public static Observable<ResponseData<InfoResBean>> getUserInfo() {
 //        return OkGo.<ResponseData<InfoResBean>>get(UserInfoUrl)
@@ -172,36 +204,43 @@ public class Apis {
 //                .adapt(new ObservableBody<ResponseData<CreateActivityBean>>());
 //    }
 //
-//    // 获取类型
-//    public static Observable<ResponseData<TypeBean>> getType(String timestamp) {
-//        return OkGo.<ResponseData<TypeBean>>get(TypeUrl)
-//                .params("timestamp", timestamp)
-//                .converter(new Converter<ResponseData<TypeBean>>() {
-//                    @Override
-//                    public ResponseData<TypeBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<TypeBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<TypeBean>>());
-//
-//    }
-//
-//    // 获取票务信息
-//    public static Observable<ResponseData<TicketBean>> getTicketInfo(String eventId) {
-//        return OkGo.<ResponseData<TicketBean>>get(TicketUrl)
-//                .params("event_id", eventId)
-//                .converter(new Converter<ResponseData<TicketBean>>() {
-//                    @Override
-//                    public ResponseData<TicketBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<TicketBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<TicketBean>>());
-//    }
+    // 视频上传
+    public static Observable<ResponseData<BaseModel>> videoUpload(String post_info, String cate_id, String location, String through, String weft, String sign, File video, File img) {
+        return OkGo.<ResponseData<BaseModel>>post(VIDEO_UPLOAD_URL)
+                .params("post_info", post_info)//文章内容
+                .params("cate_id", cate_id)//分类Id
+                .params("location", location)//地址
+                .params("through", through)//经度
+                .params("weft", weft)//维度
+                .params("video", video)//视频
+//                .params("img", img)//封面图
+                .params("sign", sign)//标签
+                .converter(new Converter<ResponseData<BaseModel>>() {
+                    @Override
+                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<BaseModel>>());
+
+    }
+
+    // 获取票务信息
+    public static Observable<ResponseData<List<CommentInfo>>> getCommentInfoById(String post_id) {
+        return OkGo.<ResponseData<List<CommentInfo>>>post(COMMENT_INFO_URL)
+                .params("post_id", post_id)
+                .converter(new Converter<ResponseData<List<CommentInfo>>>() {
+                    @Override
+                    public ResponseData<List<CommentInfo>> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<List<CommentInfo>>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<List<CommentInfo>>>());
+    }
 //
 //    // 新增票种
 //    public static Observable<ResponseData<AddTicketBean>> addTicket(String eventId, String addTicket) {

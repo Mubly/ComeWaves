@@ -3,21 +3,29 @@ package com.mubly.comewaves.videoplayer;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.gyf.barlibrary.ImmersionBar;
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.view.activity.CommentActivity;
+import com.mubly.comewaves.view.activity.StartActivity;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 
 
-
-public class SwitchDetailActivity extends AppCompatActivity {
+public class SwitchDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String URL = "url";
     private static final String OPTION_VIEW = "view";
@@ -26,7 +34,10 @@ public class SwitchDetailActivity extends AppCompatActivity {
 
     private boolean isPlay = true;
     private boolean isPause;
-
+    ImageView userHeadIv;
+    TextView openMoreComment;
+    TextView praiseCountTv, commentCount, attentCount;
+    ImageButton back;
     private OrientationUtils orientationUtils;
 
     public static void startTActivity(Activity activity, View transitionView) {
@@ -40,7 +51,8 @@ public class SwitchDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_switch_detail);
-
+        findViewById();
+        ImmersionBar.with(this).statusBarColor(R.color.black_aph80).init();
         detailPlayer = (SwitchVideo) findViewById(R.id.detail_player);
 
 
@@ -54,7 +66,7 @@ public class SwitchDetailActivity extends AppCompatActivity {
         //初始化不打开外部的旋转
         orientationUtils.setEnable(false);
 
-        SwitchUtil.optionPlayer(detailPlayer, getIntent().getStringExtra(URL), true, "这是title");
+        SwitchUtil.optionPlayer(detailPlayer, getIntent().getStringExtra(URL), true, "");
 
         SwitchUtil.clonePlayState(detailPlayer);
 
@@ -92,6 +104,20 @@ public class SwitchDetailActivity extends AppCompatActivity {
 
         // 这里指定了被共享的视图元素
         ViewCompat.setTransitionName(detailPlayer, OPTION_VIEW);
+        initView();
+    }
+
+    private void initView() {
+        Glide.with(this).load(R.drawable.ishad_1).apply(RequestOptions.circleCropTransform()).into(userHeadIv);
+    }
+
+    private void findViewById() {
+        userHeadIv = findViewById(R.id.user_avtar_iv);
+        openMoreComment = findViewById(R.id.comment_open_more_tv);
+        praiseCountTv = findViewById(R.id.praise_tv);
+        commentCount = findViewById(R.id.comment_count);
+        attentCount = findViewById(R.id.attent_count);
+        back = findViewById(R.id.top_back_btn);
     }
 
     @Override
@@ -119,6 +145,7 @@ public class SwitchDetailActivity extends AppCompatActivity {
         detailPlayer.getCurrentPlayer().onVideoResume(false);
         super.onResume();
         isPause = false;
+        initEvent();
     }
 
     @Override
@@ -131,8 +158,14 @@ public class SwitchDetailActivity extends AppCompatActivity {
             orientationUtils.releaseListener();
 
         SwitchUtil.release();
+        ImmersionBar.with(this).destroy();
     }
 
+    private void initEvent() {
+        attentCount.setOnClickListener(this);
+        back.setOnClickListener(this);
+        openMoreComment.setOnClickListener(this);
+    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -140,6 +173,30 @@ public class SwitchDetailActivity extends AppCompatActivity {
         //如果旋转了就全屏
         if (isPlay && !isPause) {
             detailPlayer.onConfigurationChanged(this, newConfig, orientationUtils, true, true);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.comment_open_more_tv:
+                SwitchDetailActivity.this.startActivity(new Intent(this, CommentActivity.class));
+                break;
+            case R.id.praise_tv:
+
+                break;
+            case R.id.comment_count:
+                break;
+            case R.id.attent_count:
+                Drawable drawable = getResources().getDrawable(R.mipmap.attent_red_icon);
+                // 这一步必须要做,否则不会显示.
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                attentCount.setCompoundDrawables(drawable, null, null, null);
+                break;
+            case R.id.top_back_btn:
+                onBackPressed();
+                break;
+
         }
     }
 }

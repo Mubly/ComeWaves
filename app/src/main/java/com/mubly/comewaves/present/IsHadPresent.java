@@ -6,11 +6,12 @@ import com.mubly.comewaves.common.network.Apis;
 import com.mubly.comewaves.common.network.RxObserver;
 import com.mubly.comewaves.model.model.LoginResBean;
 import com.mubly.comewaves.view.interfaceview.HomeView;
+import com.mubly.comewaves.view.interfaceview.IsHadView;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class IsHadPresent extends BasePresenter<HomeView> {
+public class IsHadPresent extends BasePresenter<IsHadView> {
     public void getHomeData() {
         Apis.login("15572837654","897654")
                 .subscribeOn(Schedulers.io())
@@ -21,7 +22,7 @@ public class IsHadPresent extends BasePresenter<HomeView> {
                         if (null == getMvpView()) {
                             return;
                         }
-                        getMvpView().showError("成功");
+//                        getMvpView().showError("成功");
                     }
 
                     @Override
@@ -29,7 +30,7 @@ public class IsHadPresent extends BasePresenter<HomeView> {
                         if (null == getMvpView()) {
                             return;
                         }
-                        getMvpView().showError("出错");
+//                        getMvpView().showError("出错");
                     }
                 });
     }

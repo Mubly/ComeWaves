@@ -3,6 +3,7 @@ package com.mubly.comewaves.view.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -36,7 +37,6 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 
 
 import butterknife.BindView;
@@ -77,6 +77,8 @@ public class MainActivity extends BaseActivity {
     ImageView ivTabbarExploreIcon;
     @BindView(R.id.iv_tabbar_me_icon)
     ImageView ivTabbarMeIcon;
+    @BindView(R.id.wait_img)
+    ImageView waitImage;
     HomeFragment homeFragment = new HomeFragment();
     ReleaseFragment releaseFragment = new ReleaseFragment();
     IsHadFragment isHadFragment = new IsHadFragment();
@@ -107,6 +109,12 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         super.initView();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                waitImage.setVisibility(View.GONE);
+            }
+        }, 3000);
         ivTabbarHomeIcon.setSelected(true);
         loginBtn.setVisibility(View.GONE);
         shareBtn.setVisibility(View.GONE);
@@ -117,6 +125,7 @@ public class MainActivity extends BaseActivity {
         fragmentList.add(releaseFragment);
         fragmentList.add(isHadFragment);
         fragmentList.add(mineFragment);
+        main_mypager.setNoScroll(true);
         main_mypager.setOffscreenPageLimit(5);
         main_mypager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList));
         main_mypager.setCurrentItem(0);
@@ -199,7 +208,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.ll_mine:
                 if (AppConfig.token.get() == null) {
-                    startActivity(new Intent(this, LoginActivity.class));
+                    startActivity(new Intent(this, PhoneLoginActivity.class));
                 } else {
                     tabSelect(4);
                     main_mypager.setCurrentItem(4);

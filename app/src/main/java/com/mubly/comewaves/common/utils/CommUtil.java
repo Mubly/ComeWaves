@@ -1,10 +1,12 @@
 package com.mubly.comewaves.common.utils;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,6 +16,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -583,7 +586,7 @@ public class CommUtil {
      * @param s
      * @return
      */
-    public static String stampTodate(int s ){
+    public static String stampTodate(int s) {
         String res;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
         long lt = s;
@@ -869,5 +872,31 @@ public class CommUtil {
         return numberStr;
     }
 
+    public static void keyboardEt(Activity context) {
+        final View decorView = context.getWindow().getDecorView();
+        final View contentView = context.findViewById(Window.ID_ANDROID_CONTENT);
+        decorView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                decorView.getWindowVisibleDisplayFrame(r);
+
+                int height = decorView.getContext().getResources().getDisplayMetrics().heightPixels;
+                int diff = height - r.bottom;
+
+                if (diff != 0) {
+                    if (contentView.getPaddingBottom() != diff) {
+                        contentView.setPadding(0, 0, 0, diff);
+                    }
+                } else {
+                    if (contentView.getPaddingBottom() != 0) {
+                        contentView.setPadding(0, 0, 0, 0);
+                    }
+                }
+            }
+        });
+
+
+    }
 
 }

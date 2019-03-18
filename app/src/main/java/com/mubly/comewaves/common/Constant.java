@@ -6,7 +6,7 @@ package com.mubly.comewaves.common;
 public class Constant {
 
     public static final int SuccessCode = 200; //请求数据成功
-
+    public static final int FIRST_LOGIN_CODE = 400; //首次登录
     public static final int NASTTOKENERROR = 401; //nast-token 失效或过期
     public static final int USERFORBID = 402; // 账号禁用
     public static final int UUIDERROR = 403; // 多端登陆
@@ -15,8 +15,9 @@ public class Constant {
 
     public static final int SERVERERROR = 500; // 服务器错误
 
-    public static final int ACTTIMEOUT = 30; // NAST不足
-
+    public static final int PULL_IMAGE_VIDEO_CODE = 0; // 拍摄发布图片/视频/音频
+    public static final int PULL_IMAGE_CODE = 1; // 拍摄发布图片
+    public static final int PULL_VIDEO_CODE = 2; // 拍摄发布视频
     public static final int INTENT_REQUEST_CODE_CAMERA = 105; //调用系统相机的请求码
 
     public static final int REQUEST_CODE_CHOOSE = 25; //获取相册
@@ -51,4 +52,6 @@ public class Constant {
 
     public static final String WX_APPID = "wx2b033b393329cde8";//微信appid
     public static final String WX_APPSECRET = "232d40daf0540da312a615970a6267f1";//微信APPSECRET
+    public static final int CODELENgTH = 4;//验证码长度
+
 }

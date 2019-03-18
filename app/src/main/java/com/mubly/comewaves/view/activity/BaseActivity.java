@@ -24,6 +24,7 @@ import com.mubly.comewaves.common.CrossApp;
 import com.mubly.comewaves.common.base.BaseMvpView;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.utils.AdaptScreenUtils;
+import com.mubly.comewaves.common.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 
 
@@ -178,7 +179,7 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseMvp
 
     @Override
     public void checkNetCode(int code, String msg) {
-//        switch (code) {
+        switch (code) {
 //            case NASTTOKENERROR: //nast-token 失效或过期
 //                OffsiteLanding("登录过期,请重新登录");
 //                break;
@@ -188,10 +189,10 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseMvp
 //            case UUIDERROR://多端登陆
 //                OffsiteLanding("账号已经在别处登录,请重新登录");
 //                break;
-//            default:
-//                ToastUtils.showToast(msg);
-//                break;
-//        }
+            default:
+                ToastUtils.showToast(msg);
+                break;
+        }
     }
 
     public void OffsiteLanding(String msg) {

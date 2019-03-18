@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.utils.CommUtil;
@@ -32,7 +33,6 @@ import com.mubly.comewaves.view.costomview.ScrollViewPage;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 import butterknife.BindView;
@@ -65,7 +65,9 @@ public class IsHadFragment extends BaseFragment {
         relaseFb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(mContext, MessageCreateActivity.class));
+                Intent intent = new Intent(mContext, MessageCreateActivity.class);
+                intent.putExtra("type", Constant.PULL_IMAGE_CODE);
+                startActivity(intent);
             }
         });
     }

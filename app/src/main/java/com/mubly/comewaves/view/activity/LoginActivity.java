@@ -6,7 +6,6 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 
 import com.mubly.comewaves.R;
@@ -23,6 +22,8 @@ public class LoginActivity extends BaseActivity {
     Button ack;
     @BindView(R.id.register_new_amount)
     TextView registerAmount;
+    //    @BindView(R.id.register_button)
+//    Button registerBtn;
     String[] autoString = new String[]
             {"690317264@qq.com", "218734619", "54876239", "b235235b", "5345", "bcdvSvf", "wetwet",
                     "Google Map", "Google Android"};
@@ -54,7 +55,7 @@ public class LoginActivity extends BaseActivity {
         registerAmount.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this, ReigsterActivity.class));
             }
         });
         ack.setOnClickListener(new OnClickListener() {
@@ -64,6 +65,12 @@ public class LoginActivity extends BaseActivity {
                 finish();
             }
         });
+//        registerBtn.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(LoginActivity.this, ReigsterActivity.class));
+//            }
+//        });
     }
 }
 

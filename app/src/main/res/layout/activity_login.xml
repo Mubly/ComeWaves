@@ -82,8 +82,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/size_10dp"
-                android:text="注册账号"
                 android:paddingBottom="@dimen/size_10dp"
+                android:text="注册账号"
                 android:textSize="@dimen/size_12dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -92,8 +92,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/size_10dp"
-                android:text="忘记密码"
                 android:paddingBottom="@dimen/size_10dp"
+                android:text="忘记密码"
                 android:textSize="@dimen/size_12dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -103,7 +103,14 @@
     <Button
         android:id="@+id/email_sign_in_button"
         android:layout_width="wrap_content"
-        android:text="登录"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:text="登录" />
+
+    <!--<Button-->
+        <!--android:id="@+id/register_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:text="注册" />-->
 </LinearLayout>

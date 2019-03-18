@@ -35,7 +35,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme_App"
         tools:replace="android:theme,android:appComponentFactory">
-        <activity android:name=".view.activity.RegisterActivity"></activity>
+        <service
+            android:name=".common.services.VideoUpLoadeService"
+            android:exported="false"></service>
+
+        <activity android:name=".view.activity.ReigsterActivity" />
+        <activity android:name=".view.activity.PhoneLoginActivity" />
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -52,7 +57,9 @@
             android:label="@string/title_activity_hot_lebel"
             android:theme="@style/AppTheme_App.NoActionBar" />
         <activity android:name=".view.activity.SettingActivity" />
-        <activity android:name=".view.activity.CommentActivity" />
+        <activity
+            android:name=".view.activity.CommentActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".view.activity.IsHadInfoActivity" />
         <activity android:name=".view.activity.MerchantActivity" />
         <activity android:name=".view.activity.GoodsInfoActivity" />
