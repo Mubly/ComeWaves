@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/user_avtar_img"
+        android:layout_width="@dimen/size_46dp"
+        android:layout_height="@dimen/size_46dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/user_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_8dp"
+        android:textColor="@color/color_262628"
+        android:textSize="@dimen/size_14dp"
+        app:layout_constraintBottom_toTopOf="@id/comment_reply_time_tv"
+        app:layout_constraintLeft_toRightOf="@id/user_avtar_img"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="贝索斯·伊贝尔" />
+
+    <TextView
+        android:id="@+id/comment_reply_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_8dp"
+        android:layout_marginTop="@dimen/size_8dp"
+        android:textColor="@color/color_262628"
+        android:textSize="@dimen/size_10dp"
+        app:layout_constraintBottom_toBottomOf="@id/user_avtar_img"
+        app:layout_constraintLeft_toRightOf="@id/user_avtar_img"
+        app:layout_constraintTop_toBottomOf="@id/user_name_tv"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="贝索斯·伊贝尔" />
+
+    <TextView
+        android:id="@+id/comment_reply_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_8dp"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:textColor="@color/color_262628"
+        android:textSize="@dimen/size_12dp"
+        app:layout_constraintLeft_toRightOf="@id/user_avtar_img"
+        app:layout_constraintTop_toBottomOf="@id/comment_reply_time_tv"
+        tools:text="这是评论的内容" />
+    <!--一级评论图片-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/comment_img_video_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/size_60dp"
+        app:layout_constraintLeft_toRightOf="@id/user_avtar_img"
+        app:layout_constraintTop_toBottomOf="@id/comment_reply_content"></android.support.v7.widget.RecyclerView>
+    <!--二级评论-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/comment_child_rv"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/size_60dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/comment_img_video_rv">
+
+    </android.support.v7.widget.RecyclerView>
+</android.support.constraint.ConstraintLayout>

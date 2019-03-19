@@ -13,6 +13,8 @@ android {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             abiFilters "armeabi", "armeabi-v7a", "x86"
         }
+        //只保留和默认语言
+        resConfigs("zh-rCN", "ko")
     }
 //    lintOptions {
 //        disable 'GoogleAppIndexingWarning'
@@ -40,10 +42,10 @@ android {
             buildConfigField "String", "BASE_OFFICE_URL", "\"http://fydianping.com\""
             buildConfigField "String", "BASE_GAME_URL", "\"http://game.chest.fydianping.com\""
             signingConfig signingConfigs.release
-            minifyEnabled false
+            minifyEnabled false//删除无用代码代码混淆
             multiDexEnabled true
             zipAlignEnabled true
-            shrinkResources false
+            shrinkResources false//删除无用资源需要配合minifyEnabled使用
 //                manifestPlaceholders = [hx_key: "1148180717177336#fantertainment"]
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

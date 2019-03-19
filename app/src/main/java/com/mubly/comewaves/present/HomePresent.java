@@ -16,8 +16,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class HomePresent extends BasePresenter<HomeView> {
-    public void getHomeData(int status) {
-        Apis.getHomeData(status)
+    public void getHomeData(int status,int page) {
+        Apis.getHomeData(status,page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxObserver<ResponseData<List<HomeBean>>>() {

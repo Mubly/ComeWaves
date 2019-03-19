@@ -9,23 +9,35 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.base.BaseMvpView;
+import com.mubly.comewaves.common.utils.ToastUtils;
+import com.mubly.comewaves.model.model.CommentInfo;
+import com.mubly.comewaves.model.model.TopicInfoVo;
+import com.mubly.comewaves.model.model.VisitorInfo;
+import com.mubly.comewaves.present.CommentInfoPresent;
+import com.mubly.comewaves.view.activity.BaseActivity;
 import com.mubly.comewaves.view.activity.CommentActivity;
 import com.mubly.comewaves.view.activity.StartActivity;
+import com.mubly.comewaves.view.interfaceview.CommentInfoView;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 
+import java.util.List;
 
-public class SwitchDetailActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, CommentInfoView> implements View.OnClickListener, CommentInfoView {
 
     public static final String URL = "url";
     private static final String OPTION_VIEW = "view";
@@ -39,18 +51,24 @@ public class SwitchDetailActivity extends AppCompatActivity implements View.OnCl
     TextView praiseCountTv, commentCount, attentCount;
     ImageButton back;
     private OrientationUtils orientationUtils;
+    int postId;
+    int userId;
+    CommentInfoPresent commentInfoPresent;
+    LinearLayout commentLayout;
 
-    public static void startTActivity(Activity activity, View transitionView) {
+    public static void startTActivity(Activity activity, View transitionView, int postId) {
         Intent intent = new Intent(activity, SwitchDetailActivity.class);
+        intent.putExtra("postId", postId);
         // 这里指定了共享的视图元素
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, transitionView, OPTION_VIEW);
         ActivityCompat.startActivity(activity, intent, options.toBundle());
     }
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_switch_detail);
+    public void initView() {
+        super.initView();
+        postId = getIntent().getIntExtra("postId", 0);
         findViewById();
         ImmersionBar.with(this).statusBarColor(R.color.black_aph80).init();
         detailPlayer = (SwitchVideo) findViewById(R.id.detail_player);
@@ -104,12 +122,10 @@ public class SwitchDetailActivity extends AppCompatActivity implements View.OnCl
 
         // 这里指定了被共享的视图元素
         ViewCompat.setTransitionName(detailPlayer, OPTION_VIEW);
-        initView();
+        Glide.with(this).load(R.drawable.ishad_1).apply(RequestOptions.circleCropTransform()).into(userHeadIv);
+
     }
 
-    private void initView() {
-        Glide.with(this).load(R.drawable.ishad_1).apply(RequestOptions.circleCropTransform()).into(userHeadIv);
-    }
 
     private void findViewById() {
         userHeadIv = findViewById(R.id.user_avtar_iv);
@@ -118,6 +134,7 @@ public class SwitchDetailActivity extends AppCompatActivity implements View.OnCl
         commentCount = findViewById(R.id.comment_count);
         attentCount = findViewById(R.id.attent_count);
         back = findViewById(R.id.top_back_btn);
+        commentLayout = findViewById(R.id.comment_layout);
     }
 
     @Override
@@ -145,8 +162,15 @@ public class SwitchDetailActivity extends AppCompatActivity implements View.OnCl
         detailPlayer.getCurrentPlayer().onVideoResume(false);
         super.onResume();
         isPause = false;
-        initEvent();
     }
+
+    @Override
+    public void initData() {
+        super.initData();
+        mPresenter.getTopicInfo(postId, 1);
+
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -161,10 +185,22 @@ public class SwitchDetailActivity extends AppCompatActivity implements View.OnCl
         ImmersionBar.with(this).destroy();
     }
 
-    private void initEvent() {
+    @Override
+    public void initEvent() {
         attentCount.setOnClickListener(this);
         back.setOnClickListener(this);
         openMoreComment.setOnClickListener(this);
+        commentCount.setOnClickListener(this);
+    }
+
+    @Override
+    protected CommentInfoPresent createPresenter() {
+        return new CommentInfoPresent();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_switch_detail;
     }
 
     @Override
@@ -180,12 +216,15 @@ public class SwitchDetailActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.comment_open_more_tv:
-                SwitchDetailActivity.this.startActivity(new Intent(this, CommentActivity.class));
+                Intent intent = new Intent(this, CommentActivity.class);
+                intent.putExtra("postId", postId);
+                startActivity(intent);
                 break;
             case R.id.praise_tv:
 
                 break;
             case R.id.comment_count:
+                mPresenter.sendReplyComment(postId, "96986986", 1);
                 break;
             case R.id.attent_count:
                 Drawable drawable = getResources().getDrawable(R.mipmap.attent_red_icon);
@@ -199,4 +238,44 @@ public class SwitchDetailActivity extends AppCompatActivity implements View.OnCl
 
         }
     }
+
+    @Override
+    public void showCommentInfo(List<CommentInfo> commentInfos) {
+
+
+    }
+
+    @Override
+    public void replyCommentSuccess() {
+        initData();
+        ToastUtils.showToast("成功");
+    }
+
+    @Override
+    public void showTopicInfo(TopicInfoVo topicInfoVo) {
+        commentLayout.removeAllViews();
+        if (null != topicInfoVo.comment && topicInfoVo.comment.size() > 0) {
+            LayoutInflater layoutInflater = LayoutInflater.from(this);
+            commentLayout.setVisibility(View.VISIBLE);
+            openMoreComment.setVisibility(View.VISIBLE);
+            for (VisitorInfo commentInfo : topicInfoVo.comment) {
+
+                View view = layoutInflater.inflate(R.layout.view_comment_layout, null);
+                ((TextView) view.findViewById(R.id.commenter_name_tv)).setText(commentInfo.getUser_name() + "：" + commentInfo.getContent());
+                ((TextView) view.findViewById(R.id.comment_time_tv)).setText(commentInfo.getCreated_time());
+                ((ImageView) view.findViewById(R.id.comment_praise_iv)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtils.showToast("点赞成功");
+                    }
+                });
+                commentLayout.addView(view);
+            }
+        } else {
+
+            commentLayout.setVisibility(View.GONE);
+            openMoreComment.setVisibility(View.GONE);
+        }
+    }
+
 }

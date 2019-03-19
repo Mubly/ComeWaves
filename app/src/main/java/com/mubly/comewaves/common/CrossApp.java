@@ -52,13 +52,6 @@ public class CrossApp extends Application {
 
     private void initOkGo() {
 
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.put("clientType", "Android");
-//        headers.put("T", AppConfig.token.get());
-//        headers.put("device-width", String.valueOf(DisplayUtil.getScreenWidth(mContext)/2));
-//        headers.put("uuid", DeviceUtils.buildDeviceUUID(mContext));
-//        headers.put("device-model", DeviceUtils.getSystemModel(mContext));
-
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         //使用sp保持cookie，如果cookie不过期，则一直有效
         builder.cookieJar(new CookieJarImpl(new SPCookieStore(this)));
@@ -72,25 +65,11 @@ public class CrossApp extends Application {
         builder.connectTimeout(120000, TimeUnit.MILLISECONDS);   //全局的连接超时时间
         OkGo.getInstance()
                 .init(this)
-//                .addCommonHeaders(headers)
-                .addCommonParams(new HttpParams("T", AppConfig.token.get() == null ? "6ZKJ5aSfMTU1MTUxMDI2OTQz" : AppConfig.token.get()))
+                .addCommonParams(new HttpParams("T", AppConfig.token.get()))
                 .setOkHttpClient(builder.build()) //设置OkHttpClient，不设置将使用默认的
                 .setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
                 .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)
                 .setRetryCount(3);
 
     }
-
-//    private void initPictureSelect() {
-//        Phoenix.config()
-//                .imageLoader(new ImageLoader() {
-//                    @Override
-//                    public void loadImage(Context mContext, ImageView imageView
-//                            , String imagePath, int type) {
-//                        Glide.with(mContext)
-//                                .load(imagePath)
-//                                .into(imageView);
-//                    }
-//                });
-//    }
 }

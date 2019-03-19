@@ -23,9 +23,6 @@ import java.util.Collections;
 import java.util.List;
 
 
-
-
-
 public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewAdapter.VH> {
 
     private List<T> mDatas = new ArrayList<T>();
@@ -52,7 +49,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
 
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return null == mDatas ? 0 : mDatas.size();
     }
 
     @Override

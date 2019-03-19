@@ -14,6 +14,7 @@ import com.mubly.comewaves.model.model.CommentInfo;
 import com.mubly.comewaves.model.model.HomeBean;
 import com.mubly.comewaves.model.model.LoginResBean;
 import com.mubly.comewaves.model.model.StartBean;
+import com.mubly.comewaves.model.model.TopicInfoVo;
 
 
 import java.io.File;
@@ -29,7 +30,10 @@ import static com.mubly.comewaves.common.network.ApiUrls.GET_CODE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.HOME_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.ONE_PASS_login_Url;
 import static com.mubly.comewaves.common.network.ApiUrls.REGISTERED_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.REPLY_COMMENT_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.SEND_REPLY_COMMENT_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.START_IMAGE_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.TIE_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.VIDEO_UPLOAD_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.loginUrl;
 
@@ -74,9 +78,10 @@ public class Apis {
     }
 
     //首页信息获取
-    public static Observable<ResponseData<List<HomeBean>>> getHomeData(int status) {
+    public static Observable<ResponseData<List<HomeBean>>> getHomeData(int status, int page) {
         return OkGo.<ResponseData<List<HomeBean>>>post(HOME_INFO_URL)
                 .params("status", status)
+                .params("page", page)
                 .converter(new Converter<ResponseData<List<HomeBean>>>() {
                     @Override
                     public ResponseData<List<HomeBean>> convertResponse(Response response) throws Throwable {
@@ -144,66 +149,26 @@ public class Apis {
 
     }
 
-    //
-//    // 获取用户信息
-//    public static Observable<ResponseData<InfoResBean>> getUserInfo() {
-//        return OkGo.<ResponseData<InfoResBean>>get(UserInfoUrl)
-////               .headers("nast-token", AppConfig.token.get())
-//                .converter(new Converter<ResponseData<InfoResBean>>() {
-//                    @Override
-//                    public ResponseData<InfoResBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<InfoResBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<InfoResBean>>());
-//
-//    }
-//
-//    // 获取七牛云token
-//    public static Observable<ResponseData<SevenCattleBean>> getSevenCattleToken(String deleteFile) {
-//        return OkGo.<ResponseData<SevenCattleBean>>get(QNUrl)
-//                .params("delete_file", deleteFile)
-//                .converter(new Converter<ResponseData<SevenCattleBean>>() {
-//                    @Override
-//                    public ResponseData<SevenCattleBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<SevenCattleBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<SevenCattleBean>>());
-//    }
-//
-//    // 获取七牛云token 用户上传头像使用
-//    public static Observable<ResponseData<SevenCattleBean>> getSevenCattleTokenUser() {
-//        return OkGo.<ResponseData<SevenCattleBean>>get(QNUrl)
-//                .converter(new Converter<ResponseData<SevenCattleBean>>() {
-//                    @Override
-//                    public ResponseData<SevenCattleBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<SevenCattleBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<SevenCattleBean>>());
-//    }
-//
-//    // 创建活动
-//    public static Observable<ResponseData<CreateActivityBean>> createAct() {
-//        return OkGo.<ResponseData<CreateActivityBean>>post(createActUrl)
-//                .converter(new Converter<ResponseData<CreateActivityBean>>() {
-//                    @Override
-//                    public ResponseData<CreateActivityBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<CreateActivityBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<CreateActivityBean>>());
-//    }
-//
+    //    帖子详情
+    public static Observable<ResponseData<TopicInfoVo>> getTieInfo(int post_id,int type) {
+        return OkGo.<ResponseData<TopicInfoVo>>post(TIE_INFO_URL)
+                .params("post_id", post_id)
+                .params("type",type)
+                .converter(new Converter<ResponseData<TopicInfoVo>>() {
+                    @Override
+                    public ResponseData<TopicInfoVo> convertResponse(Response response) throws Throwable {
+
+                        Type type = new TypeToken<ResponseData<TopicInfoVo>>() {
+                        }.getType();
+                        ResponseData<TopicInfoVo> data = gson.fromJson(response.body().string(), type);
+
+                        return data;
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<TopicInfoVo>>());
+
+    }
+
     // 视频上传
     public static Observable<ResponseData<BaseModel>> videoUpload(String post_info, String cate_id, String location, String through, String weft, String sign, File video, File img) {
         return OkGo.<ResponseData<BaseModel>>post(VIDEO_UPLOAD_URL)
@@ -227,188 +192,76 @@ public class Apis {
 
     }
 
-    // 获取票务信息
-    public static Observable<ResponseData<List<CommentInfo>>> getCommentInfoById(String post_id) {
+    // 获取评论列表
+    public static Observable<ResponseData<List<CommentInfo>>> getCommentInfoById(int post_id) {
         return OkGo.<ResponseData<List<CommentInfo>>>post(COMMENT_INFO_URL)
                 .params("post_id", post_id)
                 .converter(new Converter<ResponseData<List<CommentInfo>>>() {
                     @Override
                     public ResponseData<List<CommentInfo>> convertResponse(Response response) throws Throwable {
+
                         Type type = new TypeToken<ResponseData<List<CommentInfo>>>() {
                         }.getType();
+
                         return gson.fromJson(response.body().string(), type);
                     }
                 })
                 .adapt(new ObservableBody<ResponseData<List<CommentInfo>>>());
     }
-//
-//    // 新增票种
-//    public static Observable<ResponseData<AddTicketBean>> addTicket(String eventId, String addTicket) {
-//        return OkGo.<ResponseData<AddTicketBean>>post(AddTicketUrl)
-//                .params("event_id", eventId)
-////                .params("nast",nast)
-////                .params("name",name)
-////                .params("limit",limit)
-//                .params("tickets", addTicket)
-//                .converter(new Converter<ResponseData<AddTicketBean>>() {
-//                    @Override
-//                    public ResponseData<AddTicketBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<AddTicketBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<AddTicketBean>>());
-//    }
-//
-//    // 删除票种
-//    public static Observable<ResponseData<DeleteTicketBean>> deleteTicket(String eventId, String deleteTicket) {
-//        return OkGo.<ResponseData<DeleteTicketBean>>post(AddTicketUrl)
-//                .params("event_id", eventId)
-////                .params("ticket_id",ticketId)
-////                .params("delete_flag",deleteFlag)
-//                .params("tickets", deleteTicket)
-//                .converter(new Converter<ResponseData<DeleteTicketBean>>() {
-//                    @Override
-//                    public ResponseData<DeleteTicketBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<DeleteTicketBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<DeleteTicketBean>>());
-//    }
-//
-//    // 发布活动/预览活动
-//    //TODO registrationItem 应是数组格式，但是此刻传数组会报错，之后解决
-//    public static Observable<ResponseData<ReleaseBean>> releaseAct(String eventId, int isPublish, String title, String address, String begin
-//            , String end, String phone, String totalFee, int type, String registrationItem, String coverName) {
-//        return OkGo.<ResponseData<ReleaseBean>>post(ReleaseUrl)
-//                .params("event_id", eventId)
-//                .params("isPublish", isPublish)
-//                .params("title", title)
-//                .params("address", address)
-//                .params("begin", begin)
-//                .params("end", end)
-//                .params("total_fee", totalFee)
-//                .params("type", type)
-//                .params("contact_no", phone)
-//                .params("registration_item", registrationItem)
-//                .params("cover_name", coverName)
-//                .converter(new Converter<ResponseData<ReleaseBean>>() {
-//                    @Override
-//                    public ResponseData<ReleaseBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<ReleaseBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<ReleaseBean>>());
-//
-//    }
-//
-//    // 获取活动列表
-//    public static Observable<ResponseData<ActListBean>> getActListInfo(int typeId, int page) {
-//        return OkGo.<ResponseData<ActListBean>>get(GetActListUrl)
-//                .params("type", typeId)
-//                .params("page", page)
-//                .converter(new Converter<ResponseData<ActListBean>>() {
-//                    @Override
-//                    public ResponseData<ActListBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<ActListBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<ActListBean>>());
-//    }
-//
-//    // 获取单个活动详情数据
-//    public static Observable<ResponseData<ActivityDetailBean>> getSingleActDetailInfo(int eventId) {
-//        return OkGo.<ResponseData<ActivityDetailBean>>get(GetActListUrl)
-//                .params("id", eventId)
-//                .converter(new Converter<ResponseData<ActivityDetailBean>>() {
-//                    @Override
-//                    public ResponseData<ActivityDetailBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<ActivityDetailBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<ActivityDetailBean>>());
-//
-//    }
-//
-//    // 兑换
-//    public static Observable<ResponseData<ExChangeBean>> getExchange(int eventId, int ticketId, int smsCode, int count, String registrationItem) {
-//        return OkGo.<ResponseData<ExChangeBean>>post(PostExchangeUrl)
-//                .params("event_id", eventId)
-//                .params("ticket_id", ticketId)
-//                .params("smsCode", smsCode)
-//                .params("count", count)
-//                .params("registration_info_android", registrationItem)
-//                .converter(new Converter<ResponseData<ExChangeBean>>() {
-//                    @Override
-//                    public ResponseData<ExChangeBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<ExChangeBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<ExChangeBean>>());
-//
-//    }
-//
-//    // 获取点评详情
-//    public static Observable<ResponseData<CommentDetailBean>> getCommentDetail(String userId, int topicId) {
-//        return OkGo.<ResponseData<CommentDetailBean>>get(GetCommentDetailUrl)
-//                .params("user_id", userId)
-//                .params("topic_id", topicId)
-//                .converter(new Converter<ResponseData<CommentDetailBean>>() {
-//                    @Override
-//                    public ResponseData<CommentDetailBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<CommentDetailBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<CommentDetailBean>>());
-//    }
-//
-//    // 获取点评详情评论
-//    public static Observable<ResponseData<CommentBean>> getComment(String userId, int topicId) {
-//        return OkGo.<ResponseData<CommentBean>>get(GETCommentUrl)
-//                .params("user_id", userId)
-//                .params("topic_id", topicId)
-//                .converter(new Converter<ResponseData<CommentBean>>() {
-//                    @Override
-//                    public ResponseData<CommentBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<CommentBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<CommentBean>>());
-//
-//    }
-//
-//    // 获取点评详情评论
-//    public static Observable<ResponseData<AddCommentBean>> getAddComment(String userId, int topicId, String content, int toWho) {
-//        return OkGo.<ResponseData<AddCommentBean>>post(PostCommentUrl)
-//                .params("user_id", userId)
-//                .params("topic_id", topicId)
-//                .params("content", content)
-//                .params("toWho", toWho)
-//                .converter(new Converter<ResponseData<AddCommentBean>>() {
-//                    @Override
-//                    public ResponseData<AddCommentBean> convertResponse(Response response) throws Throwable {
-//                        Type type = new TypeToken<ResponseData<AddCommentBean>>() {
-//                        }.getType();
-//                        return gson.fromJson(response.body().string(), type);
-//                    }
-//                })
-//                .adapt(new ObservableBody<ResponseData<AddCommentBean>>());
-//    }
+
+    // 回复评论
+    public static Observable<ResponseData<BaseModel>> replyComment(int post_id, String content, int type, int commentId, int userId) {
+        return OkGo.<ResponseData<BaseModel>>post(REPLY_COMMENT_URL)
+                .params("post_id", post_id)
+                .params("content", content)
+                .params("type", type)
+                .params("common_id", commentId)
+                .params("user_id", userId)
+                .converter(new Converter<ResponseData<BaseModel>>() {
+                    @Override
+                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<BaseModel>>());
+    }
+
+    // 发表评论
+    public static Observable<ResponseData<BaseModel>> sendReplyComment(int post_id, String content, int type) {
+        return OkGo.<ResponseData<BaseModel>>post(SEND_REPLY_COMMENT_URL)
+                .params("post_id", post_id)
+                .params("content", content)
+                .params("type", type)
+                .converter(new Converter<ResponseData<BaseModel>>() {
+                    @Override
+                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<BaseModel>>());
+    }
+
+    // 发表评论
+    public static Observable<ResponseData<BaseModel>> attentionSomeOne(int user_id) {
+        return OkGo.<ResponseData<BaseModel>>post(SEND_REPLY_COMMENT_URL)
+                .params("user_id", user_id)
+                .converter(new Converter<ResponseData<BaseModel>>() {
+                    @Override
+                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<BaseModel>>());
+    }
+
+
+
 //
 //    // 版本更新
 //    public static Observable<ResponseData<VersionBean>> getVersion() {

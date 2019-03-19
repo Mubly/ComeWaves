@@ -30,12 +30,31 @@ public class ApiUrls {
     public static final String START_IMAGE_URL = BASE_URL + "login/first";  //启动页面
 
     public static final String HOME_INFO_URL = BASE_URL + "index/index";  //首页信息
-    public static final String COMMENT_INFO_URL = BASE_URL + "report/getReportByPostId";
+
+    public static final String TIE_INFO_URL=BASE_URL+"report/showpostbyid";//首页信息详情页
+
+    public static final String COMMENT_INFO_URL = BASE_URL + "report/showcommentpage";//获取评论列表
 
 
-    public static final String GetActPreviewUrl = BASE_H5_URL + "event/preview/";  //获取活动列表信息
+    public static final String REPLY_COMMENT_URL = BASE_URL + "report/postreport";  //回复评论
 
-    public static final String PostExchangeUrl = BASE_URL + "event/signUp";  //获取活动列表信息
+    public static final String SEND_REPLY_COMMENT_URL = BASE_URL + "report/postcomment";  //发表评论
+
+    public static final String ATTENTION_SOMEBODAY_URL = BASE_URL + "user/postattention";  //关注/取消关注
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static final String MineActUrl = BASE_H5_URL + "me/activity/";  //我的活动
 

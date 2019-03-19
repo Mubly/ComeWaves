@@ -7,57 +7,72 @@ public class CommentInfo implements Serializable {
 
 
     /**
-     * report_id : 1
-     * reply_num : 0
-     * fabulous_num : 0
-     * create_time : 2018-12-28 18:25:46
-     * content : 111
-     * image_url : http://abc.cuiyangblog.com/00f0f201811221733356080.jpg,http://abc.cuiyangblog.com/292f820181202110337622.jpg
-     * user_name :
-     * user_head :
-     * reply : [{"reply_id":1,"fabulous_num":0,"create_time":"1970-01-01 08:00:00","content":"111-111","user_name":"","user_head":""},{"reply_id":2,"fabulous_num":0,"create_time":"1970-01-01 08:00:00","content":"111-222","image_url":null,"user_name":"","user_head":""},{"reply_id":3,"fabulous_num":0,"create_time":"1970-01-01 08:00:00","content":"111-333","video_url":"","user_name":"","user_head":""}]
+     * comment_id : 139
+     * user_id : 5
+     * created_time : 2019-03-18 15:34:04
+     * like_num : 1
+     * content : asdas
+     * user_name : 且随疾风前行
+     * user_head : http://abc.dingou.wang/bae87201903131735457029.jpg
+     * type : 2
+     * community_post_id : 325
+     * combine : [{"img":"http://abc.dingou.wang/2704f201903181534059734.jpg"},{"img":"http://abc.dingou.wang/0e518201903181534051834.jpg"},{"img":"http://abc.dingou.wang/742052019031815340524.jpg"}]
+     * combine_status : 2    1:文章 2:文章图片 3:视频
+     * like_status : 0
      */
 
-    private int report_id;
-    private int reply_num;
-    private int fabulous_num;
-    private String create_time;
+    private int comment_id;
+    private int user_id;
+    private String created_time;
+    private int like_num;
     private String content;
-    private String image_url;
     private String user_name;
     private String user_head;
-    private List<ReplyBean> reply;
+    private int type;
+    private int community_post_id;
+    private int combine_status;
+    private int like_status;
+    private List<CombineBean> combine;
+    private List<ReportCombine>report_combine;
 
-    public int getReport_id() {
-        return report_id;
+    public List<ReportCombine> getReport_combine() {
+        return report_combine;
     }
 
-    public void setReport_id(int report_id) {
-        this.report_id = report_id;
+    public void setReport_combine(List<ReportCombine> report_combine) {
+        this.report_combine = report_combine;
     }
 
-    public int getReply_num() {
-        return reply_num;
+    public int getComment_id() {
+        return comment_id;
     }
 
-    public void setReply_num(int reply_num) {
-        this.reply_num = reply_num;
+    public void setComment_id(int comment_id) {
+        this.comment_id = comment_id;
     }
 
-    public int getFabulous_num() {
-        return fabulous_num;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setFabulous_num(int fabulous_num) {
-        this.fabulous_num = fabulous_num;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    public String getCreate_time() {
-        return create_time;
+    public String getCreated_time() {
+        return created_time;
     }
 
-    public void setCreate_time(String create_time) {
-        this.create_time = create_time;
+    public void setCreated_time(String created_time) {
+        this.created_time = created_time;
+    }
+
+    public int getLike_num() {
+        return like_num;
+    }
+
+    public void setLike_num(int like_num) {
+        this.like_num = like_num;
     }
 
     public String getContent() {
@@ -66,14 +81,6 @@ public class CommentInfo implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getImage_url() {
-        return image_url;
-    }
-
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
     }
 
     public String getUser_name() {
@@ -92,57 +99,158 @@ public class CommentInfo implements Serializable {
         this.user_head = user_head;
     }
 
-    public List<ReplyBean> getReply() {
-        return reply;
+    public int getType() {
+        return type;
     }
 
-    public void setReply(List<ReplyBean> reply) {
-        this.reply = reply;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public static class ReplyBean {
+    public int getCommunity_post_id() {
+        return community_post_id;
+    }
+
+    public void setCommunity_post_id(int community_post_id) {
+        this.community_post_id = community_post_id;
+    }
+
+    public int getCombine_status() {
+        return combine_status;
+    }
+
+    public void setCombine_status(int combine_status) {
+        this.combine_status = combine_status;
+    }
+
+    public int getLike_status() {
+        return like_status;
+    }
+
+    public void setLike_status(int like_status) {
+        this.like_status = like_status;
+    }
+
+    public List<CombineBean> getCombine() {
+        return combine;
+    }
+
+    public void setCombine(List<CombineBean> combine) {
+        this.combine = combine;
+    }
+
+    public static class CombineBean implements Serializable{
         /**
-         * reply_id : 1
-         * fabulous_num : 0
-         * create_time : 1970-01-01 08:00:00
-         * content : 111-111
-         * user_name :
-         * user_head :
-         * image_url : null
-         * video_url :
+         * img : http://abc.dingou.wang/2704f201903181534059734.jpg
          */
 
-        private int reply_id;
-        private int fabulous_num;
-        private String create_time;
+        private String img;
+        private String video;
+
+        public String getVideo() {
+            return video;
+        }
+
+        public void setVideo(String video) {
+            this.video = video;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
+    }
+
+    public static class ReportCombine implements Serializable {
+
+
+        /**
+         * report_id : 45
+         * user_id : 5
+         * common_id : 86
+         * form_user_id : 44
+         * community_post_id : 231
+         * content : ???
+         * type : 1
+         * like_num : 0
+         * created_time : 2019-03-13 14:08:48
+         * form_user : {"user_name":"Hong","user_head":"http://abc.dingou.wang/5fce2201903051620205536.jpg"}
+         * user : {"user_name":"责任阿斯重大","user_head":"http://abc.dingou.wang/c8db720190313120947825.jpg"}
+         * combine_status : 1
+         * like_status : 0
+         */
+
+        private int report_id;
+        private int user_id;
+        private int common_id;
+        private int form_user_id;
+        private int community_post_id;
         private String content;
-        private String user_name;
-        private String user_head;
-        private Object image_url;
-        private String video_url;
+        private int type;
+        private int like_num;
+        private String created_time;
+        private int combine_status;
+        private int like_status;
+        private User form_user;
+        private User user;
 
-        public int getReply_id() {
-            return reply_id;
+        public User getForm_user() {
+            return form_user;
         }
 
-        public void setReply_id(int reply_id) {
-            this.reply_id = reply_id;
+        public void setForm_user(User form_user) {
+            this.form_user = form_user;
         }
 
-        public int getFabulous_num() {
-            return fabulous_num;
+        public User getUser() {
+            return user;
         }
 
-        public void setFabulous_num(int fabulous_num) {
-            this.fabulous_num = fabulous_num;
+        public void setUser(User user) {
+            this.user = user;
         }
 
-        public String getCreate_time() {
-            return create_time;
+        public int getReport_id() {
+            return report_id;
         }
 
-        public void setCreate_time(String create_time) {
-            this.create_time = create_time;
+        public void setReport_id(int report_id) {
+            this.report_id = report_id;
+        }
+
+        public int getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_id(int user_id) {
+            this.user_id = user_id;
+        }
+
+        public int getCommon_id() {
+            return common_id;
+        }
+
+        public void setCommon_id(int common_id) {
+            this.common_id = common_id;
+        }
+
+        public int getForm_user_id() {
+            return form_user_id;
+        }
+
+        public void setForm_user_id(int form_user_id) {
+            this.form_user_id = form_user_id;
+        }
+
+        public int getCommunity_post_id() {
+            return community_post_id;
+        }
+
+        public void setCommunity_post_id(int community_post_id) {
+            this.community_post_id = community_post_id;
         }
 
         public String getContent() {
@@ -152,6 +260,51 @@ public class CommentInfo implements Serializable {
         public void setContent(String content) {
             this.content = content;
         }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public int getLike_num() {
+            return like_num;
+        }
+
+        public void setLike_num(int like_num) {
+            this.like_num = like_num;
+        }
+
+        public String getCreated_time() {
+            return created_time;
+        }
+
+        public void setCreated_time(String created_time) {
+            this.created_time = created_time;
+        }
+
+        public int getCombine_status() {
+            return combine_status;
+        }
+
+        public void setCombine_status(int combine_status) {
+            this.combine_status = combine_status;
+        }
+
+        public int getLike_status() {
+            return like_status;
+        }
+
+        public void setLike_status(int like_status) {
+            this.like_status = like_status;
+        }
+    }
+
+    public static class User implements Serializable{
+        private String user_name;
+        private String user_head;
 
         public String getUser_name() {
             return user_name;
@@ -167,22 +320,6 @@ public class CommentInfo implements Serializable {
 
         public void setUser_head(String user_head) {
             this.user_head = user_head;
-        }
-
-        public Object getImage_url() {
-            return image_url;
-        }
-
-        public void setImage_url(Object image_url) {
-            this.image_url = image_url;
-        }
-
-        public String getVideo_url() {
-            return video_url;
-        }
-
-        public void setVideo_url(String video_url) {
-            this.video_url = video_url;
         }
     }
 }

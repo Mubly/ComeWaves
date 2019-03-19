@@ -3,15 +3,22 @@ package com.mubly.comewaves.videoplayer;
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.model.interfaces.CallBack;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 public class SwitchVideo extends StandardGSYVideoPlayer {
 
     private TextView detailBtn;
+    private OnClickCallBack onClickCallBack;
+
+    public void setOnClickCallBack(OnClickCallBack onClickCallBack) {
+        this.onClickCallBack = onClickCallBack;
+    }
 
     public SwitchVideo(Context context, Boolean fullFlag) {
         super(context, fullFlag);
@@ -32,15 +39,11 @@ public class SwitchVideo extends StandardGSYVideoPlayer {
         detailBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isInPlayingState()) {
-//                    SwitchUtil.isDetial = true;
-                    SwitchUtil.savePlayState(SwitchVideo.this);
-                    getGSYVideoManager().setLastListener(SwitchVideo.this);
-                    //fixme 页面跳转是，元素共享，效果会有一个中间中间控件的存在
-                    //fixme 这时候中间控件 CURRENT_STATE_PLAYING，会触发 startProgressTimer
-                    //FIXME 但是没有cancel
-                    SwitchDetailActivity.startTActivity((Activity) getContext(), SwitchVideo.this);
-                }
+//                if (isInPlayingState()) {
+                    if (null != onClickCallBack) {
+                        onClickCallBack.onClick(SwitchVideo.this);
+                    }
+//                }
             }
         });
         if (mIfCurrentIsFullscreen) {
@@ -93,4 +96,7 @@ public class SwitchVideo extends StandardGSYVideoPlayer {
         cloneParams(switchVideo, this);
     }
 
+    interface OnClickCallBack {
+        void onClick(SwitchVideo switchVideo);
+    }
 }

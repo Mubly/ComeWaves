@@ -1,5 +1,6 @@
 package com.mubly.comewaves.videoplayer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +25,11 @@ public class RecyclerItemAutoDetiallHolder extends RecyclerItemBaseHolder {
 
     public final static String TAG = "RecyclerView2List";
 
-    protected Context context = null;
+    public Context context = null;
 
     SwitchVideo gsyVideoPlayer;
 
-    ImageView imageView,avtarImg;
+    ImageView imageView, avtarImg;
 
     TextView userNameTv, addressTv, distanceTv, praiseTv, contentTv, commentTv, praiseMan;
 
@@ -47,11 +48,11 @@ public class RecyclerItemAutoDetiallHolder extends RecyclerItemBaseHolder {
         praiseTv = v.findViewById(R.id.praise_tv);
         commentTv = v.findViewById(R.id.comment_tv);
         contentTv = v.findViewById(R.id.content_tv);
-        avtarImg=v.findViewById(R.id.avatar_image);
+        avtarImg = v.findViewById(R.id.avatar_image);
         gsyVideoPlayer.setVisibility(View.VISIBLE);
     }
 
-    public void onBind(final int position, HomeBean homeBean) {
+    public void onBind(final int position, final HomeBean homeBean) {
 
         //增加封面
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -78,6 +79,14 @@ public class RecyclerItemAutoDetiallHolder extends RecyclerItemBaseHolder {
         } else {
             gsyVideoPlayer.getThumbImageViewLayout().setVisibility(View.VISIBLE);
         }
+        gsyVideoPlayer.setOnClickCallBack(new SwitchVideo.OnClickCallBack() {
+            @Override
+            public void onClick(SwitchVideo switchVideo) {
+                SwitchUtil.savePlayState(switchVideo);
+                switchVideo.getGSYVideoManager().setLastListener(switchVideo);
+                SwitchDetailActivity.startTActivity((Activity) context, switchVideo, homeBean.getPost_id());
+            }
+        });
     }
 
     /**

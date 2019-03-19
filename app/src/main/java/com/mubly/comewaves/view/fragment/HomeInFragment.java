@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 import butterknife.BindView;
 
 public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implements HomeView {
@@ -60,6 +59,7 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
     RecyclerAutoDetialAdapter recyclerNormalAdapter;
     //是否全屏
     boolean mFull = false;
+    int page=0;
 
     public static HomeInFragment newInstance(int status) {
         HomeInFragment fragment = new HomeInFragment();
@@ -74,7 +74,7 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
         super.initData();
         //1视频 2图文
 //        ImmersionBar
-        mPresenter.getHomeData(getArguments().getInt("status"));
+        mPresenter.getHomeData(getArguments().getInt("status"),page);
     }
 
     @Override
@@ -181,13 +181,15 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
         mSmartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                mPresenter.getHomeData(getArguments().getInt("status"));
+                page++;
+                mPresenter.getHomeData(getArguments().getInt("status"),page);
 
             }
 
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                mPresenter.getHomeData(getArguments().getInt("status"));
+                page=0;
+                mPresenter.getHomeData(getArguments().getInt("status"),page);
             }
         });
     }

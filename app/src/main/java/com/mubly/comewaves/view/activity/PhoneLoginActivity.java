@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.common.utils.EditViewUtil;
 import com.mubly.comewaves.common.utils.TimeUtils;
 import com.mubly.comewaves.model.interfaces.CallBack;
@@ -107,6 +108,9 @@ public class PhoneLoginActivity extends BaseActivity<PhoneLoginPresent, PhoneLog
 
     @Override
     public void loginSuccess(LoginResBean loginResBean) {
+        AppConfig.token.put(loginResBean.getToken());
+        startActivity(new Intent(PhoneLoginActivity.this, MainActivity.class));
+        finish();
 
     }
 
