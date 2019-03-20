@@ -9,8 +9,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,8 +25,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseMvpView;
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.model.CommentInfo;
+import com.mubly.comewaves.model.model.SmartBeanVo;
 import com.mubly.comewaves.model.model.TopicInfoVo;
 import com.mubly.comewaves.model.model.VisitorInfo;
 import com.mubly.comewaves.present.CommentInfoPresent;
@@ -34,6 +40,7 @@ import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 
@@ -55,6 +62,11 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
     int userId;
     CommentInfoPresent commentInfoPresent;
     LinearLayout commentLayout;
+    FrameLayout editLayout;
+    EditText inputEt;
+    private TextView userName;
+    private TextView userAddress;
+    private TextView facousTv;
 
     public static void startTActivity(Activity activity, View transitionView, int postId) {
         Intent intent = new Intent(activity, SwitchDetailActivity.class);
@@ -135,6 +147,12 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
         attentCount = findViewById(R.id.attent_count);
         back = findViewById(R.id.top_back_btn);
         commentLayout = findViewById(R.id.comment_layout);
+        editLayout = findViewById(R.id.edit_message_layout);
+        inputEt = findViewById(R.id.input_et);
+        userName = findViewById(R.id.user_name_tv);
+        userAddress = findViewById(R.id.user_address_tv);
+        facousTv = findViewById(R.id.to_attention_tv);
+
     }
 
     @Override
@@ -191,6 +209,24 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
         back.setOnClickListener(this);
         openMoreComment.setOnClickListener(this);
         commentCount.setOnClickListener(this);
+        praiseCountTv.setOnClickListener(this);
+        inputEt.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    String contentStr = inputEt.getText().toString();
+                    if (!TextUtils.isEmpty(contentStr)) {
+                        CommUtil.hideKeyboard(inputEt);
+                        editLayout.setVisibility(View.GONE);
+                        mPresenter.sendReplyComment(postId, contentStr, 1);
+                    } else {
+                        ToastUtils.showToast("请输入内容");
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -220,23 +256,65 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
                 intent.putExtra("postId", postId);
                 startActivity(intent);
                 break;
-            case R.id.praise_tv:
-
+            case R.id.praise_tv://点赞
+                mPresenter.doPraise(postId);
                 break;
-            case R.id.comment_count:
-                mPresenter.sendReplyComment(postId, "96986986", 1);
+            case R.id.comment_count://评论
+                editLayout.setVisibility(View.VISIBLE);
+                CommUtil.showKeyboard(inputEt);
                 break;
-            case R.id.attent_count:
-                Drawable drawable = getResources().getDrawable(R.mipmap.attent_red_icon);
-                // 这一步必须要做,否则不会显示.
-                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                attentCount.setCompoundDrawables(drawable, null, null, null);
+            case R.id.attent_count://收藏
+                mPresenter.doCollection(postId);
                 break;
             case R.id.top_back_btn:
                 onBackPressed();
                 break;
 
         }
+    }
+
+    private void setAttent(int b, boolean isCount) {
+        Drawable drawable = null;
+        String count = attentCount.getText().toString();
+
+        if (b == 0) {
+            if (isCount) {
+                attentCount.setText(CommUtil.strLess(count, 1));
+            }
+
+            drawable = getResources().getDrawable(R.mipmap.attent_no_icon);
+        } else {
+            if (isCount) {
+                attentCount.setText(CommUtil.strLess(count, -1));
+            }
+
+            drawable = getResources().getDrawable(R.mipmap.attent_red_icon);
+        }
+        // 这一步必须要做,否则不会显示.
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        attentCount.setCompoundDrawables(drawable, null, null, null);
+    }
+
+    private void setPraise(int b, boolean isCount) {
+        Drawable drawable = null;
+        String count = praiseCountTv.getText().toString();
+        if (b == 0) {
+            drawable = getResources().getDrawable(R.mipmap.praise_icon);
+
+            if (isCount) {
+                praiseCountTv.setText(CommUtil.strLess(count, 1));
+            }
+
+        } else {
+
+            drawable = getResources().getDrawable(R.mipmap.praise_light_icon);
+            if (isCount) {
+                praiseCountTv.setText(CommUtil.strLess(count, -1));
+            }
+        }
+        // 这一步必须要做,否则不会显示.
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        praiseCountTv.setCompoundDrawables(drawable, null, null, null);
     }
 
     @Override
@@ -248,7 +326,8 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
     @Override
     public void replyCommentSuccess() {
         initData();
-        ToastUtils.showToast("成功");
+        inputEt.setText("");
+        ToastUtils.showToast("评论添加成功");
     }
 
     @Override
@@ -272,10 +351,32 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
                 commentLayout.addView(view);
             }
         } else {
-
             commentLayout.setVisibility(View.GONE);
             openMoreComment.setVisibility(View.GONE);
         }
+
+        Glide.with(mContext).load(topicInfoVo.post.getUser_head()).apply(RequestOptions.circleCropTransform()).into(userHeadIv);
+        userName.setText(topicInfoVo.post.getUser_name());
+        userAddress.setText(topicInfoVo.post.getLocation());
+        if (false) {//判断是否已关注
+            facousTv.setVisibility(View.GONE);
+        }
+        praiseCountTv.setText(topicInfoVo.post.getFabulous_num() + "");//喜欢
+        attentCount.setText(topicInfoVo.post.getLike_status() + "");//收藏
+        commentCount.setText(topicInfoVo.post.getReport_num() + "");
+        setPraise(topicInfoVo.post.getLike_status(), false);
+        setAttent(topicInfoVo.post.getCollect_status(), false);
     }
+
+    @Override
+    public void doPraise(SmartBeanVo smartBeanVo) {
+        setPraise(smartBeanVo.status, true);
+    }
+
+    @Override
+    public void doCollection(SmartBeanVo smartBeanVo) {
+        setAttent(smartBeanVo.status, true);
+    }
+
 
 }

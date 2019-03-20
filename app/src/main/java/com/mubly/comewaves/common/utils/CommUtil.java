@@ -147,6 +147,10 @@ public class CommUtil {
         return false;
     }
 
+    public static String strLess(String count, int i) {
+        return String.valueOf(Integer.parseInt(count) - i);
+    }
+
     /**
      * Toast多次点击只显示一次
      */
@@ -872,31 +876,5 @@ public class CommUtil {
         return numberStr;
     }
 
-    public static void keyboardEt(Activity context) {
-        final View decorView = context.getWindow().getDecorView();
-        final View contentView = context.findViewById(Window.ID_ANDROID_CONTENT);
-        decorView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                Rect r = new Rect();
-                decorView.getWindowVisibleDisplayFrame(r);
-
-                int height = decorView.getContext().getResources().getDisplayMetrics().heightPixels;
-                int diff = height - r.bottom;
-
-                if (diff != 0) {
-                    if (contentView.getPaddingBottom() != diff) {
-                        contentView.setPadding(0, 0, 0, diff);
-                    }
-                } else {
-                    if (contentView.getPaddingBottom() != 0) {
-                        contentView.setPadding(0, 0, 0, 0);
-                    }
-                }
-            }
-        });
-
-
-    }
 
 }

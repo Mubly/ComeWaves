@@ -59,7 +59,9 @@
         <activity android:name=".view.activity.SettingActivity" />
         <activity
             android:name=".view.activity.CommentActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+
         <activity android:name=".view.activity.IsHadInfoActivity" />
         <activity android:name=".view.activity.MerchantActivity" />
         <activity android:name=".view.activity.GoodsInfoActivity" />
@@ -79,6 +81,7 @@
             android:name=".videoplayer.SwitchDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:theme="@style/Theme.AppCompat.Transitions" />
         <activity
             android:name=".view.activity.LoginActivity"

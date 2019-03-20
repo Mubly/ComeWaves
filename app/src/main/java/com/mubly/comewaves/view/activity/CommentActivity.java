@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.model.adapter.BaseRecyclerViewAdapter;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
 import com.mubly.comewaves.model.model.CommentInfo;
+import com.mubly.comewaves.model.model.SmartBeanVo;
 import com.mubly.comewaves.model.model.TopicInfoVo;
 import com.mubly.comewaves.present.CommentInfoPresent;
 import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
@@ -41,6 +43,8 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
     RecyclerView mRecycleView;
     @BindView(R.id.comment_send_btn)
     Button sendBtn;
+    @BindView(R.id.top_back_btn)
+    ImageButton backBtn;
     int topicId;
     int selectId;
     SmartAdapter smartAdapter;
@@ -104,7 +108,7 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
         holder.getView(R.id.user_name_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectCommendId=data.getComment_id();
+                selectCommendId = data.getComment_id();
                 commentEdit.setText("#" + data.getUser_name());
             }
         });
@@ -165,7 +169,7 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
 
     @Override
     protected int getLayoutId() {
-        topicId = getIntent().getIntExtra("postId",0);
+        topicId = getIntent().getIntExtra("postId", 0);
         userId = getIntent().getIntExtra("userId", 0);
         return R.layout.activity_comment;
     }
@@ -188,14 +192,26 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
 
     }
 
-    @OnClick({R.id.sort_type_tv, R.id.comment_send_btn})
+    @Override
+    public void doPraise(SmartBeanVo smartBeanVo) {
+
+    }
+
+    @Override
+    public void doCollection(SmartBeanVo smartBeanVo) {
+
+    }
+
+
+    @OnClick({R.id.top_back_btn, R.id.comment_send_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.sort_type_tv:
+            case R.id.top_back_btn:
+                finish();
                 break;
             case R.id.comment_send_btn:
 
-                    selectId = topicId;
+                selectId = topicId;
 
                 String contentStr = commentEdit.getText().toString();
                 if (TextUtils.isEmpty(contentStr)) {

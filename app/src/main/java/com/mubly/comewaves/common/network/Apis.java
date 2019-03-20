@@ -13,6 +13,7 @@ import com.mubly.comewaves.model.model.CategoryVo;
 import com.mubly.comewaves.model.model.CommentInfo;
 import com.mubly.comewaves.model.model.HomeBean;
 import com.mubly.comewaves.model.model.LoginResBean;
+import com.mubly.comewaves.model.model.SmartBeanVo;
 import com.mubly.comewaves.model.model.StartBean;
 import com.mubly.comewaves.model.model.TopicInfoVo;
 
@@ -24,11 +25,13 @@ import java.util.List;
 import io.reactivex.Observable;
 import okhttp3.Response;
 
+import static com.mubly.comewaves.common.network.ApiUrls.COLLECTION_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.COMMENT_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.GETCATEGORY_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.GET_CODE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.HOME_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.ONE_PASS_login_Url;
+import static com.mubly.comewaves.common.network.ApiUrls.PRAISE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.REGISTERED_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.REPLY_COMMENT_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.SEND_REPLY_COMMENT_URL;
@@ -260,7 +263,34 @@ public class Apis {
                 .adapt(new ObservableBody<ResponseData<BaseModel>>());
     }
 
-
+    // 点赞或取消点赞
+    public static Observable<ResponseData<SmartBeanVo>> doPraise(int post_id) {
+        return OkGo.<ResponseData<SmartBeanVo>>post(PRAISE_URL)
+                .params("post_id", post_id)
+                .converter(new Converter<ResponseData<SmartBeanVo>>() {
+                    @Override
+                    public ResponseData<SmartBeanVo> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<SmartBeanVo>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<SmartBeanVo>>());
+    }
+    // 点赞或取消点赞
+    public static Observable<ResponseData<SmartBeanVo>> doCollection(int post_id) {
+        return OkGo.<ResponseData<SmartBeanVo>>post(COLLECTION_URL)
+                .params("post_id", post_id)
+                .converter(new Converter<ResponseData<SmartBeanVo>>() {
+                    @Override
+                    public ResponseData<SmartBeanVo> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<SmartBeanVo>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<SmartBeanVo>>());
+    }
 
 //
 //    // 版本更新

@@ -25,7 +25,7 @@ public class ApiUrls {
 
     public static final String GET_USERINFO_URL = BASE_URL + "user/getpersonal";  //用户信息获取
 
-    public static final String PRAISE_URL = BASE_H5_URL + "user/posttextlike";  //点赞
+    public static final String PRAISE_URL = BASE_URL + "user/posttextlike";  //点赞
 
     public static final String START_IMAGE_URL = BASE_URL + "login/first";  //启动页面
 
@@ -42,6 +42,7 @@ public class ApiUrls {
 
     public static final String ATTENTION_SOMEBODAY_URL = BASE_URL + "user/postattention";  //关注/取消关注
 
+    public static final String COLLECTION_URL = BASE_URL + "user/posttextcollect";  //收藏/取消收藏
 
 
 
@@ -56,11 +57,11 @@ public class ApiUrls {
 
 
 
-    public static final String MineActUrl = BASE_H5_URL + "me/activity/";  //我的活动
 
-    public static final String MineDynamicUrl = BASE_H5_URL + "me/dynamic/1";  //我的动态
 
-    public static final String MineCommentUrl = BASE_H5_URL + "me/comment/";  //我的点评
+    public static final String MineDynamicUrl = BASE_URL + "me/dynamic/1";  //我的动态
+
+    public static final String MineCommentUrl = BASE_URL + "me/comment/";  //我的点评
 
     public static final String HomeGet = BASE_URL + "banner/get";  //首页
 
@@ -70,9 +71,9 @@ public class ApiUrls {
 
     public static final String GetVersionUrl = BASE_URL + "version/last";  //检测版本更新
 
-    public static final String EditCommentUrl = BASE_H5_URL + "write/comment/";  //写点评
+    public static final String EditCommentUrl = BASE_URL + "write/comment/";  //写点评
 
-    public static final String OtherHomeUrl = BASE_H5_URL + "othersHomepage/";  //进入他人主页
+    public static final String OtherHomeUrl = BASE_URL + "othersHomepage/";  //进入他人主页
 
     public static final String GETCommentUrl = BASE_URL + "topic/getCommentByTopic";  //获取评论
 
@@ -84,39 +85,39 @@ public class ApiUrls {
     public static final String systemlist = BASE_URL + "msg/systemlist";  //获取系统通知
     public static final String readAllSystem = BASE_URL + "msg/readAllSystem";  //批量比较系统消息已读
 
-    public static final String TransactionUrl = BASE_H5_URL + "transaction";  // 交易明细
+    public static final String TransactionUrl = BASE_URL + "transaction";  // 交易明细
 
-    public static final String TransferUrl = BASE_H5_URL + "wallet";  // 转出
+    public static final String TransferUrl = BASE_URL + "wallet";  // 转出
 
-    public static final String HelpUrl = BASE_H5_URL + "help";  // 帮助
+    public static final String HelpUrl = BASE_URL + "help";  // 帮助
 
-    public static final String TransferIntoUrl = BASE_H5_URL + "into";  // 转入
+    public static final String TransferIntoUrl = BASE_URL + "into";  // 转入
 
-    public static final String FydpUrl = BASE_H5_URL + "fydp";  // 商户入驻
+    public static final String FydpUrl = BASE_URL + "fydp";  // 商户入驻
 
     public static final String JoinGroupUrl = BASE_URL + "group/joinGroup";  //加入群聊
 
-    public static final String ShareUrl = BASE_H5_URL + "event/share/";  // 活动分享页
+    public static final String ShareUrl = BASE_URL + "event/share/";  // 活动分享页
 
-    public static final String ShareTopicUrl_ = BASE_H5_URL + "write/share/";  // 点评详情分享页
+    public static final String ShareTopicUrl_ = BASE_URL + "write/share/";  // 点评详情分享页
 
     public static final String LikeUrl = BASE_URL + "topic/like";  // 点赞
 
-    public static final String RuleUrl = BASE_H5_URL + "nastrule";  // 规则
+    public static final String RuleUrl = BASE_URL + "nastrule";  // 规则
 
     public static final String LoginOutUrl = BASE_URL + "user/logout";  // 登出
 
-    public static final String ZCUrl = BASE_H5_URL + "zc";
+    public static final String ZCUrl = BASE_URL + "zc";
 
-    public static final String AboutUsUrl = BASE_H5_URL + "aboutus";  // 关于我们
+    public static final String AboutUsUrl = BASE_URL + "aboutus";  // 关于我们
 
     public static final String ShareActUrlCallBack = BASE_URL + "event/share";  // 分享活动详情回调
 
     public static final String ShareTopicUrlCallBack = BASE_URL + "topic/share";  // 分享点评详情回调
 
-    public static final String nastrule = BASE_H5_URL + "nastrule";  // NAST规则
+    public static final String nastrule = BASE_URL + "nastrule";  // NAST规则
     public static final String nast_one = "http://nast.one";  // NAST规则
-    public static final String fydp = BASE_H5_URL + "fydp";  // 商户入住
+    public static final String fydp = BASE_URL + "fydp";  // 商户入住
 
     public static final String gmnast = "https://mp.weixin.qq.com/s/JMu1Br7jhRJsRGcjifoPpA";  // 购买NAST
 
@@ -154,19 +155,19 @@ public class ApiUrls {
 
     public static final String ActWeekBannerUrl = BASE_URL + "banner/brand";   // 活动周banner
 
-    public static final String ShareActWeekUrl = BASE_H5_URL + "share/brand/";   // 分享活动周
+    public static final String ShareActWeekUrl = BASE_URL + "share/brand/";   // 分享活动周
 
     public static final String ShareActWeekCallBackUrl = BASE_URL + "brand/share";   // 成功分享活动周
 
     public static final String singleRankInfoUrl = BASE_URL + "brand/rank";   // 单独获取活动周消费排名
 
-    public static final String powerRuleUrl = BASE_H5_URL + "powerRule";   // 能量球规则
+    public static final String powerRuleUrl = BASE_URL + "powerRule";   // 能量球规则
 
     public static final String editPersonInfoUrl = BASE_URL + "user/updateBasicInfo";   // 修改用户个人资料
 
-    public static final String BrokerCenterUrl = BASE_H5_URL + "myextend";   // 经纪人中心
+    public static final String BrokerCenterUrl = BASE_URL + "myextend";   // 经纪人中心
 
-    public static final String MentoringUrl = BASE_H5_URL + "reward";
+    public static final String MentoringUrl = BASE_URL + "reward";
 
     public static final String MINE_UNLOCK_URL = BASE_URL + "account/unlockOfficial";   // 解锁官网
 

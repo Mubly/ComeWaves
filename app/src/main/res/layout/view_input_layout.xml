@@ -13,7 +13,7 @@
     <EditText
         android:id="@+id/input_et"
         android:layout_width="@dimen/size_0dp"
-        android:layout_height="@dimen/size_40dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:layout_weight="1"
         android:maxLines="1"

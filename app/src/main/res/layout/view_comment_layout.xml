@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/commenter_cotent_layout"
     android:layout_width="match_parent"
-    android:layout_marginTop="@dimen/size_16dp"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/size_16dp">
 
     <TextView
         android:id="@+id/commenter_name_tv"

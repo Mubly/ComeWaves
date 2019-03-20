@@ -9,6 +9,7 @@ import com.mubly.comewaves.common.base.ResponseData;
 import com.mubly.comewaves.common.network.Apis;
 import com.mubly.comewaves.common.network.RxObserver;
 import com.mubly.comewaves.model.model.CommentInfo;
+import com.mubly.comewaves.model.model.SmartBeanVo;
 import com.mubly.comewaves.model.model.TopicInfoVo;
 import com.mubly.comewaves.view.interfaceview.CommentInfoView;
 
@@ -27,7 +28,6 @@ public class CommentInfoPresent extends BasePresenter<CommentInfoView> {
                 .subscribe(new RxObserver<ResponseData<List<CommentInfo>>>() {
                     @Override
                     public void _onNext(ResponseData<List<CommentInfo>> listResponseData) {
-                        Log.i("OkGo", "&&&&&&&&&&&&&&4");
                         if (isAttachView()) {
                             if (listResponseData.getCode() == Constant.SuccessCode) {
                                 getMvpView().showCommentInfo(listResponseData.getData());
@@ -40,7 +40,6 @@ public class CommentInfoPresent extends BasePresenter<CommentInfoView> {
 
                     @Override
                     public void _onError(String errorMessage) {
-                        Log.i("OkGo", "&&&&&&&&&&&&&&5");
                         if (null == getMvpView()) {
                             return;
                         }
@@ -100,8 +99,8 @@ public class CommentInfoPresent extends BasePresenter<CommentInfoView> {
                 });
     }
 
-    public void getTopicInfo(int post_id ,int type ) {
-        Apis.getTieInfo(post_id,type)
+    public void getTopicInfo(int post_id, int type) {
+        Apis.getTieInfo(post_id, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxObserver<ResponseData<TopicInfoVo>>() {
@@ -121,6 +120,58 @@ public class CommentInfoPresent extends BasePresenter<CommentInfoView> {
                     @Override
                     public void _onError(String errorMessage) {
 
+                        if (null == getMvpView()) {
+                            return;
+                        }
+                    }
+                });
+    }
+
+    public void doPraise(int post_id) {
+        Apis.doPraise(post_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxObserver<ResponseData<SmartBeanVo>>() {
+                    @Override
+                    public void _onNext(ResponseData<SmartBeanVo> listResponseData) {
+                        if (isAttachView()) {
+                            if (listResponseData.getCode() == Constant.SuccessCode) {
+                                getMvpView().doPraise(listResponseData.getData());
+                            } else {
+                                getMvpView().checkNetCode(listResponseData.getCode(), listResponseData.getMsg());
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        if (null == getMvpView()) {
+                            return;
+                        }
+                    }
+                });
+    }
+
+    public void doCollection(int post_id) {
+        Apis.doPraise(post_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxObserver<ResponseData<SmartBeanVo>>() {
+                    @Override
+                    public void _onNext(ResponseData<SmartBeanVo> listResponseData) {
+                        if (isAttachView()) {
+                            if (listResponseData.getCode() == Constant.SuccessCode) {
+                                getMvpView().doCollection(listResponseData.getData());
+                            } else {
+                                getMvpView().checkNetCode(listResponseData.getCode(), listResponseData.getMsg());
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
                         if (null == getMvpView()) {
                             return;
                         }
