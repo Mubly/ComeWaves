@@ -20,6 +20,7 @@ import com.mubly.comewaves.model.model.TopicInfoVo;
 
 import java.io.File;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -30,6 +31,7 @@ import static com.mubly.comewaves.common.network.ApiUrls.COMMENT_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.GETCATEGORY_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.GET_CODE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.HOME_INFO_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.IMAGE_UPLOAD_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.ONE_PASS_login_Url;
 import static com.mubly.comewaves.common.network.ApiUrls.PRAISE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.REGISTERED_URL;
@@ -173,8 +175,30 @@ public class Apis {
     }
 
     // 视频上传
-    public static Observable<ResponseData<BaseModel>> videoUpload(String post_info, String cate_id, String location, String through, String weft, String sign, File video, File img) {
+    public static Observable<ResponseData<BaseModel>> videoUpload(String post_info,  String location, String through, String weft, String sign, File video, File img) {
         return OkGo.<ResponseData<BaseModel>>post(VIDEO_UPLOAD_URL)
+                .params("post_info", post_info)//文章内容
+//                .params("cate_id", cate_id)//分类Id
+                .params("location", location)//地址
+                .params("through", through)//经度
+                .params("weft", weft)//维度
+                .params("video", video)//视频
+//                .params("img", img)//封面图
+                .params("sign", sign)//标签
+                .converter(new Converter<ResponseData<BaseModel>>() {
+                    @Override
+                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<BaseModel>>());
+
+    }
+    // 图片上传
+    public static Observable<ResponseData<BaseModel>> imageUpload(String post_info, String cate_id, String location, String through, String weft, String sign, File video, File img) {
+        return OkGo.<ResponseData<BaseModel>>post(IMAGE_UPLOAD_URL)
                 .params("post_info", post_info)//文章内容
                 .params("cate_id", cate_id)//分类Id
                 .params("location", location)//地址
@@ -194,7 +218,21 @@ public class Apis {
                 .adapt(new ObservableBody<ResponseData<BaseModel>>());
 
     }
+    public static Observable<ResponseData<BaseModel>> imageUpload2(String id,  ArrayList<File> files) {
+        return OkGo.<ResponseData<BaseModel>>post(IMAGE_UPLOAD_URL)
+                .params("id", id)//文章Id
+                .addFileParams("img", files)//图片
+                .converter(new Converter<ResponseData<BaseModel>>() {
+                    @Override
+                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<BaseModel>>());
 
+    }
     // 获取评论列表
     public static Observable<ResponseData<List<CommentInfo>>> getCommentInfoById(int post_id) {
         return OkGo.<ResponseData<List<CommentInfo>>>post(COMMENT_INFO_URL)

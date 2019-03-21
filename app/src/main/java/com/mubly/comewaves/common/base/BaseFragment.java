@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import com.mubly.comewaves.common.utils.ToastUtils;
 
 
-
 import butterknife.ButterKnife;
 
 import static com.mubly.comewaves.common.Constant.NASTTOKENERROR;
@@ -84,16 +83,24 @@ public abstract class BaseFragment<P extends BasePresenter<V>, V extends BaseMvp
     }
 
     @Override
+    public ProgressDialog getProgressDialog() {
+        if (null == progressDialog) {
+            progressDialog = new ProgressDialog(mContext);//实例化progressDialog
+        }
+        return progressDialog;
+    }
+
+    @Override
     public void showProgress(String msg) {
-        progressDialog = new ProgressDialog(mContext);//实例化progressDialog
-        progressDialog.setMessage(msg);//设置进度条加载内容
+
+        getProgressDialog().setMessage(msg);//设置进度条加载内容
         if (!progressDialog.isShowing())//如果进度条没有显示
             progressDialog.show();//显示进度条
     }
 
     @Override
     public void hideProgress() {
-        if (progressDialog.isShowing())
+        if (getProgressDialog().isShowing())
             progressDialog.dismiss();
     }
 

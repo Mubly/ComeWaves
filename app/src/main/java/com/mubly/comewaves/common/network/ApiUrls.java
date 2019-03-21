@@ -20,7 +20,7 @@ public class ApiUrls {
     public static final String AVATAR_UPDATE_URL = BASE_URL + "user/postupdateimg";  //修改用户头像
     public static final String USERINFO_UPDATE_URL = BASE_URL + "user/postpersonal";  //修改用户信息
     public static final String IMAGE_UPLOAD_URL = BASE_URL + "post/postaddpictureweChat";  //图片上传
-
+    public static final String MUIL_IMAGE_UPLOAD_URL = BASE_URL + "post/posttextimgs";  //多图片上传
     public static final String VIDEO_UPLOAD_URL = BASE_URL + "post/postaddvideo";  //视频上传
 
     public static final String GET_USERINFO_URL = BASE_URL + "user/getpersonal";  //用户信息获取
@@ -31,7 +31,7 @@ public class ApiUrls {
 
     public static final String HOME_INFO_URL = BASE_URL + "index/index";  //首页信息
 
-    public static final String TIE_INFO_URL=BASE_URL+"report/showpostbyid";//首页信息详情页
+    public static final String TIE_INFO_URL = BASE_URL + "report/showpostbyid";//首页信息详情页
 
     public static final String COMMENT_INFO_URL = BASE_URL + "report/showcommentpage";//获取评论列表
 
@@ -43,20 +43,6 @@ public class ApiUrls {
     public static final String ATTENTION_SOMEBODAY_URL = BASE_URL + "user/postattention";  //关注/取消关注
 
     public static final String COLLECTION_URL = BASE_URL + "user/posttextcollect";  //收藏/取消收藏
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public static final String MineDynamicUrl = BASE_URL + "me/dynamic/1";  //我的动态

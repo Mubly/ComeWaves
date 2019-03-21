@@ -28,12 +28,12 @@ import com.mubly.comewaves.common.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 
 
-
 import java.util.Map;
 
 
-
 import butterknife.ButterKnife;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 
 public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseMvpView>
@@ -115,16 +115,23 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseMvp
     protected abstract int getLayoutId();
 
     @Override
+    public ProgressDialog getProgressDialog() {
+        if (null == progressDialog) {
+            progressDialog = new ProgressDialog(this);//实例化progressDialog
+        }
+        return progressDialog;
+    }
+
+    @Override
     public void showProgress(String msg) {
-        progressDialog = new ProgressDialog(this);//实例化progressDialog
-        progressDialog.setMessage(msg);//设置进度条加载内容
+        getProgressDialog().setMessage(msg);//设置进度条加载内容
         if (!progressDialog.isShowing())//如果进度条没有显示
             progressDialog.show();//显示进度条
     }
 
     @Override
     public void hideProgress() {
-        if (progressDialog.isShowing())
+        if (getProgressDialog().isShowing())
             progressDialog.dismiss();
     }
 
@@ -234,7 +241,7 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseMvp
         return AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
     }
 
-//    public void weChatLogin() {
+    //    public void weChatLogin() {
 //        CrossApp.get().getmShareAPI().getPlatformInfo(this, SHARE_MEDIA.WEIXIN, umAuthListener);//QQ登录
 //    }
 //    UMAuthListener umAuthListener = new UMAuthListener() {
@@ -266,4 +273,16 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseMvp
 //        super.onActivityResult(requestCode, resultCode, data);
 //        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
 //    }
+    private CompositeDisposable compositeDisposable;
+
+    public void addDisposable(Disposable disposable) {
+        if (compositeDisposable == null) {
+            compositeDisposable = new CompositeDisposable();
+        }
+        compositeDisposable.add(disposable);
+    }
+
+    public void dispose() {
+        if (compositeDisposable != null) compositeDisposable.dispose();
+    }
 }

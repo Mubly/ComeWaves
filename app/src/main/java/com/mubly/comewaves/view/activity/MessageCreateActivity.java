@@ -1,5 +1,6 @@
 package com.mubly.comewaves.view.activity;
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.support.annotation.Nullable;
@@ -22,7 +23,9 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
 import com.mubly.comewaves.present.MessageCreatePresent;
 import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
@@ -35,6 +38,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.disposables.Disposable;
 
 /**
  * 发布帖子、视频，状态等等
@@ -62,11 +66,17 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
     private int type;
     private String mLatitude, mLongitude;
     private String addressStr;
+    int selectNum = 1;
 
 
     @Override
     protected int getLayoutId() {
         type = getIntent().getIntExtra("type", 0);
+        if (type == Constant.PULL_IMAGE_CODE) {
+            selectNum = 9;
+        } else {
+            selectNum = 1;
+        }
         return R.layout.activity_message_create;
     }
 
@@ -76,10 +86,10 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
         mPresenter.getLocal(getApplicationContext(), new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
-
                 mLatitude = String.valueOf(aMapLocation.getLatitude());//获取纬度
                 mLongitude = String.valueOf(aMapLocation.getLongitude());//获取经度
                 addressStr = aMapLocation.getAddress();
+                userCurrentAddress.setText(aMapLocation.getPoiName());
 
             }
         });
@@ -123,15 +133,13 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
                     @Override
                     public void onClick(View v) {
                         if (position == voideImageList.size() - 1) {
-//                            Phoenix.with().theme(PhoenixOption.THEME_DEFAULT) // 主题
-//                                    .fileType(MimeType.ofAll())//显示的文件类型图片、视频、图片和视频
-//                                    .maxPickNumber(9).spanCount(3).enablePreview(true)
-//                                    //如果是在Activity里使用就传Activity，如果是在Fragment里使用就传Fragment
-//                                    .start(MessageCreateActivity.this, PhoenixOption.TYPE_PICK_MEDIA, REQUEST_CODE);
+
                             PictureSelector.create(MessageCreateActivity.this)
                                     .openGallery(type)
                                     .previewImage(true)
                                     .previewVideo(true)
+                                    .compress(true)
+                                    .maxSelectNum(selectNum)
                                     .videoMaxSecond(15)// 显示多少秒以内的视频or音频也可适用 int
                                     .videoMinSecond(10)// 显示多少秒以内的视频or音频也可适用 int
                                     .recordVideoSecond(15)//视频秒数录制 默认60s int
@@ -169,20 +177,33 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
                 finish();
                 break;
             case R.id.top_layout_right_tv:
-                uploadData();
+
+                if (type == Constant.PULL_VIDEO_CODE) {
+                    uploadData();
+                } else if (type == Constant.PULL_IMAGE_CODE) {
+                    uploadImage();
+                }
+
+
                 break;
         }
     }
 
     private void uploadData() {
         final String contentInfo = input_et.getText().toString();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mPresenter.videodate(contentInfo, "", addressStr, mLongitude, mLatitude, "#美妆", new File(voideImageList.get(0).getPath()), null);
-            }
-        }).start();
+        mPresenter.videoUpdate(contentInfo, addressStr, mLongitude, mLatitude, "#美妆", new File(voideImageList.get(0).getPath()), null);
+    }
 
+    private void uploadImage() {
+        final String contentInfo = input_et.getText().toString();
+        List<File> fileList = new ArrayList<>();
+        if (voideImageList.size() > 1) {
+            fileList.clear();
+            for (int i = 0; i < voideImageList.size() - 1; i++) {
+                fileList.add(new File(voideImageList.get(i).getCompressPath()));
+            }
+        }
+        mPresenter.upLoadeImgMore(contentInfo, addressStr, mLongitude, mLatitude, fileList);
     }
 
     @Override
@@ -204,11 +225,26 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
         }
     }
 
+    @Override
+    public void addDisposable(Disposable disposable) {
+        super.addDisposable(disposable);
+    }
+
+    @Override
+    public Context getContext() {
+        return mContext;
+    }
 
     private void dealImageOrVideo(List<LocalMedia> selectList) {
         for (LocalMedia localMedia : selectList) {
             voideImageList.add(voideImageList.size() - 1, localMedia);
         }
         smartAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void upLoadSuccess() {
+        ToastUtils.showToast("发布成功");
+        finish();
     }
 }
