@@ -5,11 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.SearchInFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <com.mubly.comewaves.view.costomview.AsymmetricRecyclerView
         android:id="@+id/search_content_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp"
+        android:fadingEdge="none"
+        android:focusable="false"
+        android:gravity="center"
+        android:listSelector="#00000000"></com.mubly.comewaves.view.costomview.AsymmetricRecyclerView>
 
-    </android.support.v7.widget.RecyclerView>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_800dp"
+        android:gravity="center"
+        android:text="没有数据"
+        android:visibility="invisible" />
 </FrameLayout>

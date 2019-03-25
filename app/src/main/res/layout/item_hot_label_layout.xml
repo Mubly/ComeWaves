@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_0dp"
         app:layout_constraintDimensionRatio="375:135"
-        app:layout_constraintTop_toTopOf="parent"></com.youth.banner.Banner>
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.youth.banner.Banner>
 
     <TextView
         android:layout_width="wrap_content"

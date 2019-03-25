@@ -13,6 +13,7 @@ import com.mubly.comewaves.model.model.CategoryVo;
 import com.mubly.comewaves.model.model.CommentInfo;
 import com.mubly.comewaves.model.model.HomeBean;
 import com.mubly.comewaves.model.model.LoginResBean;
+import com.mubly.comewaves.model.model.SearchVideoVo;
 import com.mubly.comewaves.model.model.SmartBeanVo;
 import com.mubly.comewaves.model.model.StartBean;
 import com.mubly.comewaves.model.model.TopicInfoVo;
@@ -36,6 +37,9 @@ import static com.mubly.comewaves.common.network.ApiUrls.ONE_PASS_login_Url;
 import static com.mubly.comewaves.common.network.ApiUrls.PRAISE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.REGISTERED_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.REPLY_COMMENT_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.SEARCH_ONE_CATEGARY_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.SEARCH_TWO_CATEGARY_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.SEARCH_VIDEO_LIST_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.SEND_REPLY_COMMENT_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.START_IMAGE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.TIE_INFO_URL;
@@ -155,10 +159,10 @@ public class Apis {
     }
 
     //    帖子详情
-    public static Observable<ResponseData<TopicInfoVo>> getTieInfo(int post_id,int type) {
+    public static Observable<ResponseData<TopicInfoVo>> getTieInfo(int post_id, int type) {
         return OkGo.<ResponseData<TopicInfoVo>>post(TIE_INFO_URL)
                 .params("post_id", post_id)
-                .params("type",type)
+                .params("type", type)
                 .converter(new Converter<ResponseData<TopicInfoVo>>() {
                     @Override
                     public ResponseData<TopicInfoVo> convertResponse(Response response) throws Throwable {
@@ -175,7 +179,7 @@ public class Apis {
     }
 
     // 视频上传
-    public static Observable<ResponseData<BaseModel>> videoUpload(String post_info,  String location, String through, String weft, String sign, File video, File img) {
+    public static Observable<ResponseData<BaseModel>> videoUpload(String post_info, String location, String through, String weft, String sign, File video, File img) {
         return OkGo.<ResponseData<BaseModel>>post(VIDEO_UPLOAD_URL)
                 .params("post_info", post_info)//文章内容
 //                .params("cate_id", cate_id)//分类Id
@@ -196,6 +200,7 @@ public class Apis {
                 .adapt(new ObservableBody<ResponseData<BaseModel>>());
 
     }
+
     // 图片上传
     public static Observable<ResponseData<BaseModel>> imageUpload(String post_info, String cate_id, String location, String through, String weft, String sign, File video, File img) {
         return OkGo.<ResponseData<BaseModel>>post(IMAGE_UPLOAD_URL)
@@ -218,7 +223,8 @@ public class Apis {
                 .adapt(new ObservableBody<ResponseData<BaseModel>>());
 
     }
-    public static Observable<ResponseData<BaseModel>> imageUpload2(String id,  ArrayList<File> files) {
+
+    public static Observable<ResponseData<BaseModel>> imageUpload2(String id, ArrayList<File> files) {
         return OkGo.<ResponseData<BaseModel>>post(IMAGE_UPLOAD_URL)
                 .params("id", id)//文章Id
                 .addFileParams("img", files)//图片
@@ -233,6 +239,7 @@ public class Apis {
                 .adapt(new ObservableBody<ResponseData<BaseModel>>());
 
     }
+
     // 获取评论列表
     public static Observable<ResponseData<List<CommentInfo>>> getCommentInfoById(int post_id) {
         return OkGo.<ResponseData<List<CommentInfo>>>post(COMMENT_INFO_URL)
@@ -315,6 +322,7 @@ public class Apis {
                 })
                 .adapt(new ObservableBody<ResponseData<SmartBeanVo>>());
     }
+
     // 点赞或取消点赞
     public static Observable<ResponseData<SmartBeanVo>> doCollection(int post_id) {
         return OkGo.<ResponseData<SmartBeanVo>>post(COLLECTION_URL)
@@ -330,6 +338,49 @@ public class Apis {
                 .adapt(new ObservableBody<ResponseData<SmartBeanVo>>());
     }
 
+    // 搜索页一级分类
+    public static Observable<ResponseData<List<CategoryVo>>> getSearchTab1(int page) {
+        return OkGo.<ResponseData<List<CategoryVo>>>post(SEARCH_ONE_CATEGARY_URL)
+                .params("page", page)
+                .converter(new Converter<ResponseData<List<CategoryVo>>>() {
+                    @Override
+                    public ResponseData<List<CategoryVo>> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<List<CategoryVo>>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<List<CategoryVo>>>());
+    }
+
+    // 搜索页二级分类（列表内容）
+    public static Observable<ResponseData<List<CategoryVo>>> getSearchTab2(int cate_id) {
+        return OkGo.<ResponseData<List<CategoryVo>>>post(SEARCH_TWO_CATEGARY_URL)
+                .params("cate_id", cate_id)
+                .converter(new Converter<ResponseData<List<CategoryVo>>>() {
+                    @Override
+                    public ResponseData<List<CategoryVo>> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<List<CategoryVo>>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<List<CategoryVo>>>());
+    }
+    //搜索模块视频列表
+    public static Observable<ResponseData<List<SearchVideoVo>>> getSearchVideo(int cate_id) {
+        return OkGo.<ResponseData<List<SearchVideoVo>>>post(SEARCH_VIDEO_LIST_URL)
+                .params("cate_id", cate_id)
+                .converter(new Converter<ResponseData<List<SearchVideoVo>>>() {
+                    @Override
+                    public ResponseData<List<SearchVideoVo>> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<List<SearchVideoVo>>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<List<SearchVideoVo>>>());
+    }
 //
 //    // 版本更新
 //    public static Observable<ResponseData<VersionBean>> getVersion() {

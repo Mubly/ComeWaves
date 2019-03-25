@@ -1,31 +1,25 @@
 package com.mubly.comewaves.common.utils;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
-import com.mubly.comewaves.R;
+import com.mubly.comewaves.model.model.CategoryVo;
+import com.mubly.comewaves.model.model.DemoItem;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,6 +34,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -151,6 +146,57 @@ public class CommUtil {
         return String.valueOf(Integer.parseInt(count) - i);
     }
 
+    public static int currentOffset;
+
+    public static List<DemoItem> creatItems(List<CategoryVo> categoryVoList) {
+        List<DemoItem> items = new ArrayList<>();
+        for (int i = 0; i < categoryVoList.size(); i++) {
+            int colSpan = 1;
+            switch (i % 18) {
+                case 0:
+                    colSpan = 1;
+                    break;
+                case 1:
+                    colSpan = 2;
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                    colSpan = 1;
+                    break;
+
+
+                case 9:
+                    colSpan = 2;
+                    break;
+
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                case 16:
+                case 17:
+                    colSpan = 1;
+                    break;
+
+
+            }
+            int rowSpan = colSpan;
+            DemoItem item = new DemoItem(colSpan, rowSpan, currentOffset + i, categoryVoList.get(i).img_url,categoryVoList.get(i).cate_id);
+            items.add(item);
+        }
+        currentOffset += categoryVoList.size();
+        categoryVoList.clear();
+        categoryVoList = null;
+        return items;
+    }
+
     /**
      * Toast多次点击只显示一次
      */
@@ -175,7 +221,7 @@ public class CommUtil {
      * @param context
      * @return
      */
-    public static int getScreenWidth(Context context) {
+    public static int getScreenWidth1(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(dm);
@@ -187,6 +233,28 @@ public class CommUtil {
         int screenWidth = (int) (width / density);  // 屏幕宽度(dp)
         //int screenHeight = (int) (height / density);// 屏幕高度(dp)
         return screenWidth;
+    }
+
+    public static int getScreenWidth(final Context context) {
+        if (context == null) {
+            return 0;
+        }
+        return getDisplayMetrics(context).widthPixels;
+    }
+
+    /**
+     * Returns a valid DisplayMetrics object
+     *
+     * @param context valid context
+     * @return DisplayMetrics object
+     */
+    private static DisplayMetrics getDisplayMetrics(final Context context) {
+        final WindowManager
+                windowManager =
+                (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        final DisplayMetrics metrics = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        return metrics;
     }
 
     /**

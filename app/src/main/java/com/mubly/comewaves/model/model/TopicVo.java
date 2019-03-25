@@ -1,9 +1,11 @@
 package com.mubly.comewaves.model.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class TopicVo implements Serializable {
 
+    private static final long serialVersionUID = 573590387173272485L;
     /**
      * user_name : 休息休息
      * user_head : http://abc.dingou.wang/d3431201903151746069146.png
@@ -37,6 +39,15 @@ public class TopicVo implements Serializable {
     private String video_url;
     private int like_status;
     private int collect_status;
+    private List<SmartBeanVo>photo_url;
+
+    public List<SmartBeanVo> getPhoto_url() {
+        return photo_url;
+    }
+
+    public void setPhoto_url(List<SmartBeanVo> photo_url) {
+        this.photo_url = photo_url;
+    }
 
     public String getUser_name() {
         return user_name;

@@ -124,4 +124,6 @@
     <color name="color_435986">#435986</color>
     <color name="color_262628">#262628</color>
     <color name="color_4E628D_aph50">#804E628D</color>
+    <color name="red">#837BF2</color>
+    <color name="dark_red">#40000c</color>
 </resources>

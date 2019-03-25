@@ -44,10 +44,20 @@ public class ApiUrls {
 
     public static final String COLLECTION_URL = BASE_URL + "user/posttextcollect";  //收藏/取消收藏
 
+    public static final String SEARCH_ONE_CATEGARY_URL = BASE_URL + "search/getonecategory";  //搜索页一级分类
 
-    public static final String MineDynamicUrl = BASE_URL + "me/dynamic/1";  //我的动态
+    public static final String SEARCH_TWO_CATEGARY_URL = BASE_URL + "search/gettwocategory";  //搜索页一级分类
 
-    public static final String MineCommentUrl = BASE_URL + "me/comment/";  //我的点评
+    public static final String SEARCH_VIDEO_LIST_URL = BASE_URL + "search/getbyidvideo";  //搜索页视频列表
+
+
+
+
+
+
+
+
+
 
     public static final String HomeGet = BASE_URL + "banner/get";  //首页
 

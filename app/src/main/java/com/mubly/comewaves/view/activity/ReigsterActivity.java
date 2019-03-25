@@ -108,7 +108,7 @@ public class ReigsterActivity extends BaseActivity<RegisterPresent, ReigsterView
             public View getView(FlowLayout parent, int position, CategoryVo s) {
                 TextView tv = (TextView) mInflater.inflate(R.layout.view_text_view,
                         mTagFlowLayout, false);
-                tv.setText(s.getCate_name());
+                tv.setText(s.cate_name);
                 return tv;
             }
 

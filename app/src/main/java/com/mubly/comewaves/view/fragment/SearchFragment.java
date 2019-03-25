@@ -2,28 +2,36 @@ package com.mubly.comewaves.view.fragment;
 
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TableLayout;
 
 
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
+import com.mubly.comewaves.model.model.CategoryVo;
+import com.mubly.comewaves.present.SearchPresent;
 import com.mubly.comewaves.view.activity.HotLebelActivity;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
+import com.mubly.comewaves.view.interfaceview.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,24 +44,24 @@ import butterknife.BindView;
 /**
  *
  */
-public class SearchFragment extends BaseFragment {
+public class SearchFragment extends BaseFragment<SearchPresent, SearchView> implements SearchView {
     @BindView(R.id.top_label_rv)
     RecyclerView topLabelRv;
     @BindView(R.id.search_tablayout)
     TabLayout mTabLayout;
     @BindView(R.id.search_viewpage)
     ScrollViewPage mViewPage;
-
+    @BindView(R.id.search_scroll_view)
+    NestedScrollView mScrollView;
     List<String> title = new ArrayList<>();
     List<Fragment> fragmentList = new ArrayList<>();
     SmartAdapter smartAdapter;
     List<String> labelList = new ArrayList<>();
 
 
-
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected SearchPresent createPresenter() {
+        return new SearchPresent();
     }
 
     @Override
@@ -64,7 +72,13 @@ public class SearchFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
+        mPresenter.getCategaryOne(1);
 
+    }
+
+    @Override
+    public void initEvent() {
+        super.initEvent();
 
     }
 
@@ -83,30 +97,6 @@ public class SearchFragment extends BaseFragment {
         labelList.add("wiueu");
         labelList.add("wiueu");
         labelList.add("wiueu");
-        title.add("衣服");
-        title.add("席子");
-        title.add("鞋子");
-        title.add("包包");
-        title.add("美妆");
-        title.add("美食");
-        title.add("办公");
-        title.add("公交");
-        title.add("出行");
-        title.add("旅游");
-        title.add("户外");
-        title.add("生活");
-        fragmentList.add(SearchInFragment.newInstance(0));
-        fragmentList.add(SearchInFragment.newInstance(1));
-        fragmentList.add(SearchInFragment.newInstance(2));
-        fragmentList.add(SearchInFragment.newInstance(3));
-        fragmentList.add(SearchInFragment.newInstance(4));
-        fragmentList.add(SearchInFragment.newInstance(5));
-        fragmentList.add(SearchInFragment.newInstance(6));
-        fragmentList.add(SearchInFragment.newInstance(7));
-        fragmentList.add(SearchInFragment.newInstance(8));
-        fragmentList.add(SearchInFragment.newInstance(9));
-        fragmentList.add(SearchInFragment.newInstance(10));
-        fragmentList.add(SearchInFragment.newInstance(11));
         smartAdapter = new SmartAdapter<String>(labelList) {
             @Override
             public int getLayout(int viewType) {
@@ -133,10 +123,20 @@ public class SearchFragment extends BaseFragment {
         topLabelRv.setNestedScrollingEnabled(false);
         topLabelRv.setLayoutManager(layoutManager);
         topLabelRv.setAdapter(smartAdapter);
+    }
 
+    @Override
+    public void getOneTab(List<CategoryVo> categoryVoList) {
+        title.clear();
+        fragmentList.clear();
+        for (CategoryVo categoryVo : categoryVoList) {
+            title.add(categoryVo.cate_name);
+            fragmentList.add(SearchInFragment.newInstance(categoryVo.cate_id));
+        }
         mViewPage.setAdapter(new myPageAdapter(getActivity().getSupportFragmentManager(), title));
         mTabLayout.setupWithViewPager(mViewPage);
     }
+
 
     private class myPageAdapter extends FragmentStatePagerAdapter {
         List<String> titleList;

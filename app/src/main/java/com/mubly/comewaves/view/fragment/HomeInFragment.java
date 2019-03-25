@@ -59,7 +59,7 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
     RecyclerAutoDetialAdapter recyclerNormalAdapter;
     //是否全屏
     boolean mFull = false;
-    int page=0;
+    int page = 0;
 
     public static HomeInFragment newInstance(int status) {
         HomeInFragment fragment = new HomeInFragment();
@@ -74,7 +74,7 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
         super.initData();
         //1视频 2图文
 //        ImmersionBar
-        mPresenter.getHomeData(getArguments().getInt("status"),page);
+        mPresenter.getHomeData(getArguments().getInt("status"), page);
     }
 
     @Override
@@ -82,8 +82,8 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
         super.initView(rootView);
         if (type == 1) {//视频
             //限定范围为屏幕一半的上下偏移180
-            int playTop = CommonUtil.getScreenHeight(mContext) / 2 - CommonUtil.dip2px(mContext, 180);
-            int playBottom = CommonUtil.getScreenHeight(mContext) / 2 + CommonUtil.dip2px(mContext, 180);
+            int playTop = CommonUtil.getScreenHeight(mContext) / 2 - CommonUtil.dip2px(mContext, 100);
+            int playBottom = CommonUtil.getScreenHeight(mContext) / 2 + CommonUtil.dip2px(mContext, 100);
             //自定播放帮助类
             scrollCalculatorHelper = new ScrollCalculatorHelper(R.id.video_item_player, playTop, playBottom);
             recyclerNormalAdapter = new RecyclerAutoDetialAdapter(mContext, dataList);
@@ -120,7 +120,7 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
                 }
 
                 @Override
-                public void dealView(VH holder, HomeBean data, int position) {
+                public void dealView(VH holder, final HomeBean data, int position) {
                     holder.setText(R.id.user_name, data.getUser_name());
                     holder.setText(R.id.user_location, data.getLocation());
                     holder.setText(R.id.user_distance, "1.2km");
@@ -140,6 +140,7 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
                         public void onClick(View v) {
                             Intent intent = new Intent(mContext, GoodsInfoActivity.class);
                             intent.putExtra("type", type);
+                            intent.putExtra("postId", data.getPost_id());
                             startActivity(intent);
                         }
                     });
@@ -182,14 +183,14 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 page++;
-                mPresenter.getHomeData(getArguments().getInt("status"),page);
+                mPresenter.getHomeData(getArguments().getInt("status"), page);
 
             }
 
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                page=0;
-                mPresenter.getHomeData(getArguments().getInt("status"),page);
+                page = 0;
+                mPresenter.getHomeData(getArguments().getInt("status"), page);
             }
         });
     }
