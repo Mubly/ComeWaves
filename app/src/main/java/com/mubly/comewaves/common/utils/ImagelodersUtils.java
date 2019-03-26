@@ -76,7 +76,13 @@ public class ImagelodersUtils  {
                 //.override(width, height)//图片显示的分辨率 ，像素值 可以转化为DP再设置
                 .into(imageView); //显示在哪个控件中
     }
-
+    public static void glideLoadImage(Context context, String picUrl, ImageView imageView, int radius) {
+        Glide.with(context).load(picUrl).apply(new RequestOptions()
+                .centerCrop()//出错的占位图
+                .transform(new GlideRoundTransform(context, radius)))
+                //.override(width, height)//图片显示的分辨率 ，像素值 可以转化为DP再设置
+                .into(imageView); //显示在哪个控件中
+    }
     public static void glideLoadImageCenter(Context context, String picUrl, ImageView imageView, int radius, int defaultMipId) {
         Glide.with(context).load(picUrl).apply(new RequestOptions().placeholder(defaultMipId) //占位图
                 .error(defaultMipId) //出错的占位图

@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,10 +18,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 
+import com.google.gson.Gson;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
+import com.mubly.comewaves.model.model.LoginResBean;
 import com.mubly.comewaves.view.activity.AttentionsActivity;
 import com.mubly.comewaves.view.activity.SettingActivity;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
@@ -58,9 +62,10 @@ public class MineFragment extends BaseFragment {
 
     List<String> title = new ArrayList<>();
     List<Fragment> fragmentList = new ArrayList<>();
-
+    LoginResBean loginResBean = null;
 
     @Override
+
     protected BasePresenter createPresenter() {
         return null;
     }
@@ -79,12 +84,19 @@ public class MineFragment extends BaseFragment {
     @Override
     public void initView(View rootView) {
         super.initView(rootView);
-        Glide.with(this).load(R.drawable.ishad_2).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
+        if (!TextUtils.isEmpty(AppConfig.loginInfo.get())) {
+            loginResBean = new Gson().fromJson(AppConfig.loginInfo.get(), LoginResBean.class);
+            Glide.with(this).load(null == loginResBean.getUser_head() ? "" : loginResBean.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
+        } else {
+            Glide.with(this).load(R.drawable.ishad_1).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
+        }
+
+
         title.add("我的帖子");
         title.add("我的收藏");
         fragmentList.add(MineInFragment.newInstance(0));
         fragmentList.add(MineInFragment.newInstance(1));
-        mViewPage.setAdapter(new MyViewPageAdapter(getChildFragmentManager(), title,fragmentList));
+        mViewPage.setAdapter(new MyViewPageAdapter(getChildFragmentManager(), title, fragmentList));
         mViewPage.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPage);
     }

@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity {
         ack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppConfig.token.put("6ZKJ5aSfMTU1MTUxMDI2OTQz");
+
                 finish();
             }
         });

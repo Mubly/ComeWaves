@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.common.utils.EditViewUtil;
@@ -109,6 +110,7 @@ public class PhoneLoginActivity extends BaseActivity<PhoneLoginPresent, PhoneLog
     @Override
     public void loginSuccess(LoginResBean loginResBean) {
         AppConfig.token.put(loginResBean.getToken());
+        AppConfig.loginInfo.put(new Gson().toJson(loginResBean));
         startActivity(new Intent(PhoneLoginActivity.this, MainActivity.class));
         finish();
 

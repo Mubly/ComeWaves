@@ -4,9 +4,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.media.MediaMetadataRetriever;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +28,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -188,7 +192,7 @@ public class CommUtil {
 
             }
             int rowSpan = colSpan;
-            DemoItem item = new DemoItem(colSpan, rowSpan, currentOffset + i, categoryVoList.get(i).img_url,categoryVoList.get(i).cate_id);
+            DemoItem item = new DemoItem(colSpan, rowSpan, currentOffset + i, categoryVoList.get(i).img_url, categoryVoList.get(i).cate_id);
             items.add(item);
         }
         currentOffset += categoryVoList.size();
@@ -900,15 +904,6 @@ public class CommUtil {
 //        return channel;
 //    }
 
-    public static String getMoneyType(String string) {
-        // 把string类型的货币转换为double类型。
-        Double numDouble = Double.parseDouble(string);
-        // 想要转换成指定国家的货币格式
-        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.CHINA);
-        // 把转换后的货币String类型返回
-        String numString = format.format(numDouble);
-        return numString;
-    }
 
     public static String getDateFromDetailTimeAndDate(String string) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -944,5 +939,35 @@ public class CommUtil {
         return numberStr;
     }
 
+    public static String getImgOfVideo(String path) {
+        return bitmap2File(getVideoThumb(path), System.currentTimeMillis() + "");
+    }
+
+    /**
+     * 获取视频文件截图
+     *
+     * @param path 视频文件的路径
+     * @return Bitmap 返回获取的Bitmap
+     */
+    public static Bitmap getVideoThumb(String path) {
+        MediaMetadataRetriever media = new MediaMetadataRetriever();
+        media.setDataSource(path);
+        return media.getFrameAtTime();
+    }
+
+    public static String bitmap2File(Bitmap bitmap, String name) {
+        File f = new File(Environment.getExternalStorageDirectory() + name + ".jpg");
+        if (f.exists()) f.delete();
+        FileOutputStream fOut = null;
+        try {
+            fOut = new FileOutputStream(f);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+        } catch (IOException e) {
+            return null;
+        }
+        return f.getAbsolutePath();
+    }
 
 }

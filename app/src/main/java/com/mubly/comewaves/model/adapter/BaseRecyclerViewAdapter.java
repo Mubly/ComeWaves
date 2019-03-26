@@ -122,7 +122,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
 
         public void setNetImage(Context context, int id, String value) {
             ImageView view = getView(id);
-            ImagelodersUtils.glideLoadImage(context, value, view, 10, R.mipmap.ic_launcher);
+            ImagelodersUtils.glideLoadImage(context, value, view, 10);
         }
 
         public void setViewShowHide(int id, boolean isShowHide) {

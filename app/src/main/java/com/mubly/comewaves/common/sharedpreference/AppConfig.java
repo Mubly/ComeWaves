@@ -24,7 +24,7 @@ public final class AppConfig {
     private static SPHelper sPrefs = new SPHelper("HDating", Context.MODE_PRIVATE);
     public static SharedPreference<String> deviceId = sPrefs.value("deviceIdKey", (String) null);
     public static SharedPreference<String> token = sPrefs.value("token", (String) null);
-
+    public static SharedPreference<String> loginInfo = sPrefs.value("loginInfo", (String) null);
 
     public static void clearAll() {
         sPrefs.clearAll();

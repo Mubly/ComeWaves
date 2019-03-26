@@ -7,6 +7,7 @@ import java.util.List;
  */
 
 public abstract class SmartAdapter<T> extends BaseRecyclerViewAdapter<T> {
+    private int selectIndex = 0;
 
     public SmartAdapter(List<T> data) {
         super(data);
@@ -31,4 +32,12 @@ public abstract class SmartAdapter<T> extends BaseRecyclerViewAdapter<T> {
 
     public abstract void dealView(VH holder, T data, int position);
 
+    public void selectIndex(int selectIndex) {
+        this.selectIndex = selectIndex;
+        notifyDataSetChanged();
+    }
+
+    public int getSelectIndex() {
+        return selectIndex;
+    }
 }

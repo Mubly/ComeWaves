@@ -82,4 +82,17 @@ public class SettingActivity extends BaseActivity {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        if (isSetting) {
+            getSupportFragmentManager().popBackStack();
+            isSetting = false;
+            topRightTv.setVisibility(View.VISIBLE);
+            titleTv.setText("编辑个人资料");
+        } else {
+            finish();
+        }
+//        super.onBackPressed();
+    }
 }
