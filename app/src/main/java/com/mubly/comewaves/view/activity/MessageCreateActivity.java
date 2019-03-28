@@ -25,10 +25,12 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.utils.EditViewUtil;
 import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
 import com.mubly.comewaves.present.MessageCreatePresent;
 import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
+import com.mubly.comewaves.view.costomview.TagInputEditView;
 import com.mubly.comewaves.view.interfaceview.MessageCreateView;
 
 import java.io.File;
@@ -59,7 +61,7 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
     @BindView(R.id.labels_tv)
     TextView labelsTv;
     @BindView(R.id.input_et)
-    EditText input_et;
+    TagInputEditView input_et;
     SmartAdapter smartAdapter;
     List<LocalMedia> voideImageList = new ArrayList<>();
     private final static int REQUEST_CODE = 0110;
@@ -93,6 +95,12 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
 
             }
         });
+    }
+
+    @Override
+    public void initEvent() {
+        super.initEvent();
+//        EditViewUtil.setInputType(input_et, "", "");
     }
 
     @Override

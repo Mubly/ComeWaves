@@ -42,6 +42,9 @@ public class RecyclerAutoDetialAdapter extends RecyclerView.Adapter {
         RecyclerItemAutoDetiallHolder recyclerItemViewHolder = (RecyclerItemAutoDetiallHolder) holder;
         recyclerItemViewHolder.setRecyclerBaseAdapter(this);
         recyclerItemViewHolder.onBind(position, itemDataList.get(position));
+
+
+
     }
 
     @Override
@@ -59,4 +62,7 @@ public class RecyclerAutoDetialAdapter extends RecyclerView.Adapter {
         itemDataList = data;
         notifyDataSetChanged();
     }
+
+
+
 }

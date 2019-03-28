@@ -86,6 +86,8 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
             int playBottom = CommonUtil.getScreenHeight(mContext) / 2 + CommonUtil.dip2px(mContext, 100);
             //自定播放帮助类
             scrollCalculatorHelper = new ScrollCalculatorHelper(R.id.video_item_player, playTop, playBottom);
+
+
             recyclerNormalAdapter = new RecyclerAutoDetialAdapter(mContext, dataList);
             linearLayoutManager = new LinearLayoutManager(mContext);
             mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -144,6 +146,8 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
                             startActivity(intent);
                         }
                     });
+
+
                 }
 
 

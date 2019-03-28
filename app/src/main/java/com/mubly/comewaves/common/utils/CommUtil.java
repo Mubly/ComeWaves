@@ -35,7 +35,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +42,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * 所有的工具类集合
@@ -970,4 +968,24 @@ public class CommUtil {
         return f.getAbsolutePath();
     }
 
+    public void getTagTextStr(String content) {
+        List<String> tagList = getTaglist(content);
+
+    }
+
+
+    private List<String> getTaglist(String content) {
+        List<String> tagList = new ArrayList<>();
+        if (content.contains("")) {
+            String[] contentSplit = content.split("#");
+            for (int i = 1; i < contentSplit.length; i++) {
+                String continKeyValue = contentSplit[i];
+                if (continKeyValue.length() > 0 && continKeyValue.endsWith(" ")) {
+                    String tagKey = "#" + continKeyValue.substring(0, continKeyValue.indexOf(" ")) + " ";
+                    tagList.add(tagKey);
+                }
+            }
+        }
+        return tagList;
+    }
 }

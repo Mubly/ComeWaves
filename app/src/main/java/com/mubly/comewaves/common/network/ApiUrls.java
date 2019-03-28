@@ -50,6 +50,17 @@ public class ApiUrls {
 
     public static final String SEARCH_VIDEO_LIST_URL = BASE_URL + "search/getbyidvideo";  //搜索页视频列表
 
+    public static final String EDIT_USER_INFO_URL = BASE_URL + "user/postpersonal";  //修改用户信息
+
+    public static final String CHANGE_AVTAR_IMG_URL = BASE_URL + "user/postupdateimg";  //修改用户头像
+
+    public static final String CHANGE_USERINFO_BG_URL = BASE_URL + "user/postupdatebackground";  //修改用户背景图
+
+    public static final String MY_TOPIC_AND_FOCUS_URL = BASE_URL + "user/getuserpost";  //我的帖子、关注
+
+    public static final String GET_USER_INFO_URL = BASE_URL + "user/getuserinformation";  //获取用户信息
+
+    public static final String ACK_EDIT_USER_INFO_URL = BASE_URL + "user/getpersonal";  //确认修改用户信息
 
 
 
@@ -59,17 +70,12 @@ public class ApiUrls {
 
 
 
-    public static final String HomeGet = BASE_URL + "banner/get";  //首页
 
-    public static final String MsgList = BASE_URL + "msg/list";  //获取通知类型以及对应的最新一条通知记录
 
-    public static final String GetCommentDetailUrl = BASE_URL + "topic/topicDetailNoToken";  //获取点评详情
 
-    public static final String GetVersionUrl = BASE_URL + "version/last";  //检测版本更新
 
-    public static final String EditCommentUrl = BASE_URL + "write/comment/";  //写点评
 
-    public static final String OtherHomeUrl = BASE_URL + "othersHomepage/";  //进入他人主页
+
 
     public static final String GETCommentUrl = BASE_URL + "topic/getCommentByTopic";  //获取评论
 
