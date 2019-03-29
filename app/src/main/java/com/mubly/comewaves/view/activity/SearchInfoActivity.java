@@ -9,12 +9,14 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
 import com.mubly.comewaves.model.interfaces.CallBack;
 import com.mubly.comewaves.model.model.SearchVideoVo;
@@ -58,6 +60,7 @@ public class SearchInfoActivity extends BaseActivity<SearchInfoPresent, SearchIn
     ScrollCalculatorHelper scrollCalculatorHelper;
     private boolean isPlayed;
     private int cateId;
+    private int scrollY;
 
     @Override
     protected int getLayoutId() {
@@ -242,10 +245,13 @@ public class SearchInfoActivity extends BaseActivity<SearchInfoPresent, SearchIn
         switch (view.getId()) {
             case R.id.hide_bottom_list:
                 showBottomLayout.setVisibility(View.VISIBLE);
+                Log.i("SearchInfo","bottom:"+bottomListLayout.getBottom()+"hight"+bottomListLayout.getHeight());
                 bottomListLayout.setVisibility(View.GONE);
+//                bottomListLayout.scrollTo(0, bottomListLayout.getBottom());
                 break;
             case R.id.isNeedShowBottom:
                 showBottomLayout.setVisibility(View.GONE);
+//                bottomListLayout.scrollTo(0, 0);
                 bottomListLayout.setVisibility(View.VISIBLE);
                 break;
         }

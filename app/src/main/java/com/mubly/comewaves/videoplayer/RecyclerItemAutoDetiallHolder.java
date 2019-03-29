@@ -2,6 +2,7 @@ package com.mubly.comewaves.videoplayer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.utils.TextViewUtils;
 import com.mubly.comewaves.model.model.HomeBean;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
@@ -62,8 +64,8 @@ public class RecyclerItemAutoDetiallHolder extends RecyclerItemBaseHolder {
         distanceTv.setText("1.2km");
         praiseTv.setText(homeBean.getFabulous_num() + "");
         commentTv.setText(homeBean.getReport_num() + "");
-        praiseMan.setText("赵子龙，张翼德，刘玄德等人觉得很赞");
-        contentTv.setText(homeBean.getPost_info());
+//        praiseMan.setText("赵子龙，张翼德，刘玄德等人觉得很赞");
+        contentTv.setText(TextViewUtils.getWeiBoContent(context,homeBean.getPost_info(),contentTv));
         Glide.with(context).load(homeBean.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(avtarImg);
 
         if (imageView.getParent() != null) {

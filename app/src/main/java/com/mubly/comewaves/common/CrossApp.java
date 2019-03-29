@@ -50,7 +50,7 @@ public class CrossApp extends Application {
 
     }
 
-    private void initOkGo() {
+    public void initOkGo() {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         //使用sp保持cookie，如果cookie不过期，则一直有效

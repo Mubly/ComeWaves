@@ -38,36 +38,41 @@
             android:layout_height="@dimen/size_40dp"
             app:tabIndicatorColor="@color/colorPrimary"></android.support.design.widget.TabLayout>
 
-        <android.support.v4.widget.NestedScrollView
+        <android.support.v4.view.ViewPager
+            android:id="@+id/isHad_vp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+        </android.support.v4.view.ViewPager>
+        <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/size_20dp"
-                    android:text="热门讨论"
-                    android:textColor="@color/text_121317"
-                    android:textSize="@dimen/size_18dp" />
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingLeft="@dimen/size_20dp"-->
+        <!--android:text="热门讨论"-->
+        <!--android:textColor="@color/text_121317"-->
+        <!--android:textSize="@dimen/size_18dp" />-->
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/ishad_comment_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_80dp"></android.support.v7.widget.RecyclerView>
+        <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/ishad_comment_rv"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/size_80dp"></android.support.v7.widget.RecyclerView>-->
 
-                <com.mubly.comewaves.view.costomview.ScrollViewPage
-                    android:id="@+id/isHad_vp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+        <!--<com.mubly.comewaves.view.costomview.ScrollViewPage-->
+        <!--android:id="@+id/isHad_vp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-                </com.mubly.comewaves.view.costomview.ScrollViewPage>
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        <!--</com.mubly.comewaves.view.costomview.ScrollViewPage>-->
+        <!--</LinearLayout>-->
+        <!--</android.support.v4.widget.NestedScrollView>-->
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -77,8 +82,8 @@
         android:layout_gravity="bottom|right"
         android:layout_marginRight="@dimen/size_20dp"
         android:layout_marginBottom="@dimen/size_20dp"
-        app:backgroundTint="@color/color_4E628D"
         android:src="@mipmap/edit_relase_icon"
+        app:backgroundTint="@color/color_4E628D"
         app:elevation="@dimen/size_10dp"
         app:fabSize="normal"
         app:rippleColor="@color/black_aph80" />

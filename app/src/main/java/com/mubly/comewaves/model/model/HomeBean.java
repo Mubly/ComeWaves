@@ -42,7 +42,7 @@ public class HomeBean implements Serializable {
     private int is_push;
     private int video_status;
     private int img_status;
-    private int like_status;
+    private int like_status;//0:取消点赞1；点赞
     private int collect_status;
     private String weft;
     private String through;
@@ -52,6 +52,54 @@ public class HomeBean implements Serializable {
     private String user_head;
     private String cate_name;
     private int cate_id;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getIs_push() {
+        return is_push;
+    }
+
+    public void setIs_push(int is_push) {
+        this.is_push = is_push;
+    }
+
+    public int getVideo_status() {
+        return video_status;
+    }
+
+    public void setVideo_status(int video_status) {
+        this.video_status = video_status;
+    }
+
+    public int getImg_status() {
+        return img_status;
+    }
+
+    public void setImg_status(int img_status) {
+        this.img_status = img_status;
+    }
+
+    public int getLike_status() {
+        return like_status;
+    }
+
+    public void setLike_status(int like_status) {
+        this.like_status = like_status;
+    }
+
+    public int getCollect_status() {
+        return collect_status;
+    }
+
+    public void setCollect_status(int collect_status) {
+        this.collect_status = collect_status;
+    }
 
     public String getFirst_url() {
         return first_url;

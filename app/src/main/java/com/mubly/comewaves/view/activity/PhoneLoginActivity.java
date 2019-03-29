@@ -7,7 +7,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.CrossApp;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.common.utils.EditViewUtil;
 import com.mubly.comewaves.common.utils.TimeUtils;
@@ -111,6 +113,7 @@ public class PhoneLoginActivity extends BaseActivity<PhoneLoginPresent, PhoneLog
     public void loginSuccess(LoginResBean loginResBean) {
         AppConfig.token.put(loginResBean.getToken());
         AppConfig.loginInfo.put(new Gson().toJson(loginResBean));
+        OkGo.getInstance().getCommonParams().put("T",loginResBean.getToken());
         startActivity(new Intent(PhoneLoginActivity.this, MainActivity.class));
         finish();
 

@@ -16,6 +16,8 @@ public class Constant {
     public static final int SERVERERROR = 500; // 服务器错误
 
     public static final int PULL_IMAGE_VIDEO_CODE = 0; // 拍摄发布图片/视频/音频
+    public static final int VIDEO_TYPE_CODE = 1; // 视频
+    public static final int IMAGE_TYPE_CODE = 2; // 图片
     public static final int PULL_IMAGE_CODE = 1; // 拍摄发布图片
     public static final int PULL_VIDEO_CODE = 2; // 拍摄发布视频
     public static final int INTENT_REQUEST_CODE_CAMERA = 105; //调用系统相机的请求码

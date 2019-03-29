@@ -42,7 +42,8 @@
                 android:id="@+id/search_info_mRecyclerView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/size_4dp"></android.support.v7.widget.RecyclerView>
+                android:paddingBottom="@dimen/size_4dp">
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </FrameLayout>
 

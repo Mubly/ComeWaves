@@ -1,16 +1,17 @@
 package com.mubly.comewaves.videoplayer;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.model.model.HomeBean;
 
 import java.util.List;
-
 
 
 /**
@@ -22,10 +23,15 @@ public class RecyclerAutoDetialAdapter extends RecyclerView.Adapter {
 
     private List<HomeBean> itemDataList = null;
     private Context context = null;
+    CallHolderBack callHolderBack;
 
     public RecyclerAutoDetialAdapter(Context context, List<HomeBean> itemDataList) {
         this.itemDataList = itemDataList;
         this.context = context;
+    }
+
+    public void setCallHolderBack(CallHolderBack callHolderBack) {
+        this.callHolderBack = callHolderBack;
     }
 
     @Override
@@ -33,18 +39,40 @@ public class RecyclerAutoDetialAdapter extends RecyclerView.Adapter {
                                                       int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_home_layout, parent, false);
         final RecyclerView.ViewHolder holder = new RecyclerItemAutoDetiallHolder(context, v);
+
+
         return holder;
 
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        RecyclerItemAutoDetiallHolder recyclerItemViewHolder = (RecyclerItemAutoDetiallHolder) holder;
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        final RecyclerItemAutoDetiallHolder recyclerItemViewHolder = (RecyclerItemAutoDetiallHolder) holder;
         recyclerItemViewHolder.setRecyclerBaseAdapter(this);
         recyclerItemViewHolder.onBind(position, itemDataList.get(position));
+        recyclerItemViewHolder.praiseTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String count = recyclerItemViewHolder.praiseTv.getText().toString();
+                Drawable drawable = null;
+                if (itemDataList.get(position).getLike_status() == 0) {
 
+                    drawable = context.getResources().getDrawable(R.mipmap.praise_light_icon);
+                    recyclerItemViewHolder.praiseTv.setText(CommUtil.strLess(count, -1));
+                    itemDataList.get(position).setLike_status(1);
+                } else {
+                    drawable = context.getResources().getDrawable(R.mipmap.praise_icon);
+                    recyclerItemViewHolder.praiseTv.setText(CommUtil.strLess(count, 1));
+                    itemDataList.get(position).setLike_status(0);
+                }
 
-
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                recyclerItemViewHolder.praiseTv.setCompoundDrawables(drawable, null, null, null);
+                if (null != callHolderBack) {
+                    callHolderBack.callBack(itemDataList.get(position));
+                }
+            }
+        });
     }
 
     @Override
@@ -63,6 +91,8 @@ public class RecyclerAutoDetialAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-
+    public interface CallHolderBack {
+        void callBack(HomeBean homeBean);
+    }
 
 }

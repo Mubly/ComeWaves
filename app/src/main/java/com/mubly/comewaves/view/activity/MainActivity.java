@@ -23,6 +23,7 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.CrossApp;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
+import com.mubly.comewaves.model.model.EventBusEvent;
 import com.mubly.comewaves.view.costomview.MyViewPager;
 import com.mubly.comewaves.view.fragment.HomeFragment;
 import com.mubly.comewaves.view.fragment.IsHadFragment;
@@ -33,6 +34,8 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +90,7 @@ public class MainActivity extends BaseActivity {
 
     private List<Fragment> fragmentList = new ArrayList<>();
     RxPermissions rxPermissions = null;
+//    public static boolean ishomeShow = true;
 
     @Override
     protected BasePresenter createPresenter() {
@@ -137,6 +141,9 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
+//                if (position != 0) {
+//                    EventBus.getDefault().post(new EventBusEvent(1));
+//                }
 
 //                if (TextUtils.isEmpty(AppConfig.token.get()) && (position == 2 || position == 3)) {
 //                    LoginActivity.startAction(mContext);
@@ -204,7 +211,6 @@ public class MainActivity extends BaseActivity {
             case R.id.ll_info:
                 tabSelect(3);
                 main_mypager.setCurrentItem(3);
-
                 break;
             case R.id.ll_mine:
                 if (AppConfig.token.get() == null) {

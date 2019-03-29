@@ -15,9 +15,9 @@
         android:src="@drawable/start_img" />
 
     <TextView
+        android:id="@+id/ishad_content_tv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="读一人苍老，识一城风雨;往事，朦胧;老井;初春迟迟，随想丝丝;一辆开往春天的列车;南行记;俯仰山水" />
+        android:layout_height="wrap_content" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -65,7 +65,7 @@
             android:layout_marginRight="@dimen/size_10dp"
             android:drawableLeft="@mipmap/comments_icon"
             android:drawablePadding="@dimen/size_2dp"
-            android:text="34"
+            android:text="0"
             android:textSize="@dimen/size_10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -79,7 +79,7 @@
             android:drawableLeft="@mipmap/praise_icon"
             android:drawablePadding="@dimen/size_2dp"
             android:textSize="@dimen/size_10dp"
-            android:text="26"
+            android:text="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/ishad_comment_amount"
             app:layout_constraintTop_toTopOf="parent" />

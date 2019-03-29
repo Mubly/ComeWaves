@@ -18,10 +18,13 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
+import com.mubly.comewaves.model.model.HomeBean;
 import com.mubly.comewaves.present.IsHadPresent;
+import com.mubly.comewaves.view.activity.GoodsInfoActivity;
 import com.mubly.comewaves.view.activity.IsHadCommentActivity;
 import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
 import com.mubly.comewaves.view.interfaceview.IsHadView;
@@ -40,9 +43,10 @@ public class IsHadInFragment extends BaseFragment<IsHadPresent, IsHadView> imple
     RecyclerView mRecyclerView;
     SmartAdapter smartAdapter;
     List<String> title = new ArrayList<>();
-    List<Integer> imgList = new ArrayList<>();
-    @BindView(R.id.ishadin_tv)
-    TextView mText;
+    List<HomeBean> dataList = new ArrayList<>();
+    //    @BindView(R.id.ishadin_tv)
+//    TextView mText;
+    private int page = 0;
 
     public static IsHadInFragment newInstance(int type) {
         IsHadInFragment fragment = new IsHadInFragment();
@@ -53,65 +57,42 @@ public class IsHadInFragment extends BaseFragment<IsHadPresent, IsHadView> imple
     }
 
 
-
-
     @Override
     public void initData() {
         super.initData();
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        title.add("wiueu");
-        imgList.add(R.drawable.ishad_1);
-        imgList.add(R.drawable.ishad_2);
-        imgList.add(R.drawable.ishad_3);
-        imgList.add(R.drawable.ishad_1);
-        imgList.add(R.drawable.ishad_2);
-        imgList.add(R.drawable.ishad_3);
-        imgList.add(R.drawable.ishad_1);
-        imgList.add(R.drawable.ishad_2);
-        imgList.add(R.drawable.ishad_3);
-        imgList.add(R.drawable.ishad_1);
-        imgList.add(R.drawable.ishad_2);
-        imgList.add(R.drawable.ishad_3);
-        imgList.add(R.drawable.ishad_1);
-        imgList.add(R.drawable.ishad_2);
-        imgList.add(R.drawable.ishad_3);
-        imgList.add(R.drawable.ishad_1);
+        mPresenter.getHomeData(Constant.IMAGE_TYPE_CODE, page);
     }
 
     @Override
     public void initView(View rootView) {
         super.initView(rootView);
-        mText.setText("类型：" + getArguments().getInt("type"));
-        smartAdapter = new SmartAdapter<String>(title) {
+//        mText.setText("类型：" + getArguments().getInt("type"));
+        smartAdapter = new SmartAdapter<HomeBean>(dataList) {
             @Override
             public int getLayout(int viewType) {
                 return R.layout.item_ishad_content_layout;
             }
 
             @Override
-            public void dealView(VH holder, String data, int position) {
+            public void dealView(VH holder, final HomeBean data, int position) {
                 ImageView mImageView = (ImageView) holder.getChildView(R.id.ishad_content_img);
-                Glide.with(mContext).load(imgList.get(position)).apply(RequestOptions.bitmapTransform(new RoundedCorners(40))).into(mImageView);
+                Glide.with(mContext).load(data.getFirst_url()).apply(RequestOptions.bitmapTransform(new RoundedCorners(40))).into(mImageView);
                 ImageView avtarImg = (ImageView) holder.getChildView(R.id.ishad_avtar_img);
-                Glide.with(mContext).load(R.drawable.start_img).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(avtarImg);
+                Glide.with(mContext).load(data.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(avtarImg);
+                holder.setText(R.id.ishad_content_tv, data.getPost_info());
+                holder.setText(R.id.ishad_username, data.getUser_name());
+                holder.setText(R.id.ishad_pushdate, data.getAdd_time());
+                holder.setText(R.id.ishad_comment_amount, data.getReport_num() + "");
+                holder.setText(R.id.ishad_praise_amount, data.getFabulous_num() + "");
                 holder.getConvertView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(mContext, IsHadCommentActivity.class));
+
+                        Intent intent = new Intent(mContext, GoodsInfoActivity.class);
+                        intent.putExtra("type", Constant.IMAGE_TYPE_CODE);
+                        intent.putExtra("postId", data.getPost_id());
+                        startActivity(intent);
+//                        startActivity(new Intent(mContext, IsHadCommentActivity.class));
                     }
                 });
             }
@@ -119,7 +100,7 @@ public class IsHadInFragment extends BaseFragment<IsHadPresent, IsHadView> imple
 
         };
 
-        mRecyclerView.setNestedScrollingEnabled(false);
+//        mRecyclerView.setNestedScrollingEnabled(false);
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
 
@@ -138,4 +119,17 @@ public class IsHadInFragment extends BaseFragment<IsHadPresent, IsHadView> imple
         return R.layout.fragment_is_had_in;
     }
 
+    @Override
+    public void showError(String s) {
+
+    }
+
+    @Override
+    public void shoSuccess(List<HomeBean> data) {
+        dataList.clear();
+        if (null != data) {
+            dataList.addAll(data);
+        }
+        smartAdapter.notifyDataSetChanged();
+    }
 }

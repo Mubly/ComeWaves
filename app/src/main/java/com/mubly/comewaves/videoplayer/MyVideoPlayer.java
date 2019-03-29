@@ -25,6 +25,7 @@ import java.util.Random;
 public class MyVideoPlayer extends StandardGSYVideoPlayer {
     MotionEvent mMotionEvent;
     boolean verListener = true;//是否监听上下滑动
+    boolean isVerStatus = false;
 
     public MyVideoPlayer(Context context, Boolean fullFlag) {
         super(context, fullFlag);
@@ -70,11 +71,17 @@ public class MyVideoPlayer extends StandardGSYVideoPlayer {
                 if (mHideKey && mShowVKey) {
                     return true;
                 }
+                touchUp();
                 break;
+
         }
         mMotionEvent = event;
         gestureDetector.onTouchEvent(event);
         return super.onTouch(v, event);
+    }
+
+    private void touchUp() {
+        isVerStatus = false;
     }
 
 
@@ -82,16 +89,9 @@ public class MyVideoPlayer extends StandardGSYVideoPlayer {
     protected void touchSurfaceMove(float deltaX, float deltaY, float y) {
         float absDeltaX = Math.abs(deltaX);
         float absDeltaY = Math.abs(deltaY);
-        if (absDeltaX > absDeltaY) {
-            Log.i("Myplayer", "左右滑动中");
-        } else {
-            Log.i("Myplayer", "上下滑动中");
+        if (absDeltaY > absDeltaX) {
+            isVerStatus = true;
         }
-//        if (verListener) {
-//            deltaY = -deltaY;
-//            Log.i("Myplayer", "deltaY=" + deltaY);//向上滑大于零，向下滑小于零
-//
-//        }
 
     }
 

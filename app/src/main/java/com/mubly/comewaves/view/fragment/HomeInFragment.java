@@ -4,14 +4,17 @@ package com.mubly.comewaves.view.fragment;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
@@ -19,11 +22,15 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.common.utils.GlideRoundTransform;
+import com.mubly.comewaves.common.utils.TextViewUtils;
 import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
+import com.mubly.comewaves.model.model.EventBusEvent;
 import com.mubly.comewaves.model.model.HomeBean;
 import com.mubly.comewaves.present.HomePresent;
 import com.mubly.comewaves.videoplayer.RecyclerAutoDetialAdapter;
@@ -38,6 +45,10 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.utils.CommonUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +71,7 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
     //是否全屏
     boolean mFull = false;
     int page = 0;
+    private boolean isInit;
 
     public static HomeInFragment newInstance(int status) {
         HomeInFragment fragment = new HomeInFragment();
@@ -81,14 +93,21 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
     public void initView(View rootView) {
         super.initView(rootView);
         if (type == 1) {//视频
+            isInit = true;
             //限定范围为屏幕一半的上下偏移180
-            int playTop = CommonUtil.getScreenHeight(mContext) / 2 - CommonUtil.dip2px(mContext, 100);
+            int playTop = CommonUtil.getScreenHeight(mContext) / 2 - CommonUtil.dip2px(mContext, 200);
             int playBottom = CommonUtil.getScreenHeight(mContext) / 2 + CommonUtil.dip2px(mContext, 100);
             //自定播放帮助类
             scrollCalculatorHelper = new ScrollCalculatorHelper(R.id.video_item_player, playTop, playBottom);
 
 
             recyclerNormalAdapter = new RecyclerAutoDetialAdapter(mContext, dataList);
+            recyclerNormalAdapter.setCallHolderBack(new RecyclerAutoDetialAdapter.CallHolderBack() {
+                @Override
+                public void callBack(HomeBean homeBean) {
+                    mPresenter.doPraise(homeBean.getPost_id());
+                }
+            });
             linearLayoutManager = new LinearLayoutManager(mContext);
             mRecyclerView.setLayoutManager(linearLayoutManager);
             mRecyclerView.setAdapter(recyclerNormalAdapter);
@@ -122,21 +141,44 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
                 }
 
                 @Override
-                public void dealView(VH holder, final HomeBean data, int position) {
+                public void dealView(VH holder, final HomeBean data, final int position) {
                     holder.setText(R.id.user_name, data.getUser_name());
                     holder.setText(R.id.user_location, data.getLocation());
                     holder.setText(R.id.user_distance, "1.2km");
                     holder.setText(R.id.praise_tv, data.getFabulous_num() + "");
                     holder.setText(R.id.comment_tv, data.getReport_num() + "");
-                    holder.setText(R.id.praise_man_tv, "赵子龙，张翼德，刘玄德等人觉得很赞");
-                    holder.setText(R.id.content_tv, data.getPost_info());
+//                    holder.setText(R.id.praise_man_tv, "赵子龙，张翼德，刘玄德等人觉得很赞");
+                    TextView contentTv = (TextView) holder.getChildView(R.id.content_tv);
+                    contentTv.setText(TextViewUtils.getWeiBoContent(mContext, data.getPost_info(), contentTv));
                     ImageView mImageView = (ImageView) holder.getChildView(R.id.user_photo_img);
                     mImageView.setVisibility(View.VISIBLE);
                     Glide.with(mContext).load(data.getFirst_url()).into(mImageView);
                     ImageView imageView = (ImageView) holder.getChildView(R.id.avatar_image);
                     Glide.with(mContext).load(data.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(imageView);
-                    PileLayout mPileLayout = (PileLayout) holder.getChildView(R.id.pileLayout);
-                    initPraises(mPileLayout);
+//                    PileLayout mPileLayout = (PileLayout) holder.getChildView(R.id.pileLayout);
+//                    initPraises(mPileLayout);//头像悬浮堆砌
+                    final TextView praiseTv = (TextView) holder.getChildView(R.id.praise_tv);
+                    praiseTv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mPresenter.doPraise(data.getPost_id());
+                            String count = praiseTv.getText().toString();
+                            Drawable drawable = null;
+                            if (data.getLike_status() == 0) {
+
+                                drawable = mContext.getResources().getDrawable(R.mipmap.praise_light_icon);
+                                praiseTv.setText(CommUtil.strLess(count, -1));
+                                data.setLike_status(1);
+                            } else {
+                                drawable = mContext.getResources().getDrawable(R.mipmap.praise_icon);
+                                praiseTv.setText(CommUtil.strLess(count, 1));
+                                data.setLike_status(0);
+                            }
+
+                            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                            praiseTv.setCompoundDrawables(drawable, null, null, null);
+                        }
+                    });
                     holder.getConvertView().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -240,6 +282,44 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
 //            return;
 //        }
 //        super.onBackPressed();
+//    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isInit && type == Constant.VIDEO_TYPE_CODE) {
+            if (getUserVisibleHint()) {
+                GSYVideoManager.onResume();
+            } else {
+                GSYVideoManager.onPause();
+            }
+        }
+    }
+
+    @Override
+    public boolean getUserVisibleHint() {
+        return super.getUserVisibleHint();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        isInit = false;
+    }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void homeInEvent(EventBusEvent messageEvent) {
+//        if (messageEvent.type == 1) {
+//            if (isInit && type == Constant.VIDEO_TYPE_CODE) {
+//                if (getUserVisibleHint()) {
+//                    GSYVideoManager.onResume();
+//                } else {
+//                    GSYVideoManager.onPause();
+//                }
+//            }
+//        }
+//
 //    }
 
     @Override

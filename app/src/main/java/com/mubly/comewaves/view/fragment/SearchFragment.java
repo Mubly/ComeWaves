@@ -51,8 +51,8 @@ public class SearchFragment extends BaseFragment<SearchPresent, SearchView> impl
     TabLayout mTabLayout;
     @BindView(R.id.search_viewpage)
     ScrollViewPage mViewPage;
-    @BindView(R.id.search_scroll_view)
-    NestedScrollView mScrollView;
+//    @BindView(R.id.search_scroll_view)
+//    NestedScrollView mScrollView;
     List<String> title = new ArrayList<>();
     List<Fragment> fragmentList = new ArrayList<>();
     SmartAdapter smartAdapter;
