@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity {
 
     private List<Fragment> fragmentList = new ArrayList<>();
     RxPermissions rxPermissions = null;
-//    public static boolean ishomeShow = true;
+//    public static boolean ishomeShow = true;//
 
     @Override
     protected BasePresenter createPresenter() {
