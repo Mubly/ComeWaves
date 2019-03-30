@@ -1,8 +1,10 @@
 package com.mubly.comewaves.view.activity;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -55,7 +57,6 @@ public class SearchInfoActivity extends BaseActivity<SearchInfoPresent, SearchIn
 
 
     private List<SearchVideoVo> videoList = new ArrayList<>();
-    SmartAdapter smartAdapter;
     SmartAdapter smartAdapter2;
     ScrollCalculatorHelper scrollCalculatorHelper;
     private boolean isPlayed;
@@ -68,6 +69,7 @@ public class SearchInfoActivity extends BaseActivity<SearchInfoPresent, SearchIn
         return R.layout.activity_search_info;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void initEvent() {
         super.initEvent();
@@ -92,50 +94,7 @@ public class SearchInfoActivity extends BaseActivity<SearchInfoPresent, SearchIn
         int playBottom = CommonUtil.getScreenHeight(mContext) / 2 + CommonUtil.dip2px(mContext, 100);
         //自定播放帮助类
         scrollCalculatorHelper = new ScrollCalculatorHelper(R.id.search_view_position, playTop, playBottom);
-        smartAdapter = new SmartAdapter<SearchVideoVo>(videoList) {
-            @Override
-            public int getLayout(int viewType) {
-                return R.layout.item_search_video_view;
-            }
 
-            @Override
-            public void dealView(VH holder, SearchVideoVo data, int position) {
-                SampleCoverVideo sampleCoverVideo = (SampleCoverVideo) holder.getChildView(R.id.search_view_position);
-                sampleCoverVideo.setUpLazy(data.getVideo_url(), true, null, null, "");
-                sampleCoverVideo.setIsTouchWiget(false);
-                if (position == 0 && !isPlayed) {
-                    sampleCoverVideo.startPlayLogic();
-                    isPlayed = true;
-                }
-
-            }
-
-        };
-//        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-//        mRecyclerView.setLayoutManager(layoutManager);
-//        mRecyclerView.setAdapter(smartAdapter);
-//        PagerSnapHelper snapHelper = new PagerSnapHelper();
-//        snapHelper.attachToRecyclerView(mRecyclerView);
-//        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            int firstVisibleItem, lastVisibleItem;
-//
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//                scrollCalculatorHelper.onScrollStateChanged(recyclerView, newState);
-//            }
-//
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
-//                lastVisibleItem = layoutManager.findLastVisibleItemPosition() + 1;
-//                scrollCalculatorHelper.onScroll(recyclerView, firstVisibleItem, lastVisibleItem, lastVisibleItem - firstVisibleItem);
-//                smartAdapter2.selectIndex(firstVisibleItem);
-//                mRecyclerView2.scrollToPosition(firstVisibleItem);
-//            }
-//        });
         smartAdapter2 = new SmartAdapter<SearchVideoVo>(videoList) {
             @Override
             public int getLayout(int viewType) {
@@ -166,6 +125,7 @@ public class SearchInfoActivity extends BaseActivity<SearchInfoPresent, SearchIn
         mRecyclerView2.setAdapter(smartAdapter2);
 
     }
+
 
     private void viewPage() {
         final List<Fragment> fragmentList = new ArrayList<>();
@@ -245,7 +205,7 @@ public class SearchInfoActivity extends BaseActivity<SearchInfoPresent, SearchIn
         switch (view.getId()) {
             case R.id.hide_bottom_list:
                 showBottomLayout.setVisibility(View.VISIBLE);
-                Log.i("SearchInfo","bottom:"+bottomListLayout.getBottom()+"hight"+bottomListLayout.getHeight());
+                Log.i("SearchInfo", "bottom:" + bottomListLayout.getBottom() + "hight" + bottomListLayout.getHeight());
                 bottomListLayout.setVisibility(View.GONE);
 //                bottomListLayout.scrollTo(0, bottomListLayout.getBottom());
                 break;

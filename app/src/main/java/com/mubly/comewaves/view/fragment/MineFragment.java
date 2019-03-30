@@ -3,31 +3,36 @@ package com.mubly.comewaves.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-
 import com.google.gson.Gson;
+import com.luck.picture.lib.PictureSelectionModel;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
-import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
 import com.mubly.comewaves.model.model.LoginResBean;
 import com.mubly.comewaves.model.model.UserInfoVo;
 import com.mubly.comewaves.present.MinePresent;
 import com.mubly.comewaves.view.activity.AttentionsActivity;
+import com.mubly.comewaves.view.activity.MessageCreateActivity;
 import com.mubly.comewaves.view.activity.SettingActivity;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
 import com.mubly.comewaves.view.interfaceview.MineView;
@@ -35,9 +40,12 @@ import com.mubly.comewaves.view.interfaceview.MineView;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
+
+import static android.app.Activity.RESULT_OK;
 
 public class MineFragment extends BaseFragment<MinePresent, MineView> implements MineView {
     @BindView(R.id.top_bg_img)
@@ -62,10 +70,16 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     TabLayout mTabLayout;
     @BindView(R.id.mine_viewpage)
     ScrollViewPage mViewPage;
-
+    //    @BindView(R.id.attention_layout)
+//    LinearLayout attentionLayout;//关注
     List<String> title = new ArrayList<>();
     List<Fragment> fragmentList = new ArrayList<>();
     LoginResBean loginResBean = null;
+    @BindView(R.id.fans_layout)
+    LinearLayout fansLayout;
+    @BindView(R.id.motto_of_person_lebel)
+    TextView mottoOfPersonLebel;
+    Unbinder unbinder;
 
     @Override
 
@@ -104,22 +118,6 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
         mTabLayout.setupWithViewPager(mViewPage);
     }
 
-    @Override
-    public void initEvent() {
-        super.initEvent();
-        openMoreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(mContext, SettingActivity.class));
-            }
-        });
-        userAvtarImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(mContext, AttentionsActivity.class));
-            }
-        });
-    }
 
     @Override
     public void getUserInfo(UserInfoVo userInfoVo) {
@@ -127,12 +125,69 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
             Glide.with(this).load(userInfoVo.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
         }
         attentAmountTv.setText(userInfoVo.getAttention_num() + "");
-        fansAmountTv.setText(userInfoVo.getFans_num()+"");
+        fansAmountTv.setText(userInfoVo.getFans_num() + "");
         userNameTv.setText(userInfoVo.getUser_name());
         accountDingTv.setText(userInfoVo.getDing_num());
         if (!TextUtils.isEmpty(userInfoVo.getSignature())) {
             mottoContentTv.setText(userInfoVo.getSignature());
         }
+
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick({R.id.mine_avtar_img, R.id.attention_layout, R.id.openMore})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.mine_avtar_img:
+                takeAvatorPhoto();
+                break;
+            case R.id.attention_layout:
+                startActivity(new Intent(mContext, AttentionsActivity.class));
+                break;
+            case R.id.openMore:
+                startActivity(new Intent(mContext, SettingActivity.class));
+                break;
+        }
+    }
+
+    private void takeAvatorPhoto() {
+        PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage())
+                .previewImage(true)
+                .compress(true)
+                .maxSelectNum(1)
+                .forResult(PictureConfig.CHOOSE_REQUEST);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片、视频、音频选择结果回调
+                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                    Glide.with(this).load(selectList.get(0).getCompressPath()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
+                    updateUserAvtar(selectList.get(0).getCompressPath());
+//                    dealImageOrVideo(selectList);
+                    // 例如 LocalMedia 里面返回三种path
+                    // 1.media.getPath(); 为原图path
+                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                    break;
+            }
+        }
+    }
+
+    private void updateUserAvtar(String compressPath) {
 
     }
 }

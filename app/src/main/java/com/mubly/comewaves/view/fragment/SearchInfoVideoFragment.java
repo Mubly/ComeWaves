@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.model.interfaces.CallBack;
+import com.mubly.comewaves.model.interfaces.ScrollChange;
 import com.mubly.comewaves.videoplayer.MyVideoPlayer;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
@@ -22,6 +23,7 @@ public class SearchInfoVideoFragment extends Fragment {
     private String videoUrl;
     MyVideoPlayer videoPlayer;
     CallBack callBack;
+    ScrollChange scrollChange;
 
     public static SearchInfoVideoFragment instance(int type, String videoUrl) {
         SearchInfoVideoFragment fragment = new SearchInfoVideoFragment();
@@ -35,6 +37,10 @@ public class SearchInfoVideoFragment extends Fragment {
 
     public void setVideoPlayerListener(CallBack callBack) {
         this.callBack = callBack;
+    }
+
+    public void setScrollChangeListener(ScrollChange scrollChange) {
+        this.scrollChange = scrollChange;
     }
 
     private void init() {
@@ -55,6 +61,17 @@ public class SearchInfoVideoFragment extends Fragment {
                 if (null != callBack) {
                     callBack.callBack(null);
                 }
+            }
+        });
+        videoPlayer.setScrollChangeListener(new ScrollChange() {
+            @Override
+            public void scrollChange(float deltaX, float deltaY) {
+                scrollChange.scrollChange(deltaX, deltaY);
+            }
+
+            @Override
+            public void scrollChanged(float deltaX, float deltaY) {
+                scrollChange.scrollChanged(deltaX, deltaY);
             }
         });
     }

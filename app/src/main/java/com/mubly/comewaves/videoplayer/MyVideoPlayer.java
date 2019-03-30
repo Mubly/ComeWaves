@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.common.utils.ToastUtils;
+import com.mubly.comewaves.model.interfaces.ScrollChange;
 import com.shuyu.gsyvideoplayer.utils.CommonUtil;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
@@ -26,6 +27,11 @@ public class MyVideoPlayer extends StandardGSYVideoPlayer {
     MotionEvent mMotionEvent;
     boolean verListener = true;//是否监听上下滑动
     boolean isVerStatus = false;
+    ScrollChange scrollChange;
+
+    public void setScrollChangeListener(ScrollChange scrollChange) {
+        this.scrollChange = scrollChange;
+    }
 
     public MyVideoPlayer(Context context, Boolean fullFlag) {
         super(context, fullFlag);
@@ -71,7 +77,7 @@ public class MyVideoPlayer extends StandardGSYVideoPlayer {
                 if (mHideKey && mShowVKey) {
                     return true;
                 }
-                touchUp();
+                touchUp(x, y);
                 break;
 
         }
@@ -80,8 +86,9 @@ public class MyVideoPlayer extends StandardGSYVideoPlayer {
         return super.onTouch(v, event);
     }
 
-    private void touchUp() {
+    private void touchUp(float deltaX, float deltaY) {
         isVerStatus = false;
+        scrollChange.scrollChanged(deltaX, deltaY);
     }
 
 
@@ -89,10 +96,12 @@ public class MyVideoPlayer extends StandardGSYVideoPlayer {
     protected void touchSurfaceMove(float deltaX, float deltaY, float y) {
         float absDeltaX = Math.abs(deltaX);
         float absDeltaY = Math.abs(deltaY);
-        if (absDeltaY > absDeltaX) {
+        if (absDeltaY > absDeltaX && !isVerStatus) {
             isVerStatus = true;
         }
-
+        if (isVerStatus) {
+            scrollChange.scrollChange(deltaX, deltaY);
+        }
     }
 
     @Override
