@@ -27,7 +27,6 @@
     <application
         android:name=".common.CrossApp"
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:appComponentFactory="main"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
@@ -35,6 +34,7 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme_App"
+        android:usesCleartextTraffic="true"
         tools:replace="android:theme,android:appComponentFactory">
         <service
             android:name=".common.services.VideoUpLoadeService"
@@ -67,6 +67,7 @@
         <activity android:name=".view.activity.MerchantActivity" />
         <activity android:name=".view.activity.GoodsInfoActivity" />
         <activity android:name=".view.activity.SearchInfoActivity" />
+        <activity android:name=".view.activity.GoodsInfoVideoActivity"></activity>
         <activity android:name=".view.activity.ReleaseActivity" />
         <activity
             android:name=".view.activity.StartActivity"
@@ -82,8 +83,8 @@
             android:name=".videoplayer.SwitchDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:theme="@style/Theme.AppCompat.Transitions" />
+            android:theme="@style/Theme.AppCompat.Transitions"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".view.activity.LoginActivity"
             android:label="@string/title_activity_login" />

@@ -1,10 +1,9 @@
 package com.mubly.comewaves.view.activity;
 
 
-import android.app.MediaRouteButton;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -28,23 +27,25 @@ import com.mubly.comewaves.model.model.TopicInfoVo;
 import com.mubly.comewaves.model.model.VisitorInfo;
 import com.mubly.comewaves.present.CommentInfoPresent;
 import com.mubly.comewaves.view.interfaceview.CommentInfoView;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 首页进入二级页面
+ * 我的（视频贴）进入二级页面
  */
-public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentInfoView> implements CommentInfoView {
+public class GoodsInfoVideoActivity extends BaseActivity<CommentInfoPresent, CommentInfoView> implements CommentInfoView {
     @BindView(R.id.top_back_btn)
     ImageButton topBackBtn;
-    @BindView(R.id.goods_info_img_banner)
-    Banner goodsInfoImgBanner;
+    @BindView(R.id.goods_info_video_player)
+    StandardGSYVideoPlayer videoPlayer;
     @BindView(R.id.user_avtar_iv)
     ImageView userAvtarIv;
     @BindView(R.id.user_name_tv)
@@ -75,8 +76,8 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
     EditText inputEt;
     private int type;
     private int postId;
-    private List<String> imgList = new ArrayList<>();
-
+//    private List<String> imgList = new ArrayList<>();
+    OrientationUtils orientationUtils;
 
     @Override
     protected CommentInfoPresent createPresenter() {
@@ -87,7 +88,7 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
     protected int getLayoutId() {
         type = getIntent().getIntExtra("type", 0);
         postId = getIntent().getIntExtra("postId", 0);
-        return R.layout.activity_goods_info;
+        return R.layout.activity_goods_video_info;
     }
 
     @Override
@@ -158,19 +159,37 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
         praiseTv.setText(topicInfoVo.post.getFabulous_num() + "");//喜欢
         attentCount.setText(topicInfoVo.post.getLike_status() + "");//收藏
         commentCount.setText(topicInfoVo.post.getReport_num() + "");
-        imgList.clear();
-        if (null != topicInfoVo.post.getPhoto_url() && topicInfoVo.post.getPhoto_url().size() > 0) {
-            for (SmartBeanVo smartBeanVo : topicInfoVo.post.getPhoto_url()) {
-                imgList.add(smartBeanVo.community_post_img);
-            }
-
-//            goodsInfoImgBanner.update(imgList);
-            goodsInfoImgBanner.setImages(imgList);
-            goodsInfoImgBanner.start();
-        }
-
         setPraise(topicInfoVo.post.getLike_status(), false);
         setAttent(topicInfoVo.post.getCollect_status(), false);
+        initPlayer(topicInfoVo);
+    }
+
+    private void initPlayer(TopicInfoVo topicInfoVo) {
+        videoPlayer.setUp(topicInfoVo.post.getVideo_url(), true, "测试视频");
+
+        //增加封面
+        ImageView imageView = new ImageView(this);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        Glide.with(this).load(topicInfoVo.post.getFirst_url()).into(imageView);
+        videoPlayer.setThumbImageView(imageView);
+        //增加title
+        videoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
+        //设置返回键
+        videoPlayer.getBackButton().setVisibility(View.VISIBLE);
+        //设置旋转
+        orientationUtils = new OrientationUtils(this, videoPlayer);
+        //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
+        videoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orientationUtils.resolveByClick();
+            }
+        });
+        //是否可以滑动调整
+        videoPlayer.setIsTouchWiget(true);
+        //设置返回按键功能
+        videoPlayer.getBackButton().setVisibility(View.GONE);
+        videoPlayer.startPlayLogic();
     }
 
     @Override
@@ -183,13 +202,6 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
 
     }
 
-    @Override
-    public void initView() {
-        super.initView();
-        goodsInfoImgBanner.setImageLoader(new GlideImageLoader());
-        goodsInfoImgBanner.setImages(imgList);
-        goodsInfoImgBanner.start();
-    }
 
     @Override
     public void initData() {
@@ -265,5 +277,38 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
         // 这一步必须要做,否则不会显示.
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         praiseTv.setCompoundDrawables(drawable, null, null, null);
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        videoPlayer.onVideoPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        videoPlayer.onVideoResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GSYVideoManager.releaseAllVideos();
+        if (orientationUtils != null)
+            orientationUtils.releaseListener();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //先返回正常状态
+        if (orientationUtils.getScreenType() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+            videoPlayer.getFullscreenButton().performClick();
+            return;
+        }
+        //释放所有
+        videoPlayer.setVideoAllCallBack(null);
+        super.onBackPressed();
     }
 }

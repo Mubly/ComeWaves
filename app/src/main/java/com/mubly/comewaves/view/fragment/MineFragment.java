@@ -25,9 +25,12 @@ import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
 import com.mubly.comewaves.model.model.LoginResBean;
+import com.mubly.comewaves.model.model.UserInfoVo;
+import com.mubly.comewaves.present.MinePresent;
 import com.mubly.comewaves.view.activity.AttentionsActivity;
 import com.mubly.comewaves.view.activity.SettingActivity;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
+import com.mubly.comewaves.view.interfaceview.MineView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +39,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseFragment<MinePresent, MineView> implements MineView {
     @BindView(R.id.top_bg_img)
     ImageView topBgImg;
     @BindView(R.id.wallet_btn)
@@ -66,8 +69,8 @@ public class MineFragment extends BaseFragment {
 
     @Override
 
-    protected BasePresenter createPresenter() {
-        return null;
+    protected MinePresent createPresenter() {
+        return new MinePresent();
     }
 
     @Override
@@ -78,7 +81,7 @@ public class MineFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-
+        mPresenter.getUserInfo();
     }
 
     @Override
@@ -94,8 +97,8 @@ public class MineFragment extends BaseFragment {
 
         title.add("我的帖子");
         title.add("我的收藏");
-        fragmentList.add(MineInFragment.newInstance(0));
         fragmentList.add(MineInFragment.newInstance(1));
+        fragmentList.add(MineInFragment.newInstance(2));
         mViewPage.setAdapter(new MyViewPageAdapter(getChildFragmentManager(), title, fragmentList));
         mViewPage.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPage);
@@ -116,5 +119,20 @@ public class MineFragment extends BaseFragment {
                 startActivity(new Intent(mContext, AttentionsActivity.class));
             }
         });
+    }
+
+    @Override
+    public void getUserInfo(UserInfoVo userInfoVo) {
+        if (!TextUtils.isEmpty(userInfoVo.getUser_head())) {
+            Glide.with(this).load(userInfoVo.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
+        }
+        attentAmountTv.setText(userInfoVo.getAttention_num() + "");
+        fansAmountTv.setText(userInfoVo.getFans_num()+"");
+        userNameTv.setText(userInfoVo.getUser_name());
+        accountDingTv.setText(userInfoVo.getDing_num());
+        if (!TextUtils.isEmpty(userInfoVo.getSignature())) {
+            mottoContentTv.setText(userInfoVo.getSignature());
+        }
+
     }
 }

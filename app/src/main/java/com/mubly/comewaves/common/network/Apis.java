@@ -17,6 +17,8 @@ import com.mubly.comewaves.model.model.SearchVideoVo;
 import com.mubly.comewaves.model.model.SmartBeanVo;
 import com.mubly.comewaves.model.model.StartBean;
 import com.mubly.comewaves.model.model.TopicInfoVo;
+import com.mubly.comewaves.model.model.UserInfoVo;
+import com.mubly.comewaves.model.model.UserPostVo;
 
 
 import java.io.File;
@@ -470,34 +472,37 @@ public class Apis {
                 })
                 .adapt(new ObservableBody<ResponseData<BaseModel>>());
     }
+
     //我的帖子，关注
-    public static Observable<ResponseData<BaseModel>> mytopAndFocus(String avatar) {
-        return OkGo.<ResponseData<BaseModel>>post(MY_TOPIC_AND_FOCUS_URL)
-                .params("avatar", avatar)
-                .converter(new Converter<ResponseData<BaseModel>>() {
+    public static Observable<ResponseData<List<UserPostVo>>> mytopAndFocus(int type, int page) {
+        return OkGo.<ResponseData<List<UserPostVo>>>post(MY_TOPIC_AND_FOCUS_URL)
+                .params("type", type)
+                .params("page", page)
+                .converter(new Converter<ResponseData<List<UserPostVo>>>() {
                     @Override
-                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
-                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                    public ResponseData<List<UserPostVo>> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<List<UserPostVo>>>() {
                         }.getType();
                         return gson.fromJson(response.body().string(), type);
                     }
                 })
-                .adapt(new ObservableBody<ResponseData<BaseModel>>());
+                .adapt(new ObservableBody<ResponseData<List<UserPostVo>>>());
     }
+
     //获取用户信息
-    public static Observable<ResponseData<BaseModel>> getUserInfo(String avatar) {
-        return OkGo.<ResponseData<BaseModel>>post(GET_USER_INFO_URL)
-                .params("avatar", avatar)
-                .converter(new Converter<ResponseData<BaseModel>>() {
+    public static Observable<ResponseData<UserInfoVo>> getUserInfo() {
+        return OkGo.<ResponseData<UserInfoVo>>post(GET_USER_INFO_URL)
+                .converter(new Converter<ResponseData<UserInfoVo>>() {
                     @Override
-                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
-                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                    public ResponseData<UserInfoVo> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<UserInfoVo>>() {
                         }.getType();
                         return gson.fromJson(response.body().string(), type);
                     }
                 })
-                .adapt(new ObservableBody<ResponseData<BaseModel>>());
+                .adapt(new ObservableBody<ResponseData<UserInfoVo>>());
     }
+
     //确认修改用户信息
     public static Observable<ResponseData<BaseModel>> ackEditUserInfo(String avatar) {
         return OkGo.<ResponseData<BaseModel>>post(ACK_EDIT_USER_INFO_URL)

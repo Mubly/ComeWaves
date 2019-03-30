@@ -24,9 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/size_20dp"
             android:layout_marginBottom="@dimen/size_12dp"
-            android:drawablePadding="@dimen/size_4dp"
             android:background="@drawable/shape__white_square_radious_strok_10"
             android:drawableLeft="@drawable/wallet_icon"
+            android:drawablePadding="@dimen/size_4dp"
             android:gravity="center"
             android:paddingLeft="@dimen/size_12dp"
             android:paddingTop="@dimen/size_6dp"
@@ -35,6 +35,7 @@
             android:text="钱包"
             android:textColor="@color/white"
             android:textSize="@dimen/size_12dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/top_bg_img"
             app:layout_constraintRight_toRightOf="parent" />
 
@@ -58,7 +59,7 @@
             android:layout_marginLeft="@dimen/size_16dp"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wallet_btn" />
+            app:layout_constraintTop_toBottomOf="@id/openMore" />
 
         <LinearLayout
             android:id="@+id/attention_layout"
@@ -86,7 +87,7 @@
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/text_555555"
                 android:textSize="@dimen/size_12dp"
-                tools:text="关注" />
+                android:text="关注" />
         </LinearLayout>
 
         <View
@@ -127,7 +128,7 @@
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/text_555555"
                 android:textSize="@dimen/size_12dp"
-                tools:text="粉丝" />
+                android:text="粉丝" />
         </LinearLayout>
 
         <TextView
@@ -173,7 +174,7 @@
             android:layout_marginLeft="@dimen/size_16dp"
             android:layout_marginTop="@dimen/size_6dp"
             android:lineSpacingMultiplier="1.5"
-            android:text="我就是不一样的烟火，像风一样\n像水一样，快乐的像个傻逼一样"
+            android:text="该用户很懒，还未设置签名"
             android:textColor="@color/text_555555"
             android:textSize="@dimen/size_12dp"
             app:layout_constraintLeft_toRightOf="@id/motto_of_person_lebel"

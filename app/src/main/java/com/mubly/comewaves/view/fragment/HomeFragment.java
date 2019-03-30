@@ -20,7 +20,6 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.mubly.comewaves.view.activity.MainActivity.ishomeShow;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -90,7 +91,7 @@ public class MainActivity extends BaseActivity {
 
     private List<Fragment> fragmentList = new ArrayList<>();
     RxPermissions rxPermissions = null;
-//    public static boolean ishomeShow = true;//
+
 
     @Override
     protected BasePresenter createPresenter() {
