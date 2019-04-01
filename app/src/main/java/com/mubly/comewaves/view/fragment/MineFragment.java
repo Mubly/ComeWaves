@@ -121,6 +121,8 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
 
     @Override
     public void getUserInfo(UserInfoVo userInfoVo) {
+        if (null == userInfoVo)
+            return;
         if (!TextUtils.isEmpty(userInfoVo.getUser_head())) {
             Glide.with(this).load(userInfoVo.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
         }
