@@ -202,6 +202,11 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
 
     }
 
+    @Override
+    public void doAttention(SmartBeanVo smartBeanVo) {
+
+    }
+
 
     @OnClick({R.id.top_back_btn, R.id.comment_send_btn})
     public void onViewClicked(View view) {

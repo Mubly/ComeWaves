@@ -36,9 +36,11 @@
         android:theme="@style/AppTheme_App"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme,android:appComponentFactory">
+        <activity android:name=".view.activity.VideoScreenCropActivity"></activity>
+
         <service
             android:name=".common.services.VideoUpLoadeService"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity android:name=".view.activity.ReigsterActivity" />
         <activity android:name=".view.activity.PhoneLoginActivity" />
@@ -61,13 +63,11 @@
         <activity
             android:name=".view.activity.CommentActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-
-
         <activity android:name=".view.activity.IsHadInfoActivity" />
         <activity android:name=".view.activity.MerchantActivity" />
         <activity android:name=".view.activity.GoodsInfoActivity" />
         <activity android:name=".view.activity.SearchInfoActivity" />
-        <activity android:name=".view.activity.GoodsInfoVideoActivity"></activity>
+        <activity android:name=".view.activity.GoodsInfoVideoActivity" />
         <activity android:name=".view.activity.ReleaseActivity" />
         <activity
             android:name=".view.activity.StartActivity"

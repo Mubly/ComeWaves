@@ -8,9 +8,15 @@ import com.mubly.comewaves.model.model.TopicInfoVo;
 import java.util.List;
 
 public interface CommentInfoView extends BaseMvpView {
-    void showCommentInfo(List<CommentInfo> commentInfos) ;
+    void showCommentInfo(List<CommentInfo> commentInfos);
+
     void replyCommentSuccess();
+
     void showTopicInfo(TopicInfoVo topicInfoVo);
+
     void doPraise(SmartBeanVo smartBeanVo);
+
     void doCollection(SmartBeanVo smartBeanVo);
+
+    void doAttention(SmartBeanVo smartBeanVo);
 }

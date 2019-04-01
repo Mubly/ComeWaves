@@ -153,6 +153,32 @@ public class CommentInfoPresent extends BasePresenter<CommentInfoView> {
                 });
     }
 
+    public void doAttention(int user_id) {
+        Apis.doAttention(user_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxObserver<ResponseData<SmartBeanVo>>() {
+                    @Override
+                    public void _onNext(ResponseData<SmartBeanVo> listResponseData) {
+                        if (isAttachView()) {
+                            if (listResponseData.getCode() == Constant.SuccessCode) {
+                                getMvpView().doAttention(listResponseData.getData());
+                            } else {
+                                getMvpView().checkNetCode(listResponseData.getCode(), listResponseData.getMsg());
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        if (null == getMvpView()) {
+                            return;
+                        }
+                    }
+                });
+    }
+
     public void doCollection(int post_id) {
         Apis.doPraise(post_id)
                 .subscribeOn(Schedulers.io())

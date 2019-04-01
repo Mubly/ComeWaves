@@ -29,6 +29,7 @@ import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
 import com.mubly.comewaves.present.IsHadPresent;
 import com.mubly.comewaves.view.activity.MessageCreateActivity;
+import com.mubly.comewaves.view.activity.VideoScreenCropActivity;
 import com.mubly.comewaves.view.costomview.CircleImageView;
 import com.mubly.comewaves.view.costomview.PileLayout;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
@@ -68,8 +69,10 @@ public class IsHadFragment extends BaseFragment<IsHadPresent, IsHadView> {
         relaseFb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, MessageCreateActivity.class);
-                intent.putExtra("type", Constant.PULL_IMAGE_CODE);
+//                Intent intent = new Intent(mContext, MessageCreateActivity.class);
+//                intent.putExtra("type", Constant.PULL_IMAGE_CODE);
+//                startActivity(intent);
+                Intent intent = new Intent(mContext, VideoScreenCropActivity.class);
                 startActivity(intent);
             }
         });

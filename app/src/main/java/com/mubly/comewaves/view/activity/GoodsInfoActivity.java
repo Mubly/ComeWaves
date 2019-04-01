@@ -184,6 +184,11 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
     }
 
     @Override
+    public void doAttention(SmartBeanVo smartBeanVo) {
+
+    }
+
+    @Override
     public void initView() {
         super.initView();
         goodsInfoImgBanner.setImageLoader(new GlideImageLoader());
@@ -204,6 +209,7 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
                 finish();
                 break;
             case R.id.to_attention_tv:
+                ToastUtils.showToast("暂未开放，敬请期待");
                 break;
             case R.id.praise_tv:
                 mPresenter.doPraise(postId);

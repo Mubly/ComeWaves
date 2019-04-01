@@ -66,12 +66,18 @@ public class SearchInfoVideoFragment extends Fragment {
         videoPlayer.setScrollChangeListener(new ScrollChange() {
             @Override
             public void scrollChange(float deltaX, float deltaY) {
-                scrollChange.scrollChange(deltaX, deltaY);
+                if (null != scrollChange) {
+                    scrollChange.scrollChange(deltaX, deltaY);
+                }
+
             }
 
             @Override
             public void scrollChanged(float deltaX, float deltaY) {
-                scrollChange.scrollChanged(deltaX, deltaY);
+                if (null != scrollChange) {
+                    scrollChange.scrollChanged(deltaX, deltaY);
+                }
+
             }
         });
     }

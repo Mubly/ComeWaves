@@ -210,6 +210,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
         openMoreComment.setOnClickListener(this);
         commentCount.setOnClickListener(this);
         praiseCountTv.setOnClickListener(this);
+        facousTv.setOnClickListener(this);
         inputEt.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -268,6 +269,10 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
                 break;
             case R.id.top_back_btn:
                 onBackPressed();
+                break;
+            case R.id.to_attention_tv://关注
+                ToastUtils.showToast("暂未开放，敬请期待");
+//                mPresenter.doAttention(userId);
                 break;
 
         }
@@ -354,9 +359,10 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
             commentLayout.setVisibility(View.GONE);
             openMoreComment.setVisibility(View.GONE);
         }
-
+        userId=topicInfoVo.post.getPost_id();
         Glide.with(mContext).load(topicInfoVo.post.getUser_head()).apply(RequestOptions.circleCropTransform()).into(userHeadIv);
         userName.setText(topicInfoVo.post.getUser_name());
+
         userAddress.setText(topicInfoVo.post.getLocation());
         if (false) {//判断是否已关注
             facousTv.setVisibility(View.GONE);
@@ -376,6 +382,11 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
     @Override
     public void doCollection(SmartBeanVo smartBeanVo) {
         setAttent(smartBeanVo.status, true);
+    }
+
+    @Override
+    public void doAttention(SmartBeanVo smartBeanVo) {
+
     }
 
 

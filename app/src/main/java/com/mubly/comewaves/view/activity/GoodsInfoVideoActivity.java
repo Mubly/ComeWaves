@@ -202,6 +202,11 @@ public class GoodsInfoVideoActivity extends BaseActivity<CommentInfoPresent, Com
 
     }
 
+    @Override
+    public void doAttention(SmartBeanVo smartBeanVo) {
+
+    }
+
 
     @Override
     public void initData() {
@@ -216,6 +221,7 @@ public class GoodsInfoVideoActivity extends BaseActivity<CommentInfoPresent, Com
                 finish();
                 break;
             case R.id.to_attention_tv:
+                ToastUtils.showToast("暂未开放，敬请期待");
                 break;
             case R.id.praise_tv:
                 mPresenter.doPraise(postId);

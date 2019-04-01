@@ -68,7 +68,8 @@ public class MyVideoPlayer extends StandardGSYVideoPlayer {
                 touchSurfaceMove(deltaX, deltaY, y);
                 break;
             case MotionEvent.ACTION_UP:
-
+                float deltaUpX = x - mDownX;
+                float deltaUpY = y - mDownY;
                 startDismissControlViewTimer();
 
                 startProgressTimer();
@@ -77,7 +78,7 @@ public class MyVideoPlayer extends StandardGSYVideoPlayer {
                 if (mHideKey && mShowVKey) {
                     return true;
                 }
-                touchUp(x, y);
+                touchUp(deltaUpX, deltaUpY);
                 break;
 
         }
@@ -87,8 +88,10 @@ public class MyVideoPlayer extends StandardGSYVideoPlayer {
     }
 
     private void touchUp(float deltaX, float deltaY) {
-        isVerStatus = false;
-        scrollChange.scrollChanged(deltaX, deltaY);
+        if (isVerStatus) {
+            isVerStatus = false;
+            scrollChange.scrollChanged(deltaX, deltaY);
+        }
     }
 
 

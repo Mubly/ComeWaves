@@ -30,6 +30,7 @@ import io.reactivex.Observable;
 import okhttp3.Response;
 
 import static com.mubly.comewaves.common.network.ApiUrls.ACK_EDIT_USER_INFO_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.ATTENTION_SOMEBODAY_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.CHANGE_AVTAR_IMG_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.CHANGE_USERINFO_BG_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.COLLECTION_URL;
@@ -335,6 +336,21 @@ public class Apis {
     public static Observable<ResponseData<SmartBeanVo>> doCollection(int post_id) {
         return OkGo.<ResponseData<SmartBeanVo>>post(COLLECTION_URL)
                 .params("post_id", post_id)
+                .converter(new Converter<ResponseData<SmartBeanVo>>() {
+                    @Override
+                    public ResponseData<SmartBeanVo> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<SmartBeanVo>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<SmartBeanVo>>());
+    }
+
+    // 关注/取关
+    public static Observable<ResponseData<SmartBeanVo>> doAttention(int user_id) {
+        return OkGo.<ResponseData<SmartBeanVo>>post(ATTENTION_SOMEBODAY_URL)
+                .params("user_id", user_id)
                 .converter(new Converter<ResponseData<SmartBeanVo>>() {
                     @Override
                     public ResponseData<SmartBeanVo> convertResponse(Response response) throws Throwable {

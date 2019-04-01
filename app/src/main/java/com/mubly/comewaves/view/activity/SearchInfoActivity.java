@@ -14,6 +14,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
 import com.mubly.comewaves.model.interfaces.CallBack;
+import com.mubly.comewaves.model.interfaces.ScrollChange;
 import com.mubly.comewaves.model.model.SearchVideoVo;
 import com.mubly.comewaves.present.SearchInfoPresent;
 import com.mubly.comewaves.videoplayer.ScrollCalculatorHelper;
@@ -142,6 +146,22 @@ public class SearchInfoActivity extends BaseActivity<SearchInfoPresent, SearchIn
                     }
                 }
             });
+            fragment.setScrollChangeListener(new ScrollChange() {
+                @Override
+                public void scrollChange(float deltaX, float deltaY) {
+
+                }
+
+                @Override
+                public void scrollChanged(float deltaX, float deltaY) {
+                    if (deltaY > 0) {
+                        hideBottomView();
+                    } else {
+                        showBottomView();
+                    }
+
+                }
+            });
             fragmentList.add(fragment);
         }
         mViewPage.setPageTransformer(true, new CubeOutTransformer());
@@ -203,17 +223,30 @@ public class SearchInfoActivity extends BaseActivity<SearchInfoPresent, SearchIn
     @OnClick({R.id.hide_bottom_list, R.id.isNeedShowBottom})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.hide_bottom_list:
-                showBottomLayout.setVisibility(View.VISIBLE);
-                Log.i("SearchInfo", "bottom:" + bottomListLayout.getBottom() + "hight" + bottomListLayout.getHeight());
-                bottomListLayout.setVisibility(View.GONE);
-//                bottomListLayout.scrollTo(0, bottomListLayout.getBottom());
+            case R.id.hide_bottom_list://隐藏
+                hideBottomView();
                 break;
-            case R.id.isNeedShowBottom:
-                showBottomLayout.setVisibility(View.GONE);
-//                bottomListLayout.scrollTo(0, 0);
-                bottomListLayout.setVisibility(View.VISIBLE);
+            case R.id.isNeedShowBottom://显示
+                showBottomView();
                 break;
+        }
+    }
+
+    private void hideBottomView() {
+        if (bottomListLayout.getVisibility() == View.VISIBLE) {
+            showBottomLayout.setVisibility(View.VISIBLE);
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.bottom_out);
+            bottomListLayout.setAnimation(animation);
+            bottomListLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void showBottomView() {
+        if (bottomListLayout.getVisibility() == View.GONE) {
+            Animation animation2 = AnimationUtils.loadAnimation(this, R.anim.bottom_in);
+            bottomListLayout.setAnimation(animation2);
+            showBottomLayout.setVisibility(View.GONE);
+            bottomListLayout.setVisibility(View.VISIBLE);
         }
     }
 
