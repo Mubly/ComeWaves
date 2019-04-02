@@ -27,7 +27,7 @@ public class RegisterPresent extends BasePresenter<ReigsterView> {
                     public void _onNext(ResponseData<LoginResBean> actWeekBeanResponseData) {
                         if (isAttachView()) {
                             if (actWeekBeanResponseData.getCode() == Constant.SuccessCode) {
-                                getMvpView().register();
+                                getMvpView().register(actWeekBeanResponseData.getData());
                             } else {
                                 getMvpView().checkNetCode(actWeekBeanResponseData.getCode(), actWeekBeanResponseData.getMsg());
                             }

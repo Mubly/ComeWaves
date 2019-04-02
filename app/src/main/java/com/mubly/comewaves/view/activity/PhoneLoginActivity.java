@@ -14,6 +14,7 @@ import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.common.utils.EditViewUtil;
 import com.mubly.comewaves.common.utils.TimeUtils;
 import com.mubly.comewaves.model.interfaces.CallBack;
+import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.LoginResBean;
 import com.mubly.comewaves.present.PhoneLoginPresent;
 import com.mubly.comewaves.view.interfaceview.PhoneLoginView;
@@ -116,13 +117,15 @@ public class PhoneLoginActivity extends BaseActivity<PhoneLoginPresent, PhoneLog
         OkGo.getInstance().getCommonParams().put("T",loginResBean.getToken());
         startActivity(new Intent(PhoneLoginActivity.this, MainActivity.class));
         finish();
+        LiveDataBus.get().with("refreshUserInfo").postValue(true);
 
     }
 
     @Override
     public void firstLogin() {
         Intent intent = new Intent(PhoneLoginActivity.this, ReigsterActivity.class);
-        intent.putExtra("phone", phoneCodeEt.getText().toString());
+        intent.putExtra("phone", phoneEt.getText().toString());
         startActivity(intent);
+        finish();
     }
 }

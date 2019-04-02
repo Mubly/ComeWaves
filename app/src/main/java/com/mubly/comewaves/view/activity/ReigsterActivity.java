@@ -4,24 +4,31 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.lzy.okgo.OkGo;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.common.utils.ToastUtils;
+import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.CategoryVo;
+import com.mubly.comewaves.model.model.LoginResBean;
 import com.mubly.comewaves.present.RegisterPresent;
 import com.mubly.comewaves.view.interfaceview.ReigsterView;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -45,9 +52,12 @@ public class ReigsterActivity extends BaseActivity<RegisterPresent, ReigsterView
     TextView registerBtn;
     @BindView(R.id.register_user_name)
     EditText userNameEt;
+    @BindView(R.id.sex_select_layout)
+    RadioGroup sexLayout;
     String headImgUrl;
     LayoutInflater mInflater;
     String phoneNo;
+    String sexStr = "男";
 
     @Override
     protected RegisterPresent createPresenter() {
@@ -82,7 +92,29 @@ public class ReigsterActivity extends BaseActivity<RegisterPresent, ReigsterView
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.register(phoneNo, "逆风的鱼", mPresenter.getCategary(mTagFlowLayout.getSelectedList()), "男", new File(headImgUrl));
+                String userNameStr = userNameEt.getText().toString();
+                if (TextUtils.isEmpty(userNameStr)) {
+                    ToastUtils.showToast("请输入您的昵称");
+                    return;
+                }
+                if (TextUtils.isEmpty(headImgUrl)) {
+                    ToastUtils.showToast("请添加您的头像");
+                    return;
+                }
+                mPresenter.register(phoneNo, userNameStr, mPresenter.getCategary(mTagFlowLayout.getSelectedList()), sexStr, new File(headImgUrl));
+            }
+        });
+        sexLayout.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.sex_of_man_rb:
+                        sexStr = "男";
+                        break;
+                    case R.id.sex_of_weman_rb:
+                        sexStr = "女";
+                        break;
+                }
             }
         });
     }
@@ -131,8 +163,13 @@ public class ReigsterActivity extends BaseActivity<RegisterPresent, ReigsterView
     }
 
     @Override
-    public void register() {
-        ToastUtils.showToast("注册登录成功");
+    public void register(LoginResBean loginResBean) {
+        AppConfig.token.put(loginResBean.getToken());
+        AppConfig.loginInfo.put(new Gson().toJson(loginResBean));
+        OkGo.getInstance().getCommonParams().put("T", loginResBean.getToken());
+        startActivity(new Intent(ReigsterActivity.this, MainActivity.class));
+        finish();
+        LiveDataBus.get().with("refreshUserInfo").postValue(true);
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.mubly.comewaves.view.fragment;
 
 
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
+import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.UserPostVo;
 import com.mubly.comewaves.present.MineInPresent;
 import com.mubly.comewaves.view.activity.GoodsInfoActivity;
@@ -57,6 +60,19 @@ public class MineInFragment extends BaseFragment<MineInPresent, MineInView> impl
     @Override
     protected MineInPresent createPresenter() {
         return new MineInPresent();
+    }
+
+    @Override
+    public void initEvent() {
+        super.initEvent();
+        LiveDataBus.get().with("refreshUserInfo", Boolean.class).observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if (aBoolean) {
+                    initData();
+                }
+            }
+        });
     }
 
     @Override

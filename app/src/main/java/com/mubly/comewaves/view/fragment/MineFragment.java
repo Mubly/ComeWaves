@@ -1,6 +1,7 @@
 package com.mubly.comewaves.view.fragment;
 
 
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
+import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.LoginResBean;
 import com.mubly.comewaves.model.model.UserInfoVo;
 import com.mubly.comewaves.present.MinePresent;
@@ -39,6 +41,7 @@ import com.mubly.comewaves.view.interfaceview.MineView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,6 +99,19 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     public void initData() {
         super.initData();
         mPresenter.getUserInfo();
+    }
+
+    @Override
+    public void initEvent() {
+        super.initEvent();
+        LiveDataBus.get().with("refreshUserInfo", Boolean.class).observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if (aBoolean) {
+                    initData();
+                }
+            }
+        });
     }
 
     @Override
