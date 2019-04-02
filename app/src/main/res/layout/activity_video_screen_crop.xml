@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activity.VideoScreenCropActivity">
 
-    <SurfaceView
-        android:id="@+id/crop_video_surface"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <include layout="@layout/view_top_layout"></include>
 
-    <SeekBar
-        android:id="@+id/crop_vide_seekbar"
+    <ImageView
+        android:id="@+id/video_crop_show_iv"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom" />
+        android:layout_height="@dimen/size_0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toBottomOf="@id/top_layout" />
 
-</FrameLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/video_img_rv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/video_crop_show_iv">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="选择"
+        android:layout_marginBottom="@dimen/size_4dp"
+        app:layout_constraintBottom_toTopOf="@id/video_img_rv"
+        app:layout_constraintLeft_toLeftOf="parent" />
+</android.support.constraint.ConstraintLayout>

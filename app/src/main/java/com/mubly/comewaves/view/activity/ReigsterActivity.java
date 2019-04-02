@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -38,6 +39,8 @@ public class ReigsterActivity extends BaseActivity<RegisterPresent, ReigsterView
     TagFlowLayout mTagFlowLayout;
     @BindView(R.id.register_avtar_img)
     ImageView avtarTv;
+    @BindView(R.id.register_avtar_img_logo)
+    ImageView avtarLogoTv;
     @BindView(R.id.register_over_btn)
     TextView registerBtn;
     @BindView(R.id.register_user_name)
@@ -94,6 +97,7 @@ public class ReigsterActivity extends BaseActivity<RegisterPresent, ReigsterView
     public void initView() {
         super.initView();
         mInflater = LayoutInflater.from(mContext);
+        Glide.with(this).load(R.drawable.ishad_1).apply(RequestOptions.circleCropTransform()).into(avtarTv);
     }
 
 
@@ -145,7 +149,8 @@ public class ReigsterActivity extends BaseActivity<RegisterPresent, ReigsterView
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     headImgUrl = selectList.get(0).getCutPath();
-                    Glide.with(mContext).load(selectList.get(0).getCutPath()).into(avtarTv);
+                    avtarLogoTv.setVisibility(View.GONE);
+                    Glide.with(mContext).load(selectList.get(0).getCutPath()).apply(RequestOptions.circleCropTransform()).into(avtarTv);
                     break;
             }
         }

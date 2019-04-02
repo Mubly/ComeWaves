@@ -24,6 +24,7 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.CrossApp;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
+import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.EventBusEvent;
 import com.mubly.comewaves.view.costomview.MyViewPager;
 import com.mubly.comewaves.view.fragment.HomeFragment;
@@ -91,6 +92,7 @@ public class MainActivity extends BaseActivity {
 
     private List<Fragment> fragmentList = new ArrayList<>();
     RxPermissions rxPermissions = null;
+    boolean isLogining;
 
 
     @Override
@@ -109,6 +111,10 @@ public class MainActivity extends BaseActivity {
         super.onNewIntent(intent);
         int type = intent.getIntExtra("type", 0);
         main_mypager.setCurrentItem(type);
+        if (isLogining) {
+            isLogining=!isLogining;
+            LiveDataBus.get().with("onpause").setValue(false);
+        }
     }
 
     @Override
@@ -142,15 +148,11 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-//                if (position != 0) {
-//                    EventBus.getDefault().post(new EventBusEvent(1));
-//                }
-
-//                if (TextUtils.isEmpty(AppConfig.token.get()) && (position == 2 || position == 3)) {
-//                    LoginActivity.startAction(mContext);
-//                } else {
-//                    setTextColor(position);
-//                }
+                if (position == 0) {
+                    LiveDataBus.get().with("onpause").setValue(false);
+                } else {
+                    LiveDataBus.get().with("onpause").setValue(true);
+                }
 
             }
 
@@ -215,6 +217,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.ll_mine:
                 if (AppConfig.token.get() == null) {
+                    LiveDataBus.get().with("onpause").setValue(true);
                     startActivity(new Intent(this, PhoneLoginActivity.class));
                 } else {
                     tabSelect(4);
@@ -380,6 +383,7 @@ public class MainActivity extends BaseActivity {
                 ivTabbarMeIcon.setSelected(true);
                 break;
         }
+
 
     }
 }

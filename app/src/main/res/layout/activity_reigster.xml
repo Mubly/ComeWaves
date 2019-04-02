@@ -39,21 +39,33 @@
             android:text="推荐更适合你的资讯"
             android:textSize="@dimen/size_22dp" />
 
-        <ImageView
-            android:id="@+id/register_avtar_img"
-            android:layout_width="@dimen/size_80dp"
-            android:layout_height="@dimen/size_80dp"
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/size_70dp"
-            android:background="@drawable/ishad_1"
-            android:src="@drawable/takephoto_icon" />
+            android:layout_marginTop="@dimen/size_70dp">
+
+            <ImageView
+                android:id="@+id/register_avtar_img"
+                android:layout_width="@dimen/size_80dp"
+                android:layout_height="@dimen/size_80dp"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/register_avtar_img_logo"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/takephoto_icon" />
+        </FrameLayout>
+
 
         <EditText
             android:id="@+id/register_user_name"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/size_70dp"
+            android:layout_marginTop="@dimen/size_40dp"
             android:background="@null"
             android:gravity="center_horizontal"
             android:hint="输入昵称"
@@ -63,6 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/size_30dp"
             android:orientation="horizontal">
 
             <RadioButton

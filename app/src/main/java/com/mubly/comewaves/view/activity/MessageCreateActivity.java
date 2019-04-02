@@ -42,6 +42,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.disposables.Disposable;
 
+import static com.mubly.comewaves.common.Constant.REQUEST_VIDEO_IMG_CODE;
+
 /**
  * 发布帖子、视频，状态等等
  */
@@ -64,6 +66,7 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
     TagInputEditView input_et;
     SmartAdapter smartAdapter;
     List<LocalMedia> voideImageList = new ArrayList<>();
+    private String videoImg;//视频封面
     private final static int REQUEST_CODE = 0110;
     private int type;
     private String mLatitude, mLongitude;
@@ -199,7 +202,7 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
 
     private void uploadData() {
         final String contentInfo = input_et.getText().toString();
-        mPresenter.videoUpdate(contentInfo, addressStr, mLongitude, mLatitude, "#美妆", new File(voideImageList.get(0).getPath()), null);
+        mPresenter.videoUpdate(contentInfo, addressStr, mLongitude, mLatitude, "#美妆", new File(voideImageList.get(0).getPath()), new File(videoImg));
     }
 
     private void uploadImage() {
@@ -229,6 +232,9 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     break;
+                case REQUEST_VIDEO_IMG_CODE:
+                    videoImg = data.getStringExtra("videoimg");
+                    break;
             }
         }
     }
@@ -248,6 +254,11 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
             voideImageList.add(voideImageList.size() - 1, localMedia);
         }
         smartAdapter.notifyDataSetChanged();
+        if (type == Constant.PULL_VIDEO_CODE) {
+            Intent intent = new Intent(MessageCreateActivity.this, VideoScreenCropActivity.class);
+            intent.putExtra("videoPath", selectList.get(0).getPath());
+            startActivityForResult(intent, REQUEST_VIDEO_IMG_CODE);
+        }
     }
 
     @Override

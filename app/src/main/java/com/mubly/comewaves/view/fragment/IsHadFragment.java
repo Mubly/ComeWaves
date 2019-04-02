@@ -69,11 +69,11 @@ public class IsHadFragment extends BaseFragment<IsHadPresent, IsHadView> {
         relaseFb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(mContext, MessageCreateActivity.class);
-//                intent.putExtra("type", Constant.PULL_IMAGE_CODE);
-//                startActivity(intent);
-                Intent intent = new Intent(mContext, VideoScreenCropActivity.class);
+                Intent intent = new Intent(mContext, MessageCreateActivity.class);
+                intent.putExtra("type", Constant.PULL_IMAGE_CODE);
                 startActivity(intent);
+//                Intent intent = new Intent(mContext, VideoScreenCropActivity.class);
+//                startActivity(intent);
             }
         });
     }

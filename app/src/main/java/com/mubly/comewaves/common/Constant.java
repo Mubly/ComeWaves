@@ -20,11 +20,8 @@ public class Constant {
     public static final int IMAGE_TYPE_CODE = 2; // 图片
     public static final int PULL_IMAGE_CODE = 1; // 拍摄发布图片
     public static final int PULL_VIDEO_CODE = 2; // 拍摄发布视频
-    public static final int INTENT_REQUEST_CODE_CAMERA = 105; //调用系统相机的请求码
 
-    public static final int REQUEST_CODE_CHOOSE = 25; //获取相册
-
-    public static final int REQUEST_CODE_CHOOSE_TYPE = 1010; //获取相册
+    public static final int REQUEST_VIDEO_IMG_CODE = 1010; //获取视频封面
 
     public static final int RESULT_CODE_TYPE = 1020; //获取选择的类型
 

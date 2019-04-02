@@ -1,6 +1,7 @@
 package com.mubly.comewaves.view.fragment;
 
 
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -30,6 +31,7 @@ import com.mubly.comewaves.common.utils.GlideRoundTransform;
 import com.mubly.comewaves.common.utils.TextViewUtils;
 import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
+import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.EventBusEvent;
 import com.mubly.comewaves.model.model.HomeBean;
 import com.mubly.comewaves.present.HomePresent;
@@ -239,6 +241,20 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
                 mPresenter.getHomeData(getArguments().getInt("status"), page);
             }
         });
+
+
+        LiveDataBus.get().with("onpause", Boolean.class)
+                .observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(@Nullable Boolean aBoolean) {
+
+                        if (aBoolean && isInit && type == Constant.VIDEO_TYPE_CODE) {
+                            GSYVideoManager.onPause();
+                        } else if ( isInit && type == Constant.VIDEO_TYPE_CODE) {
+                            GSYVideoManager.onResume();
+                        }
+                    }
+                });
     }
 
     @Override
