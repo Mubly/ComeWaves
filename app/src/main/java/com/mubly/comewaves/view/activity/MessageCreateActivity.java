@@ -95,7 +95,6 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
                 mLongitude = String.valueOf(aMapLocation.getLongitude());//获取经度
                 addressStr = aMapLocation.getAddress();
                 userCurrentAddress.setText(aMapLocation.getPoiName());
-
             }
         });
     }

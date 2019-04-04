@@ -2,8 +2,10 @@
 <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mine_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:srlEnableLoadmore="false"
     tools:context=".view.fragment.HomeFragment">
 
     <com.scwang.smartrefresh.layout.header.ClassicsHeader
@@ -67,8 +69,8 @@
                 android:layout_marginRight="@dimen/size_10dp"
                 android:background="@drawable/window2222bg"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/size_20dp"
                 android:visibility="gone"
+                android:paddingLeft="@dimen/size_20dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/openMore">
 
@@ -252,8 +254,7 @@
 
     <com.scwang.smartrefresh.layout.footer.ClassicsFooter
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </com.scwang.smartrefresh.layout.footer.ClassicsFooter>
+        android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.footer.ClassicsFooter>
 
 
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -39,6 +39,7 @@ import com.mubly.comewaves.view.activity.MessageCreateActivity;
 import com.mubly.comewaves.view.activity.SettingActivity;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
 import com.mubly.comewaves.view.interfaceview.MineView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +77,8 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     ScrollViewPage mViewPage;
     @BindView(R.id.show_setting_layout)
     LinearLayout showMoreLayout;
-    //    @BindView(R.id.attention_layout)
-//    LinearLayout attentionLayout;//关注
+    @BindView(R.id.attention_layout)
+    LinearLayout attentionLayout;//关注
     List<String> title = new ArrayList<>();
     List<Fragment> fragmentList = new ArrayList<>();
     LoginResBean loginResBean = null;
@@ -85,6 +86,10 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     LinearLayout fansLayout;
     @BindView(R.id.motto_of_person_lebel)
     TextView mottoOfPersonLebel;
+    @BindView(R.id.mine_refresh_layout)
+    SmartRefreshLayout smartRefreshLayout;
+    @BindView(R.id.ver_line)
+    View fansLine;
     Unbinder unbinder;
 
     @Override
@@ -172,11 +177,7 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
                 startActivity(new Intent(mContext, AttentionsActivity.class));
                 break;
             case R.id.openMore:
-                if (showMoreLayout.getVisibility() == View.GONE) {
-                    showMoreLayout.setVisibility(View.VISIBLE);
-                } else {
-                    showMoreLayout.setVisibility(View.GONE);
-                }
+                openOrCloseWindow();
                 break;
             case R.id.setting_user_info_tv:
                 Intent intent = new Intent(mContext, SettingActivity.class);
@@ -188,6 +189,20 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
                 intent2.putExtra("type", "edit");
                 startActivity(intent2);
                 break;
+        }
+    }
+
+    private void openOrCloseWindow() {
+        if (showMoreLayout.getVisibility() == View.GONE) {
+            showMoreLayout.setVisibility(View.VISIBLE);
+            attentionLayout.setVisibility(View.GONE);
+            fansLayout.setVisibility(View.GONE);
+            fansLine.setVisibility(View.GONE);
+        } else {
+            showMoreLayout.setVisibility(View.GONE);
+            attentionLayout.setVisibility(View.VISIBLE);
+            fansLayout.setVisibility(View.VISIBLE);
+            fansLine.setVisibility(View.VISIBLE);
         }
     }
 
