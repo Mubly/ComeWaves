@@ -1,106 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".view.fragment.SearchFragment">
 
-    <LinearLayout
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.header.ClassicsHeader>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/top_search_et_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_32dp"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <EditText
-                android:layout_width="@dimen/size_0dp"
-                android:layout_height="@dimen/size_30dp"
-                android:layout_marginLeft="@dimen/size_20dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:drawableLeft="@mipmap/search_icon"
-                android:drawablePadding="@dimen/size_10dp"
-                android:gravity="center_vertical"
-                android:hint="单品/店铺/搭配/话题"
-                android:textSize="@dimen/size_12dp" />
-
-            <ImageView
-                android:layout_width="@dimen/size_32dp"
-                android:layout_height="@dimen/size_32dp"
-                android:layout_marginRight="@dimen/size_20dp"
-                android:padding="@dimen/size_6dp"
-                android:src="@mipmap/message_icon" />
-        </LinearLayout>
-
-        <View
-            android:id="@+id/view_line"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_1px"
-            android:background="@color/line_353536"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_search_et_layout"></View>
-
-        <FrameLayout
-            android:id="@+id/search_tablayout_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/view_line">
-
-            <include layout="@layout/view_tab_layout"></include>
-        </FrameLayout>
-
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/search_scroll_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.constraint.ConstraintLayout
+            <LinearLayout
+                android:id="@+id/top_search_et_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_32dp"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/lebel_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <EditText
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="@dimen/size_30dp"
                     android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_marginTop="@dimen/size_12dp"
-                    android:text="热门标签"
-                    android:textColor="@color/text_121317"
-                    android:textSize="@dimen/size_14dp"
-                    android:visibility="gone"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:drawableLeft="@mipmap/search_icon"
+                    android:drawablePadding="@dimen/size_10dp"
+                    android:gravity="center_vertical"
+                    android:hint="单品/店铺/搭配/话题"
+                    android:textSize="@dimen/size_12dp" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/top_label_rv"
+                <ImageView
+                    android:layout_width="@dimen/size_32dp"
+                    android:layout_height="@dimen/size_32dp"
+                    android:layout_marginRight="@dimen/size_20dp"
+                    android:padding="@dimen/size_6dp"
+                    android:src="@mipmap/message_icon" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_1px"
+                android:background="@color/line_353536"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/top_search_et_layout"></View>
+
+            <FrameLayout
+                android:id="@+id/search_tablayout_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/view_line">
+
+                <include layout="@layout/view_tab_layout"></include>
+            </FrameLayout>
+
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/search_scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_52dp"
-                    android:layout_marginTop="@dimen/size_8dp"
-                    android:visibility="gone"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/lebel_tv">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                </android.support.v7.widget.RecyclerView>
+                    <TextView
+                        android:id="@+id/lebel_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/size_20dp"
+                        android:layout_marginTop="@dimen/size_12dp"
+                        android:text="热门标签"
+                        android:textColor="@color/text_121317"
+                        android:textSize="@dimen/size_14dp"
+                        android:visibility="gone"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/top_label_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_52dp"
+                        android:layout_marginTop="@dimen/size_8dp"
+                        android:visibility="gone"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/lebel_tv">
+
+                    </android.support.v7.widget.RecyclerView>
 
 
-                <com.mubly.comewaves.view.costomview.ScrollViewPage
-                    android:id="@+id/search_viewpage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:background="@color/colorPrimary"></com.mubly.comewaves.view.costomview.ScrollViewPage>
-            </android.support.constraint.ConstraintLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </LinearLayout>
+                    <com.mubly.comewaves.view.costomview.ScrollViewPage
+                        android:id="@+id/search_viewpage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:background="@color/colorPrimary"></com.mubly.comewaves.view.costomview.ScrollViewPage>
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
+    </FrameLayout>
 
-</FrameLayout>
+    <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.footer.ClassicsFooter>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

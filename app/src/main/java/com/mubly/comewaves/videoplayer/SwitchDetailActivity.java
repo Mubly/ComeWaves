@@ -67,6 +67,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
     private TextView userName;
     private TextView userAddress;
     private TextView facousTv;
+    private ImageButton uploadVideoOrImg;
 
     public static void startTActivity(Activity activity, View transitionView, int postId) {
         Intent intent = new Intent(activity, SwitchDetailActivity.class);
@@ -152,6 +153,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
         userName = findViewById(R.id.user_name_tv);
         userAddress = findViewById(R.id.user_address_tv);
         facousTv = findViewById(R.id.to_attention_tv);
+        uploadVideoOrImg = findViewById(R.id.img_or_video_ib);
 
     }
 
@@ -211,6 +213,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
         commentCount.setOnClickListener(this);
         praiseCountTv.setOnClickListener(this);
         facousTv.setOnClickListener(this);
+        uploadVideoOrImg.setOnClickListener(this);
         inputEt.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -274,7 +277,9 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
                 ToastUtils.showToast("暂未开放，敬请期待");
 //                mPresenter.doAttention(userId);
                 break;
-
+            case R.id.img_or_video_ib:
+                ToastUtils.showToast("添加图片或视频");
+                break;
         }
     }
 
@@ -359,7 +364,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
             commentLayout.setVisibility(View.GONE);
             openMoreComment.setVisibility(View.GONE);
         }
-        userId=topicInfoVo.post.getPost_id();
+        userId = topicInfoVo.post.getPost_id();
         Glide.with(mContext).load(topicInfoVo.post.getUser_head()).apply(RequestOptions.circleCropTransform()).into(userHeadIv);
         userName.setText(topicInfoVo.post.getUser_name());
 

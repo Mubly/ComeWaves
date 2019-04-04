@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -73,6 +74,8 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     TabLayout mTabLayout;
     @BindView(R.id.mine_viewpage)
     ScrollViewPage mViewPage;
+    @BindView(R.id.show_setting_layout)
+    LinearLayout showMoreLayout;
     //    @BindView(R.id.attention_layout)
 //    LinearLayout attentionLayout;//关注
     List<String> title = new ArrayList<>();
@@ -159,7 +162,7 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
         unbinder.unbind();
     }
 
-    @OnClick({R.id.mine_avtar_img, R.id.attention_layout, R.id.openMore})
+    @OnClick({R.id.mine_avtar_img, R.id.attention_layout, R.id.openMore, R.id.setting_user_info_tv, R.id.edit_user_info_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mine_avtar_img:
@@ -169,7 +172,21 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
                 startActivity(new Intent(mContext, AttentionsActivity.class));
                 break;
             case R.id.openMore:
-                startActivity(new Intent(mContext, SettingActivity.class));
+                if (showMoreLayout.getVisibility() == View.GONE) {
+                    showMoreLayout.setVisibility(View.VISIBLE);
+                } else {
+                    showMoreLayout.setVisibility(View.GONE);
+                }
+                break;
+            case R.id.setting_user_info_tv:
+                Intent intent = new Intent(mContext, SettingActivity.class);
+                intent.putExtra("type", "setting");
+                startActivity(intent);
+                break;
+            case R.id.edit_user_info_tv:
+                Intent intent2 = new Intent(mContext, SettingActivity.class);
+                intent2.putExtra("type", "edit");
+                startActivity(intent2);
                 break;
         }
     }

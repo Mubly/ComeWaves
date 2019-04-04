@@ -263,7 +263,7 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
 
     @Override
     public void upLoadSuccess() {
-        ToastUtils.showToast("发布成功");
+        ToastUtils.showToast("开始上传");
         finish();
     }
 }

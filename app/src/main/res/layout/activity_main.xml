@@ -15,7 +15,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/video_upload_progress_pb"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:visibility="gone" />
 
         <include layout="@layout/bottom_tab_bar" />
     </LinearLayout>
@@ -41,7 +50,8 @@
 
     <ImageView
         android:id="@+id/wait_img"
-        android:background="@drawable/start_img"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@drawable/start_img"
+        tools:visibility="gone" />
 </FrameLayout>

@@ -1,6 +1,7 @@
 package com.mubly.comewaves.view.activity;
 
 import android.Manifest;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,20 +11,24 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.text.format.Formatter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.permissions.RxPermissions;
+import com.lzy.okgo.model.Progress;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.CrossApp;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.EventBusEvent;
 import com.mubly.comewaves.view.costomview.MyViewPager;
@@ -84,6 +89,8 @@ public class MainActivity extends BaseActivity {
     ImageView ivTabbarMeIcon;
     @BindView(R.id.wait_img)
     ImageView waitImage;
+    @BindView(R.id.video_upload_progress_pb)
+    ProgressBar mProgressBar;
     HomeFragment homeFragment = new HomeFragment();
     ReleaseFragment releaseFragment = new ReleaseFragment();
     IsHadFragment isHadFragment = new IsHadFragment();
@@ -112,7 +119,7 @@ public class MainActivity extends BaseActivity {
         int type = intent.getIntExtra("type", 0);
         main_mypager.setCurrentItem(type);
         if (isLogining) {
-            isLogining=!isLogining;
+            isLogining = !isLogining;
             LiveDataBus.get().with("onpause").setValue(false);
         }
     }
@@ -234,6 +241,25 @@ public class MainActivity extends BaseActivity {
                 break;
         }
 
+    }
+
+    @Override
+    public void initEvent() {
+        super.initEvent();
+        LiveDataBus.get().with("videoUpload", Progress.class).observe(this, new Observer<Progress>() {
+            @Override
+            public void onChanged(@Nullable Progress progress) {
+                if (mProgressBar.getVisibility() == View.GONE) {
+                    mProgressBar.setVisibility(View.VISIBLE);
+                }
+                float current = (progress.fraction * 100);
+                mProgressBar.setProgress((int) current);
+                if (progress.totalSize == progress.currentSize || progress.status == progress.FINISH) {
+                    mProgressBar.setVisibility(View.GONE);
+                }
+//                CommUtil.ToastU.showToast(mContext, downloadLength + "/" + totalLength);
+            }
+        });
     }
 
     @Override

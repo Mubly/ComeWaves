@@ -41,6 +41,7 @@ import static com.mubly.comewaves.common.network.ApiUrls.GET_CODE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.GET_USER_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.HOME_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.IMAGE_UPLOAD_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.IMG_VIDEO_UPLOAD_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.MY_TOPIC_AND_FOCUS_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.ONE_PASS_login_Url;
 import static com.mubly.comewaves.common.network.ApiUrls.PRAISE_URL;
@@ -221,6 +222,25 @@ public class Apis {
                 .params("video", video)//视频
 //                .params("img", img)//封面图
                 .params("sign", sign)//标签
+                .converter(new Converter<ResponseData<BaseModel>>() {
+                    @Override
+                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<BaseModel>>());
+
+    }
+
+
+    public static Observable<ResponseData<BaseModel>> imageVideoUpload(String common_id, String cate_id, String location, String through, String weft, String sign, File video, File img) {
+        return OkGo.<ResponseData<BaseModel>>post(IMG_VIDEO_UPLOAD_URL)
+                .params("common_id", common_id)//回复或者是评论的id(文章上传成功后返回此id)
+                .params("universal", cate_id)//图片或者视频
+                .params("type", location)//1:图片 2:视频
+                .params("status", sign)//1:评论 2:回复
                 .converter(new Converter<ResponseData<BaseModel>>() {
                     @Override
                     public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {

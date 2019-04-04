@@ -29,9 +29,7 @@ public class SettingActivity extends BaseActivity {
     ConstraintLayout topLayout;
     @BindView(R.id.top_tittle)
     TextView titleTv;
-    @BindView(R.id.top_layout_right_tv)
-    TextView topRightTv;
-    boolean isSetting;
+    private String type;
 
     @Override
     protected BasePresenter createPresenter() {
@@ -40,39 +38,31 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
+        type = getIntent().getStringExtra("type");
         return R.layout.activity_setting;
     }
 
     @Override
     public void initView() {
         super.initView();
-        titleTv.setText("编辑个人资料");
-        topRightTv.setText("设置");
-        topRightTv.setVisibility(View.VISIBLE);
-        getSupportFragmentManager().beginTransaction().add(R.id.setting_bg, new UserInfoFragment()).addToBackStack(null).commit();
+
+        if (type.equals("edit")) {
+            titleTv.setText("编辑个人资料");
+            getSupportFragmentManager().beginTransaction().add(R.id.setting_bg, new UserInfoFragment()).addToBackStack(null).commit();
+        } else {
+            titleTv.setText("设置");
+            getSupportFragmentManager().beginTransaction().add(R.id.setting_bg, new UserSettingFragment()).addToBackStack(null).commit();
+        }
     }
 
 
-    @OnClick({R.id.top_back_btn, R.id.top_layout, R.id.top_layout_right_tv})
+    @OnClick({R.id.top_back_btn, R.id.top_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.top_back_btn:
-                if (isSetting) {
-                    getSupportFragmentManager().popBackStack();
-                    isSetting = false;
-                    topRightTv.setVisibility(View.VISIBLE);
-                    titleTv.setText("编辑个人资料");
-                } else {
-                    finish();
-                }
+                finish();
                 break;
             case R.id.top_layout:
-                break;
-            case R.id.top_layout_right_tv:
-                isSetting = true;
-                topRightTv.setVisibility(View.GONE);
-                titleTv.setText("设置");
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_right_in,R.anim.slide_left_out).replace(R.id.setting_bg, new UserSettingFragment()).addToBackStack(null).commit();
                 break;
         }
     }
@@ -85,14 +75,7 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (isSetting) {
-            getSupportFragmentManager().popBackStack();
-            isSetting = false;
-            topRightTv.setVisibility(View.VISIBLE);
-            titleTv.setText("编辑个人资料");
-        } else {
-            finish();
-        }
 //        super.onBackPressed();
+        finish();
     }
 }

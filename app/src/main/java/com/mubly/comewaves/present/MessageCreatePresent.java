@@ -12,6 +12,7 @@ import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.base.ResponseData;
 import com.mubly.comewaves.common.network.Apis;
 import com.mubly.comewaves.common.network.RxObserver;
+import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.view.interfaceview.MessageCreateView;
 
 import java.io.File;
@@ -64,7 +65,7 @@ public class MessageCreatePresent extends BasePresenter<MessageCreateView> {
     }
 
     public void videoUpdate(final String post_info, final String location, final String through, final String weft, final String sign, final File video, File img) {
-        getMvpView().showProgress("正在上传中……");
+//        getMvpView().showProgress("正在上传中……");
         Observable.create(new ObservableOnSubscribe<Progress>() {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<Progress> e) throws Exception {
@@ -113,10 +114,13 @@ public class MessageCreatePresent extends BasePresenter<MessageCreateView> {
 
                     @Override
                     public void onNext(@NonNull Progress progress) {
-                        String downloadLength = Formatter.formatFileSize(getMvpView().getContext(), progress.currentSize);
-                        String totalLength = Formatter.formatFileSize(getMvpView().getContext(), progress.totalSize);
+//                        String downloadLength = Formatter.formatFileSize(getMvpView().getContext(), progress.currentSize);
+//                        String totalLength = Formatter.formatFileSize(getMvpView().getContext(), progress.totalSize);
                         if (isAttachView()) {
-                            getMvpView().showProgress("正在上传中……  " + downloadLength + "/" + totalLength);
+                            getMvpView().upLoadSuccess();
+//                            getMvpView().showProgress("正在上传中……  " + downloadLength + "/" + totalLength);
+                        } else {
+                            LiveDataBus.get().with("videoUpload").postValue(progress);
                         }
 
                     }

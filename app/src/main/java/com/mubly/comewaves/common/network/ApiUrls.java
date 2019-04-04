@@ -62,6 +62,7 @@ public class ApiUrls {
 
     public static final String ACK_EDIT_USER_INFO_URL = BASE_URL + "user/getpersonal";  //确认修改用户信息
 
+    public static final String IMG_VIDEO_UPLOAD_URL = BASE_URL + "report/postupload";  //发表图片或视频
 
 
 
@@ -77,7 +78,6 @@ public class ApiUrls {
 
 
 
-    public static final String GETCommentUrl = BASE_URL + "topic/getCommentByTopic";  //获取评论
 
     public static final String PostCommentUrl = BASE_URL + "topic/comment";  //评论
 
