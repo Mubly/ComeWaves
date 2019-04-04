@@ -72,7 +72,7 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
     private String mLatitude, mLongitude;
     private String addressStr;
     int selectNum = 1;
-
+    List<LocalMedia> selectList;
 
     @Override
     protected int getLayoutId() {
@@ -154,6 +154,7 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
                                     .videoMaxSecond(15)// 显示多少秒以内的视频or音频也可适用 int
                                     .videoMinSecond(10)// 显示多少秒以内的视频or音频也可适用 int
                                     .recordVideoSecond(15)//视频秒数录制 默认60s int
+                                    .selectionMedia(selectList)
                                     .forResult(PictureConfig.CHOOSE_REQUEST);
                         } else {
                             if (data.getPictureType().contains("mp4")) {
@@ -201,8 +202,12 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
     }
 
     private void uploadData() {
+        String sing = "";
+        for (int i = 0; i < input_et.getTagList().size(); i++) {
+            sing = sing + "," + input_et.getTagList().get(i);
+        }
         final String contentInfo = input_et.getText().toString();
-        mPresenter.videoUpdate(contentInfo, addressStr, mLongitude, mLatitude, "#美妆", new File(voideImageList.get(0).getPath()), new File(videoImg));
+        mPresenter.videoUpdate(contentInfo, addressStr, mLongitude, mLatitude, sing, new File(voideImageList.get(0).getPath()), new File(videoImg));
     }
 
     private void uploadImage() {
@@ -250,6 +255,7 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
     }
 
     private void dealImageOrVideo(List<LocalMedia> selectList) {
+        this.selectList = selectList;
         for (LocalMedia localMedia : selectList) {
             voideImageList.add(voideImageList.size() - 1, localMedia);
         }

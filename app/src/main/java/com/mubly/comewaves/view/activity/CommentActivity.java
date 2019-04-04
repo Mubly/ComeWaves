@@ -109,7 +109,7 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
             @Override
             public void onClick(View v) {
                 selectCommendId = data.getComment_id();
-                commentEdit.setText("#" + data.getUser_name());
+//                commentEdit.setText("#" + data.getUser_name());
             }
         });
     }
@@ -185,6 +185,7 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
     public void replyCommentSuccess() {
         mPresenter.getCommentInfo(topicId);
         commentEdit.setText("");
+        selectCommendId = 0;
     }
 
     @Override
@@ -222,7 +223,13 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
                 if (TextUtils.isEmpty(contentStr)) {
                     return;
                 }
-                mPresenter.replyComment(topicId, contentStr, type, selectCommendId, userId);
+                if (selectCommendId == 0) {
+                    mPresenter.sendReplyComment(topicId, contentStr, type);
+                } else {
+                    mPresenter.replyComment(topicId, contentStr, type, selectCommendId, userId);
+                }
+
+
                 break;
         }
     }

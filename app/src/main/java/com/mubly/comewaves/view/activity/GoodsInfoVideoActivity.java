@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.utils.CommUtil;
+import com.mubly.comewaves.common.utils.TextViewUtils;
 import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.model.CommentInfo;
 import com.mubly.comewaves.model.model.GlideImageLoader;
@@ -54,8 +55,6 @@ public class GoodsInfoVideoActivity extends BaseActivity<CommentInfoPresent, Com
     TextView userAddressTv;
     @BindView(R.id.to_attention_tv)
     TextView toAttentionTv;
-    @BindView(R.id.video_content_tv)
-    TextView videoContentTv;
     @BindView(R.id.praise_tv)
     TextView praiseTv;
     @BindView(R.id.comment_count)
@@ -74,10 +73,13 @@ public class GoodsInfoVideoActivity extends BaseActivity<CommentInfoPresent, Com
     FrameLayout editLayout;
     @BindView(R.id.input_et)
     EditText inputEt;
+    @BindView(R.id.video_content_tv)
+    TextView contentTv;
     private int type;
     private int postId;
-//    private List<String> imgList = new ArrayList<>();
+    //    private List<String> imgList = new ArrayList<>();
     OrientationUtils orientationUtils;
+
 
     @Override
     protected CommentInfoPresent createPresenter() {
@@ -156,8 +158,9 @@ public class GoodsInfoVideoActivity extends BaseActivity<CommentInfoPresent, Com
         if (false) {//判断是否已关注
             toAttentionTv.setVisibility(View.GONE);
         }
+        contentTv.setText(TextViewUtils.getWeiBoContent(mContext, topicInfoVo.post.getPost_info(), contentTv));
         praiseTv.setText(topicInfoVo.post.getFabulous_num() + "");//喜欢
-        attentCount.setText(topicInfoVo.post.getLike_status() + "");//收藏
+        attentCount.setText(topicInfoVo.post.getCollection_num() + "");//收藏
         commentCount.setText(topicInfoVo.post.getReport_num() + "");
         setPraise(topicInfoVo.post.getLike_status(), false);
         setAttent(topicInfoVo.post.getCollect_status(), false);

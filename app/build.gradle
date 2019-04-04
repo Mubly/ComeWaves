@@ -37,7 +37,7 @@ android {
 
         release {
             buildConfigField "String", "BASE_WEBSOCKET_URL", "\"http://ws.fydianping.com\""
-            buildConfigField "String", "BASE_URL", "\"https://dingou.wang/api/\""
+            buildConfigField "String", "BASE_URL", "\"https://lailang.wang/api/\""
             buildConfigField "String", "BASE_H5_URL", "\"http://h5.fydianping.com/\""
             buildConfigField "String", "BASE_OFFICE_URL", "\"http://fydianping.com\""
             buildConfigField "String", "BASE_GAME_URL", "\"http://game.chest.fydianping.com\""

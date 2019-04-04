@@ -32,6 +32,9 @@ import com.mubly.comewaves.present.SearchPresent;
 import com.mubly.comewaves.view.activity.HotLebelActivity;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
 import com.mubly.comewaves.view.interfaceview.SearchView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +54,9 @@ public class SearchFragment extends BaseFragment<SearchPresent, SearchView> impl
     TabLayout mTabLayout;
     @BindView(R.id.search_viewpage)
     ScrollViewPage mViewPage;
-//    @BindView(R.id.search_scroll_view)
+    @BindView(R.id.search_refresh_layout)
+    SmartRefreshLayout smartRefreshLayout;
+    //    @BindView(R.id.search_scroll_view)
 //    NestedScrollView mScrollView;
     List<String> title = new ArrayList<>();
     List<Fragment> fragmentList = new ArrayList<>();
@@ -79,7 +84,17 @@ public class SearchFragment extends BaseFragment<SearchPresent, SearchView> impl
     @Override
     public void initEvent() {
         super.initEvent();
+        smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore();
+            }
 
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh();
+            }
+        });
     }
 
     @Override

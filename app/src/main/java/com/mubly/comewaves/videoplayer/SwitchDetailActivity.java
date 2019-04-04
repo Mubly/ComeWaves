@@ -26,6 +26,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseMvpView;
 import com.mubly.comewaves.common.utils.CommUtil;
+import com.mubly.comewaves.common.utils.TextViewUtils;
 import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.model.CommentInfo;
 import com.mubly.comewaves.model.model.SmartBeanVo;
@@ -64,6 +65,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
     LinearLayout commentLayout;
     FrameLayout editLayout;
     EditText inputEt;
+    TextView contentTv;
     private TextView userName;
     private TextView userAddress;
     private TextView facousTv;
@@ -154,6 +156,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
         userAddress = findViewById(R.id.user_address_tv);
         facousTv = findViewById(R.id.to_attention_tv);
         uploadVideoOrImg = findViewById(R.id.img_or_video_ib);
+        contentTv=findViewById(R.id.video_content_tv);
 
     }
 
@@ -364,6 +367,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
             commentLayout.setVisibility(View.GONE);
             openMoreComment.setVisibility(View.GONE);
         }
+        contentTv.setText(TextViewUtils.getWeiBoContent(mContext, topicInfoVo.post.getPost_info(), contentTv));
         userId = topicInfoVo.post.getPost_id();
         Glide.with(mContext).load(topicInfoVo.post.getUser_head()).apply(RequestOptions.circleCropTransform()).into(userHeadIv);
         userName.setText(topicInfoVo.post.getUser_name());
@@ -373,7 +377,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
             facousTv.setVisibility(View.GONE);
         }
         praiseCountTv.setText(topicInfoVo.post.getFabulous_num() + "");//喜欢
-        attentCount.setText(topicInfoVo.post.getLike_status() + "");//收藏
+        attentCount.setText(topicInfoVo.post.getCollection_num() + "");//收藏
         commentCount.setText(topicInfoVo.post.getReport_num() + "");
         setPraise(topicInfoVo.post.getLike_status(), false);
         setAttent(topicInfoVo.post.getCollect_status(), false);
