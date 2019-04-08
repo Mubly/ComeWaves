@@ -41,6 +41,7 @@
             android:layout_height="@dimen/size_50dp"
             android:layout_marginRight="@dimen/size_20dp"
             android:src="@mipmap/message_icon"
+            android:visibility="gone"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>

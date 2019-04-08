@@ -24,6 +24,7 @@
                 android:id="@+id/top_search_et_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/size_32dp"
                 android:orientation="horizontal"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -53,6 +54,7 @@
                 android:id="@+id/view_line"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_1px"
+                android:visibility="gone"
                 android:background="@color/line_353536"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/top_search_et_layout"></View>
@@ -61,6 +63,7 @@
                 android:id="@+id/search_tablayout_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_32dp"
                 app:layout_constraintTop_toBottomOf="@id/view_line">
 
                 <include layout="@layout/view_tab_layout"></include>

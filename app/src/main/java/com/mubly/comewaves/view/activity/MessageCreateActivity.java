@@ -150,7 +150,7 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
                                     .previewVideo(true)
                                     .compress(true)
                                     .maxSelectNum(selectNum)
-                                    .videoMaxSecond(15)// 显示多少秒以内的视频or音频也可适用 int
+//                                    .videoMaxSecond(15)// 显示多少秒以内的视频or音频也可适用 int
                                     .videoMinSecond(10)// 显示多少秒以内的视频or音频也可适用 int
                                     .recordVideoSecond(15)//视频秒数录制 默认60s int
                                     .selectionMedia(selectList)
@@ -169,6 +169,7 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
 
 
         };
+        imgOrVideoRv.setNestedScrollingEnabled(false);
         imgOrVideoRv.setLayoutManager(new GridLayoutManager(mContext, 3));
         imgOrVideoRv.setAdapter(smartAdapter);
         SpacesItemDecoration decoration = new SpacesItemDecoration(10);
@@ -255,6 +256,8 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
 
     private void dealImageOrVideo(List<LocalMedia> selectList) {
         this.selectList = selectList;
+        voideImageList.clear();
+        voideImageList.add(new LocalMedia());
         for (LocalMedia localMedia : selectList) {
             voideImageList.add(voideImageList.size() - 1, localMedia);
         }

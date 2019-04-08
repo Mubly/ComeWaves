@@ -89,6 +89,14 @@ public class RecyclerItemAutoDetiallHolder extends RecyclerItemBaseHolder {
                 SwitchDetailActivity.startTActivity((Activity) context, switchVideo, homeBean.getPost_id());
             }
         });
+        commentTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SwitchUtil.savePlayState(gsyVideoPlayer);
+                gsyVideoPlayer.getGSYVideoManager().setLastListener(gsyVideoPlayer);
+                SwitchDetailActivity.startTActivity((Activity) context, gsyVideoPlayer, homeBean.getPost_id());
+            }
+        });
     }
 
     /**

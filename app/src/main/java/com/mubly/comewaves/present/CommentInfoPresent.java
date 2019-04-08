@@ -197,7 +197,7 @@ public class CommentInfoPresent extends BasePresenter<CommentInfoView> {
     }
 
     public void doCollection(int post_id) {
-        Apis.doPraise(post_id)
+        Apis.doCollection(post_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxObserver<ResponseData<SmartBeanVo>>() {

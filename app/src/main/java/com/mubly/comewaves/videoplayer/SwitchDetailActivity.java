@@ -285,7 +285,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
                 break;
         }
     }
-
+//收藏
     private void setAttent(int b, boolean isCount) {
         Drawable drawable = null;
         String count = attentCount.getText().toString();

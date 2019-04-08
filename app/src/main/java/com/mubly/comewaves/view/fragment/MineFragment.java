@@ -40,6 +40,8 @@ import com.mubly.comewaves.view.activity.SettingActivity;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
 import com.mubly.comewaves.view.interfaceview.MineView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +122,12 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
                 }
             }
         });
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                LiveDataBus.get().with("refreshUserInfo").setValue(true);
+            }
+        });
     }
 
     @Override
@@ -157,7 +165,9 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
         if (!TextUtils.isEmpty(userInfoVo.getSignature())) {
             mottoContentTv.setText(userInfoVo.getSignature());
         }
-
+        if (smartRefreshLayout.isRefreshing()) {
+            smartRefreshLayout.finishRefresh();
+        }
     }
 
 
@@ -183,11 +193,13 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
                 Intent intent = new Intent(mContext, SettingActivity.class);
                 intent.putExtra("type", "setting");
                 startActivity(intent);
+                openOrCloseWindow();
                 break;
             case R.id.edit_user_info_tv:
                 Intent intent2 = new Intent(mContext, SettingActivity.class);
                 intent2.putExtra("type", "edit");
                 startActivity(intent2);
+                openOrCloseWindow();
                 break;
         }
     }

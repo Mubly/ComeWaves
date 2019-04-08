@@ -86,14 +86,6 @@ public class IsHadFragment extends BaseFragment<IsHadPresent, IsHadView> {
     @Override
     public void initView(View rootView) {
         super.initView(rootView);
-//        labelList.add("wiueu");
-//        labelList.add("wiueu");
-//        labelList.add("wiueu");
-//        labelList.add("wiueu");
-//        labelList.add("wiueu");
-//        labelList.add("wiueu");
-//        labelList.add("wiueu");
-//        labelList.add("wiueu");
         title.add("衣服");
         title.add("席子");
         title.add("鞋子");
