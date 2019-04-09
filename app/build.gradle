@@ -108,6 +108,7 @@ dependencies {
     //    高德地图
     implementation 'com.amap.api:map2d:latest.integration'
     implementation 'com.amap.api:location:latest.integration'
+    implementation 'com.amap.api:search:latest.integration'
     //    banner轮播图
     implementation 'com.youth.banner:banner:1.4.10'
     //    友盟+
@@ -127,4 +128,5 @@ dependencies {
 //    implementation files('libs/androidannotations-api-3.2.jar')
 //    七牛云
 //    implementation 'com.qiniu:qiniu-android-sdk:7.2.+'
+    implementation 'com.qiniu:qiniu-android-sdk:7.3.15'
 }

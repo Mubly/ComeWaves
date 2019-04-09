@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
+import com.amap.api.services.core.PoiItem;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -25,17 +27,29 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.common.utils.EditViewUtil;
 import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
+import com.mubly.comewaves.model.interfaces.CallBackObject;
+import com.mubly.comewaves.model.interfaces.CallPoiListBack;
+import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.present.MessageCreatePresent;
 import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
 import com.mubly.comewaves.view.costomview.TagInputEditView;
 import com.mubly.comewaves.view.interfaceview.MessageCreateView;
+import com.mubly.comewaves.view.interfaceview.UpLoadView;
+import com.qiniu.android.storage.Configuration;
+import com.qiniu.android.storage.UploadManager;
+import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 import butterknife.BindView;
@@ -48,8 +62,6 @@ import static com.mubly.comewaves.common.Constant.REQUEST_VIDEO_IMG_CODE;
  * 发布帖子、视频，状态等等
  */
 public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, MessageCreateView> implements MessageCreateView {
-
-
     @BindView(R.id.top_back_btn)
     ImageButton topBackBtn;
     @BindView(R.id.top_tittle)
@@ -71,8 +83,15 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
     private int type;
     private String mLatitude, mLongitude;
     private String addressStr;
+    private String poiName, adCode;
     int selectNum = 1;
+    int index = 0;
     List<LocalMedia> selectList;
+    UploadManager uploadManager = new UploadManager();
+    String qiNToken;
+    boolean hassearchPoi;
+    List<String> localList = new ArrayList<>();
+    private List<PoiItem> poiList;
 
     @Override
     protected int getLayoutId() {
@@ -93,16 +112,18 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
             public void onLocationChanged(AMapLocation aMapLocation) {
                 mLatitude = String.valueOf(aMapLocation.getLatitude());//获取纬度
                 mLongitude = String.valueOf(aMapLocation.getLongitude());//获取经度
-                addressStr = aMapLocation.getAddress();
-                userCurrentAddress.setText(aMapLocation.getPoiName());
+                poiName = aMapLocation.getPoiName();
+                adCode = aMapLocation.getAdCode();
+                userCurrentAddress.setText(poiName);
             }
         });
+        mPresenter.getUpLoadToken();
     }
 
     @Override
     public void initEvent() {
         super.initEvent();
-//        EditViewUtil.setInputType(input_et, "", "");
+
     }
 
     @Override
@@ -174,7 +195,6 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
         imgOrVideoRv.setAdapter(smartAdapter);
         SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         imgOrVideoRv.addItemDecoration(decoration);
-
     }
 
     @Override
@@ -182,7 +202,7 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
         return new MessageCreatePresent();
     }
 
-    @OnClick({R.id.top_back_btn, R.id.top_layout_right_tv})
+    @OnClick({R.id.top_back_btn, R.id.top_layout_right_tv, R.id.labels_tv, R.id.user_current_address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.top_back_btn:
@@ -196,9 +216,51 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
                     uploadImage();
                 }
 
+                break;
+            case R.id.labels_tv://插入标签
+                input_et.getText().append("#");
+                break;
+            case R.id.user_current_address:
+                if (TextUtils.isEmpty(poiName)) {
+                    ToastUtils.showToast("正在定位您当前的位置");
+                    return;
+                }
+
+                if (!hassearchPoi) {
+                    showProgress("正在加载……");
+                    mPresenter.gainPoiList(mContext, mLatitude, mLongitude, adCode, new CallPoiListBack() {
+                        @Override
+                        public void callBack(final List<PoiItem> poiItemList) {
+                            hassearchPoi = true;
+                            poiList = poiItemList;
+                            for (PoiItem poiItem : poiItemList) {
+                                localList.add(poiItem.getTitle());
+                            }
+                            hideProgress();
+                            showLocalDilog();
+                        }
+                    });
+                } else {
+                    showLocalDilog();
+                }
 
                 break;
         }
+
+    }
+
+    private void showLocalDilog() {
+        CommUtil.showSingleListDialog(mContext, index, "选择坐标", localList, new CallBackObject<Integer>() {
+
+            @Override
+            public void callBack(Integer integer) {
+                index = integer;
+                poiName = poiList.get(integer).getTitle();
+                mLatitude = String.valueOf(poiList.get(integer).getLatLonPoint().getLatitude());
+                mLongitude = String.valueOf(poiList.get(integer).getLatLonPoint().getLongitude());
+                userCurrentAddress.setText(poiName);
+            }
+        });
     }
 
     private void uploadData() {
@@ -207,7 +269,10 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
             sing = sing + "," + input_et.getTagList().get(i);
         }
         final String contentInfo = input_et.getText().toString();
-        mPresenter.videoUpdate(contentInfo, addressStr, mLongitude, mLatitude, sing, new File(voideImageList.get(0).getPath()), new File(videoImg));
+
+//        mPresenter.videoUpdate(contentInfo, addressStr, mLongitude, mLatitude, sing, new File(voideImageList.get(0).getPath()), new File(videoImg));
+        mPresenter.videodateQN(uploadManager, qiNToken, contentInfo, addressStr, mLongitude, mLatitude, sing, voideImageList.get(0).getPath(), videoImg);
+        finish();
     }
 
     private void uploadImage() {
@@ -273,5 +338,25 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
     public void upLoadSuccess() {
         ToastUtils.showToast("开始上传");
         finish();
+    }
+
+    @Override
+    public void getUpLoadToken(String token) {
+        qiNToken = token;
+    }
+
+    @Override
+    public void showError(String msg) {
+        ToastUtils.showToast(msg);
+    }
+
+    @Override
+    public void upLoadImgSuccess(String keyRes, int type) {
+
+    }
+
+    @Override
+    public void upLoadImgFail(String error, int type) {
+
     }
 }

@@ -6,7 +6,7 @@ import com.mubly.comewaves.common.base.BaseMvpView;
 
 import io.reactivex.disposables.Disposable;
 
-public interface MessageCreateView extends BaseMvpView {
+public interface MessageCreateView extends UpLoadView {
     void addDisposable(Disposable disposable);
     Context getContext();
     void upLoadSuccess();

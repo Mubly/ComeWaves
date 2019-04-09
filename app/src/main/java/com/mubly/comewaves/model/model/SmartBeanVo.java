@@ -8,4 +8,5 @@ import java.io.Serializable;
 public class SmartBeanVo implements Serializable {
     public int status;
     public String community_post_img;
+    public String qiniu_token;
 }

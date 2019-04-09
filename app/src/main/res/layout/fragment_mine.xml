@@ -24,8 +24,7 @@
                 android:id="@+id/top_bg_img"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_0dp"
-                android:background="@drawable/ishad_1"
-                app:layout_constraintDimensionRatio="375:92"
+                app:layout_constraintDimensionRatio="375:160"
                 app:layout_constraintTop_toTopOf="parent"></ImageView>
 
             <TextView

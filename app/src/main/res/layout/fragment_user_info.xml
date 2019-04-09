@@ -25,6 +25,7 @@
             android:id="@+id/setting_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_0dp"
+            android:visibility="gone"
             android:scaleType="centerCrop"
             android:src="@drawable/start_img"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -45,8 +46,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/setting_bg_">
+        android:layout_height="match_parent">
 
         <View
             android:id="@+id/guide_view"
@@ -68,6 +68,7 @@
             app:layout_constraintTop_toTopOf="@id/guide_view" />
 
         <TextView
+            android:id="@+id/user_info_edit_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/size_20dp"
@@ -85,11 +86,10 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/guide_view">
-
+            <!--昵称-->
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/user_name_layout"
                 android:layout_width="match_parent"
-                android:visibility="gone"
                 android:layout_height="@dimen/size_36dp"
                 android:layout_marginTop="@dimen/size_40dp">
 
@@ -101,12 +101,13 @@
                     android:gravity="bottom"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="昵称"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/user_info_username"
                     android:layout_width="@dimen/size_0dp"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -115,7 +116,7 @@
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="香奈儿·万达分店"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/user_name_lebel"
                     app:layout_constraintRight_toRightOf="parent"
@@ -127,10 +128,12 @@
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
             </android.support.constraint.ConstraintLayout>
+            <!--店铺名称-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp"
-                android:layout_marginTop="@dimen/size_40dp">
+                android:layout_marginTop="@dimen/size_40dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/store_name_lebel"
@@ -140,7 +143,7 @@
                     android:gravity="bottom"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="店铺名称"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -154,7 +157,7 @@
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="香奈儿·万达分店"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/store_name_lebel"
                     app:layout_constraintRight_toRightOf="parent"
@@ -166,7 +169,7 @@
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
             </android.support.constraint.ConstraintLayout>
-
+            <!--账号-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
@@ -178,8 +181,8 @@
                     android:layout_marginLeft="@dimen/size_20dp"
                     android:gravity="bottom"
                     android:paddingBottom="@dimen/size_4dp"
-                    android:text="钉钉账号"
-                    android:textColor="@color/white"
+                    android:text="来浪账号"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -196,6 +199,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/user_info_account"
                     android:layout_width="@dimen/size_0dp"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -204,7 +208,7 @@
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="245235"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/ding_account_lebel"
                     app:layout_constraintRight_toRightOf="parent"
@@ -216,7 +220,7 @@
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
             </android.support.constraint.ConstraintLayout>
-
+            <!--个人签名-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -230,12 +234,13 @@
                     android:gravity="bottom"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="个人签名"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/user_info_signature"
                     android:layout_width="@dimen/size_0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/size_16dp"
@@ -247,7 +252,7 @@
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="一花一世界，一叶一菩提\n阿弥陀佛国，众生皆摩尼"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/motto_lebel"
                     app:layout_constraintRight_toRightOf="parent"
@@ -259,10 +264,11 @@
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
             </android.support.constraint.ConstraintLayout>
-
+            <!--经营范围-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_36dp">
+                android:layout_height="@dimen/size_36dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/sell_about_lebel"
@@ -272,7 +278,7 @@
                     android:gravity="bottom"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="经营范围"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -286,7 +292,7 @@
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="美妆/服饰/包包"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/sell_about_lebel"
                     app:layout_constraintRight_toRightOf="parent"
@@ -298,9 +304,10 @@
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
             </android.support.constraint.ConstraintLayout>
-
+            <!--店铺电话-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="@dimen/size_36dp">
 
                 <TextView
@@ -311,7 +318,7 @@
                     android:gravity="bottom"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="店铺电话"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -325,7 +332,7 @@
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="021-110"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/store_phone_lebel"
                     app:layout_constraintRight_toRightOf="parent"
@@ -337,9 +344,10 @@
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
             </android.support.constraint.ConstraintLayout>
-
+            <!--营业时间-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="@dimen/size_36dp">
 
                 <TextView
@@ -350,7 +358,7 @@
                     android:gravity="bottom"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="营业时间"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -364,7 +372,7 @@
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="10:00-22:00"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/work_time_lebel"
                     app:layout_constraintRight_toRightOf="parent"
@@ -376,10 +384,11 @@
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
             </android.support.constraint.ConstraintLayout>
-
+            <!--店铺地址-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:paddingTop="@dimen/size_16dp">
 
                 <TextView
@@ -390,7 +399,7 @@
                     android:gravity="bottom"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="店铺地址"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -404,7 +413,7 @@
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="上海市 嘉定区 江桥镇 华江路468号\n205室"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/store_address_lebel"
                     app:layout_constraintRight_toRightOf="parent"
@@ -416,7 +425,7 @@
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
             </android.support.constraint.ConstraintLayout>
-<!--个人-->
+            <!--性别-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
@@ -429,12 +438,13 @@
                     android:gravity="bottom"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="性别"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/user_info_sex"
                     android:layout_width="@dimen/size_0dp"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -443,7 +453,7 @@
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="男"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/user_gender_lebel"
                     app:layout_constraintRight_toRightOf="parent"
@@ -455,6 +465,7 @@
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
             </android.support.constraint.ConstraintLayout>
+            <!--生日-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
@@ -467,12 +478,13 @@
                     android:gravity="bottom"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="生日"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/user_info_birthday"
                     android:layout_width="@dimen/size_0dp"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -481,7 +493,7 @@
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="10月25"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/birthday_lebel"
                     app:layout_constraintRight_toRightOf="parent"
@@ -493,6 +505,7 @@
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
             </android.support.constraint.ConstraintLayout>
+            <!--地区-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
@@ -505,12 +518,13 @@
                     android:gravity="bottom"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="地区"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/user_info_address"
                     android:layout_width="@dimen/size_0dp"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -519,7 +533,7 @@
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="嘉定新城"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/user_local_lebel"
                     app:layout_constraintRight_toRightOf="parent"
@@ -531,6 +545,7 @@
                     android:background="@color/color_f5f5f5"
                     app:layout_constraintBottom_toBottomOf="parent"></View>
             </android.support.constraint.ConstraintLayout>
+            <!--学校-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_36dp">
@@ -543,12 +558,13 @@
                     android:gravity="bottom"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="学校"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/user_info_school"
                     android:layout_width="@dimen/size_0dp"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -557,7 +573,7 @@
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
                     android:text="同济大学"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/school_name_lebel"
                     app:layout_constraintRight_toRightOf="parent"

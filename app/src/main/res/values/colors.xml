@@ -104,6 +104,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#115A94</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="white_transparent">#00FFFFFF</color>
     <color name="gray_aph80">#33bebebe</color>
     <color name="black_aph80">#33000000</color>
     <color name="setting_bg_">#80888888</color>

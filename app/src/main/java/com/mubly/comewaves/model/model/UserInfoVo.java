@@ -21,6 +21,42 @@ public class UserInfoVo implements Serializable {
     private String background_img;
     private int fans_num;
     private int attention_num;
+    private String birthday;
+    private String location;
+    private String school;
+    private String sex;
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public String getUser_head() {
         return user_head;

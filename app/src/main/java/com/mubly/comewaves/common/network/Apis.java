@@ -38,6 +38,8 @@ import static com.mubly.comewaves.common.network.ApiUrls.COMMENT_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.EDIT_USER_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.GETCATEGORY_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.GET_CODE_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.GET_UPLOAD_TOKEN_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.GET_USERINFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.GET_USER_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.HOME_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.IMAGE_UPLOAD_URL;
@@ -54,6 +56,7 @@ import static com.mubly.comewaves.common.network.ApiUrls.SEND_REPLY_COMMENT_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.START_IMAGE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.TIE_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.VIDEO_UPLOAD_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.VIDEO_UPLOAD_URL2;
 import static com.mubly.comewaves.common.network.ApiUrls.loginUrl;
 
 
@@ -210,7 +213,28 @@ public class Apis {
                 .adapt(new ObservableBody<ResponseData<BaseModel>>());
 
     }
+    // 视频上传七牛
+    public static Observable<ResponseData<BaseModel>> videoUpload2(String post_info, String location, String through, String weft, String sign, String video, String img) {
+        return OkGo.<ResponseData<BaseModel>>post(VIDEO_UPLOAD_URL2)
+                .params("post_info", post_info)//文章内容
+//                .params("cate_id", cate_id)//分类Id
+                .params("location", location)//地址
+                .params("through", through)//经度
+                .params("weft", weft)//维度
+                .params("video", video)//视频
+                .params("img", img)//封面图
+                .params("sign", sign)//标签
+                .converter(new Converter<ResponseData<BaseModel>>() {
+                    @Override
+                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<BaseModel>>());
 
+    }
     // 图片上传
     public static Observable<ResponseData<BaseModel>> imageUpload(String post_info, String cate_id, String location, String through, String weft, String sign, File video, File img) {
         return OkGo.<ResponseData<BaseModel>>post(IMAGE_UPLOAD_URL)
@@ -482,7 +506,7 @@ public class Apis {
     //修改用户头像
     public static Observable<ResponseData<BaseModel>> updateAvatar(String avatar) {
         return OkGo.<ResponseData<BaseModel>>post(CHANGE_AVTAR_IMG_URL)
-                .params("avatar", avatar)
+                .params("img", avatar)
                 .converter(new Converter<ResponseData<BaseModel>>() {
                     @Override
                     public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
@@ -497,7 +521,7 @@ public class Apis {
     //修改用户背景图
     public static Observable<ResponseData<BaseModel>> userInfoBg(String avatar) {
         return OkGo.<ResponseData<BaseModel>>post(CHANGE_USERINFO_BG_URL)
-                .params("avatar", avatar)
+                .params("img", avatar)
                 .converter(new Converter<ResponseData<BaseModel>>() {
                     @Override
                     public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
@@ -526,6 +550,20 @@ public class Apis {
     }
 
     //获取用户信息
+    public static Observable<ResponseData<UserInfoVo>> getEditUserInfo() {
+        return OkGo.<ResponseData<UserInfoVo>>post(GET_USERINFO_URL)
+                .converter(new Converter<ResponseData<UserInfoVo>>() {
+                    @Override
+                    public ResponseData<UserInfoVo> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<UserInfoVo>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<UserInfoVo>>());
+    }
+
+    //获取用户信息
     public static Observable<ResponseData<UserInfoVo>> getUserInfo() {
         return OkGo.<ResponseData<UserInfoVo>>post(GET_USER_INFO_URL)
                 .converter(new Converter<ResponseData<UserInfoVo>>() {
@@ -540,9 +578,14 @@ public class Apis {
     }
 
     //确认修改用户信息
-    public static Observable<ResponseData<BaseModel>> ackEditUserInfo(String avatar) {
+    public static Observable<ResponseData<BaseModel>> ackEditUserInfo(UserInfoVo userInfoVo) {
         return OkGo.<ResponseData<BaseModel>>post(ACK_EDIT_USER_INFO_URL)
-                .params("avatar", avatar)
+                .params("user_name", userInfoVo.getUser_name())
+                .params("signature", userInfoVo.getSignature())
+                .params("birthday", userInfoVo.getBirthday())
+                .params("location", userInfoVo.getLocation())
+                .params("sex", userInfoVo.getSex())
+                .params("school", userInfoVo.getSchool())
                 .converter(new Converter<ResponseData<BaseModel>>() {
                     @Override
                     public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
@@ -552,5 +595,19 @@ public class Apis {
                     }
                 })
                 .adapt(new ObservableBody<ResponseData<BaseModel>>());
+    }
+
+    //    七牛token获取
+    public static Observable<ResponseData<SmartBeanVo>> getUpLoadToken() {
+        return OkGo.<ResponseData<SmartBeanVo>>post(GET_UPLOAD_TOKEN_URL)
+                .converter(new Converter<ResponseData<SmartBeanVo>>() {
+                    @Override
+                    public ResponseData<SmartBeanVo> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<SmartBeanVo>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<SmartBeanVo>>());
     }
 }

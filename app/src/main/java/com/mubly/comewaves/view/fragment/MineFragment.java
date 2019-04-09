@@ -29,6 +29,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
 import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.LoginResBean;
@@ -83,7 +84,7 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     LinearLayout attentionLayout;//关注
     List<String> title = new ArrayList<>();
     List<Fragment> fragmentList = new ArrayList<>();
-    LoginResBean loginResBean = null;
+    UserInfoVo userInfoVo = null;
     @BindView(R.id.fans_layout)
     LinearLayout fansLayout;
     @BindView(R.id.motto_of_person_lebel)
@@ -92,7 +93,7 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     SmartRefreshLayout smartRefreshLayout;
     @BindView(R.id.ver_line)
     View fansLine;
-    Unbinder unbinder;
+//    Unbinder unbinder;
 
     @Override
 
@@ -133,9 +134,10 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     @Override
     public void initView(View rootView) {
         super.initView(rootView);
-        if (!TextUtils.isEmpty(AppConfig.loginInfo.get())) {
-            loginResBean = new Gson().fromJson(AppConfig.loginInfo.get(), LoginResBean.class);
-            Glide.with(this).load(null == loginResBean.getUser_head() ? "" : loginResBean.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
+        if (!TextUtils.isEmpty(AppConfig.userInfoVo.get())) {
+            userInfoVo = new Gson().fromJson(AppConfig.userInfoVo.get(), UserInfoVo.class);
+            Glide.with(this).load(userInfoVo.getBackground_img()).into(topBgImg);
+            Glide.with(this).load(userInfoVo.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
         } else {
             Glide.with(this).load(R.drawable.ishad_1).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
         }
@@ -158,6 +160,10 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
         if (!TextUtils.isEmpty(userInfoVo.getUser_head())) {
             Glide.with(this).load(userInfoVo.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
         }
+        if (!TextUtils.isEmpty(userInfoVo.getBackground_img())) {
+            Glide.with(this).load(userInfoVo.getBackground_img()).into(topBgImg);
+        }
+        AppConfig.userInfoVo.put(CommUtil.object2Json(userInfoVo));
         attentAmountTv.setText(userInfoVo.getAttention_num() + "");
         fansAmountTv.setText(userInfoVo.getFans_num() + "");
         userNameTv.setText(userInfoVo.getUser_name());
@@ -171,11 +177,11 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        unbinder.unbind();
+//    }
 
     @OnClick({R.id.mine_avtar_img, R.id.attention_layout, R.id.openMore, R.id.setting_user_info_tv, R.id.edit_user_info_tv})
     public void onViewClicked(View view) {

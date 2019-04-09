@@ -23,6 +23,8 @@ public class ApiUrls {
     public static final String MUIL_IMAGE_UPLOAD_URL = BASE_URL + "post/posttextimgs";  //多图片上传
     public static final String VIDEO_UPLOAD_URL = BASE_URL + "post/postaddvideo";  //视频上传
 
+    public static final String VIDEO_UPLOAD_URL2 = BASE_URL + "post/postaddvideotwo";  //视频上传
+
     public static final String GET_USERINFO_URL = BASE_URL + "user/getpersonal";  //用户信息获取
 
     public static final String PRAISE_URL = BASE_URL + "user/posttextlike";  //点赞
@@ -52,18 +54,19 @@ public class ApiUrls {
 
     public static final String EDIT_USER_INFO_URL = BASE_URL + "user/postpersonal";  //修改用户信息
 
-    public static final String CHANGE_AVTAR_IMG_URL = BASE_URL + "user/postupdateimg";  //修改用户头像
+    public static final String CHANGE_AVTAR_IMG_URL = BASE_URL + "user/postupdateimgtwo";  //修改用户头像
 
-    public static final String CHANGE_USERINFO_BG_URL = BASE_URL + "user/postupdatebackground";  //修改用户背景图
+    public static final String CHANGE_USERINFO_BG_URL = BASE_URL + "user/postupdatebackgroundtwo";  //修改用户背景图
 
     public static final String MY_TOPIC_AND_FOCUS_URL = BASE_URL + "user/getuserpost";  //我的帖子、关注
 
     public static final String GET_USER_INFO_URL = BASE_URL + "user/getuserinformation";  //获取用户信息
 
-    public static final String ACK_EDIT_USER_INFO_URL = BASE_URL + "user/getpersonal";  //确认修改用户信息
+    public static final String ACK_EDIT_USER_INFO_URL = BASE_URL + "user/postpersonal";  //确认修改用户信息
 
     public static final String IMG_VIDEO_UPLOAD_URL = BASE_URL + "report/postupload";  //发表图片或视频
 
+    public static final String GET_UPLOAD_TOKEN_URL = BASE_URL + "upload/uploadtoken";  //七牛token
 
 
 
@@ -79,7 +82,6 @@ public class ApiUrls {
 
 
 
-    public static final String PostCommentUrl = BASE_URL + "topic/comment";  //评论
 
     public static final String MyLike = BASE_URL + "topic/myLike";  //获取点赞通知
     public static final String getMyTopicMsg = BASE_URL + "topic/myComment";  //获取点评通知

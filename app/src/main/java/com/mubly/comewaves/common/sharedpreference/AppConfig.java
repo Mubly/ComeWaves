@@ -2,6 +2,8 @@ package com.mubly.comewaves.common.sharedpreference;
 
 import android.content.Context;
 
+import com.mubly.comewaves.model.model.UserInfoVo;
+
 
 /**
  * 新增字段，若需要清除缓存的，切记的要清缓存
@@ -25,6 +27,7 @@ public final class AppConfig {
     public static SharedPreference<String> deviceId = sPrefs.value("deviceIdKey", (String) null);
     public static SharedPreference<String> token = sPrefs.value("token", (String) null);
     public static SharedPreference<String> loginInfo = sPrefs.value("loginInfo", (String) null);
+    public static SharedPreference<String> userInfoVo = sPrefs.value("userInfo", (String) null);
 
     public static void clearAll() {
         sPrefs.clearAll();

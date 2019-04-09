@@ -2,6 +2,7 @@ package com.mubly.comewaves.common.utils;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -10,6 +11,8 @@ import android.media.MediaMetadataRetriever;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,8 +24,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.mubly.comewaves.R;
+import com.mubly.comewaves.model.interfaces.CallBackObject;
 import com.mubly.comewaves.model.model.CategoryVo;
 import com.mubly.comewaves.model.model.DemoItem;
+import com.mubly.comewaves.view.activity.MainActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,6 +45,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -324,6 +332,7 @@ public class CommUtil {
         return dialog;
     }
 
+
     /**
      * 对话框
      *
@@ -339,7 +348,9 @@ public class CommUtil {
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(view);
-        dialog.getWindow().setBackgroundDrawableResource(bgColor);
+        if (bgColor != 0) {
+            dialog.getWindow().setBackgroundDrawableResource(bgColor);
+        }
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         int displayWidth = dm.widthPixels;
         int displayHeight = dm.heightPixels;
@@ -387,6 +398,33 @@ public class CommUtil {
         return dialog;
     }
 
+    public static void showSingleListDialog(Context context,int indexDef, String titleStr, final List<String> dataList, final CallBackObject callBackObject) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        if (!TextUtils.isEmpty(titleStr)) {
+            builder.setTitle(titleStr);
+        }
+        final int[] index = {0};
+        String[] singleList = new String[dataList.size()];
+        dataList.toArray(singleList);
+        builder.setSingleChoiceItems(singleList, indexDef, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                index[0] = which;
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                if (null != callBackObject) {
+                    callBackObject.callBack(index[0]);
+                }
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
     /**
      * 省市区对话框
@@ -988,4 +1026,9 @@ public class CommUtil {
         }
         return tagList;
     }
+
+    public static String object2Json(Object object) {
+        return new Gson().toJson(object);
+    }
+
 }

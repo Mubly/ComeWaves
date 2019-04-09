@@ -246,18 +246,17 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initEvent() {
         super.initEvent();
-        LiveDataBus.get().with("videoUpload", Progress.class).observe(this, new Observer<Progress>() {
+        LiveDataBus.get().with("videoUpload", Double.class).observe(this, new Observer<Double>() {
             @Override
-            public void onChanged(@Nullable Progress progress) {
+            public void onChanged(@Nullable Double progress) {
                 if (mProgressBar.getVisibility() == View.GONE) {
                     mProgressBar.setVisibility(View.VISIBLE);
                 }
-                float current = (progress.fraction * 100);
+                double current = (progress * 100);
                 mProgressBar.setProgress((int) current);
-                if (progress.totalSize == progress.currentSize || progress.status == progress.FINISH) {
+                if (progress==1) {
                     mProgressBar.setVisibility(View.GONE);
                 }
-//                CommUtil.ToastU.showToast(mContext, downloadLength + "/" + totalLength);
             }
         });
     }
