@@ -3,6 +3,7 @@ package com.mubly.comewaves.common.utils;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -26,10 +27,12 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.model.interfaces.CallBackObject;
 import com.mubly.comewaves.model.model.CategoryVo;
 import com.mubly.comewaves.model.model.DemoItem;
 import com.mubly.comewaves.view.activity.MainActivity;
+import com.mubly.comewaves.view.activity.PhoneLoginActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -398,7 +401,7 @@ public class CommUtil {
         return dialog;
     }
 
-    public static void showSingleListDialog(Context context,int indexDef, String titleStr, final List<String> dataList, final CallBackObject callBackObject) {
+    public static void showSingleListDialog(Context context, int indexDef, String titleStr, final List<String> dataList, final CallBackObject callBackObject) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         if (!TextUtils.isEmpty(titleStr)) {
             builder.setTitle(titleStr);
@@ -1031,4 +1034,11 @@ public class CommUtil {
         return new Gson().toJson(object);
     }
 
+    public static boolean isLogin(Context context) {
+        if (TextUtils.isEmpty(AppConfig.token.get())) {
+            context.startActivity(new Intent(context, PhoneLoginActivity.class));
+            return false;
+        }
+        return true;
+    }
 }

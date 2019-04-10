@@ -19,4 +19,5 @@ public interface CommentInfoView extends BaseMvpView {
     void doCollection(SmartBeanVo smartBeanVo);
 
     void doAttention(SmartBeanVo smartBeanVo);
+    void replyError(String msg);
 }

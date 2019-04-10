@@ -69,6 +69,8 @@ public class IsHadFragment extends BaseFragment<IsHadPresent, IsHadView> {
         relaseFb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!CommUtil.isLogin(mContext))
+                    return;
                 Intent intent = new Intent(mContext, MessageCreateActivity.class);
                 intent.putExtra("type", Constant.PULL_IMAGE_CODE);
                 startActivity(intent);

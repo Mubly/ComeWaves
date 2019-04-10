@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.model.adapter.BaseRecyclerViewAdapter;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
 import com.mubly.comewaves.model.model.CommentInfo;
@@ -109,7 +110,9 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
             @Override
             public void onClick(View v) {
                 selectCommendId = data.getComment_id();
-//                commentEdit.setText("#" + data.getUser_name());
+                userId = data.getUser_id();
+                CommUtil.showKeyboard(commentEdit);
+                commentEdit.setHint("回复:" + data.getUser_name());
             }
         });
     }
@@ -122,12 +125,26 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
             }
 
             @Override
-            public void dealView(VH holder, CommentInfo.ReportCombine data, int position) {
+            public void dealView(VH holder, final CommentInfo.ReportCombine data, int position) {
                 ImageView avtarImg = (ImageView) holder.getChildView(R.id.user_inn_avtar_img);
                 Glide.with(mContext).load(data.getForm_user().getUser_head()).apply(RequestOptions.circleCropTransform().placeholder(R.mipmap.ic_launcher)).into(avtarImg);
-                holder.setText(R.id.user_inn_name_tv, data.getForm_user().getUser_name());
+                if (null != data.getUser()) {
+                    holder.setText(R.id.user_inn_name_tv, data.getForm_user().getUser_name() + " 回复 " + data.getUser().getUser_name());
+                } else {
+                    holder.setText(R.id.user_inn_name_tv, data.getForm_user().getUser_name());
+                }
+
                 holder.setText(R.id.comment_inn_reply_time_tv, data.getCreated_time());
                 holder.setText(R.id.comment_inn_reply_content, data.getContent());
+                holder.getView(R.id.user_inn_name_tv).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectCommendId = data.getCommon_id();
+                        userId = data.getForm_user_id();
+                        CommUtil.showKeyboard(commentEdit);
+                        commentEdit.setHint("回复:" + data.getForm_user().getUser_name());
+                    }
+                });
             }
 
 
@@ -170,7 +187,7 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
     @Override
     protected int getLayoutId() {
         topicId = getIntent().getIntExtra("postId", 0);
-        userId = getIntent().getIntExtra("userId", 0);
+//        userId = getIntent().getIntExtra("userId", 0);
         return R.layout.activity_comment;
     }
 
@@ -186,6 +203,7 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
         mPresenter.getCommentInfo(topicId);
         commentEdit.setText("");
         selectCommendId = 0;
+        CommUtil.hideKeyboard(commentEdit);
     }
 
     @Override
@@ -206,6 +224,11 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
     @Override
     public void doAttention(SmartBeanVo smartBeanVo) {
 
+    }
+
+    @Override
+    public void replyError(String msg) {
+        CommUtil.hideKeyboard(commentEdit);
     }
 
 

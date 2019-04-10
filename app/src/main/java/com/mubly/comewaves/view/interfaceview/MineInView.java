@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface MineInView extends BaseMvpView {
     void requestSuccess(List<UserPostVo> data);
+    void error(String msg);
 }

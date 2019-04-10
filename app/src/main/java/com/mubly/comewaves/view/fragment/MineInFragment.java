@@ -19,6 +19,7 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.adapter.SmartAdapter;
 import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.UserPostVo;
@@ -28,6 +29,9 @@ import com.mubly.comewaves.view.activity.GoodsInfoVideoActivity;
 import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
 import com.mubly.comewaves.view.interfaceview.MineInView;
 import com.mubly.comewaves.view.interfaceview.MineView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +47,8 @@ public class MineInFragment extends BaseFragment<MineInPresent, MineInView> impl
     RecyclerView mRecyclerView;
     @BindView(R.id.none_data_prompt)
     TextView nonePromptTv;
+    //    @BindView(R.id.mine_tab_refresh)
+//    SmartRefreshLayout refreshLayout;
     List<UserPostVo> dataList = new ArrayList<>();
     SmartAdapter smartAdapter;
     private int type;//1:我的发布 2，我的收藏
@@ -69,6 +75,16 @@ public class MineInFragment extends BaseFragment<MineInPresent, MineInView> impl
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
                 if (aBoolean) {
+                    page = 0;
+                    initData();
+                }
+            }
+        });
+        LiveDataBus.get().with("refreshUserInfoMore", Integer.class).observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                if (integer==type) {
+                    page++;
                     initData();
                 }
             }
@@ -133,7 +149,12 @@ public class MineInFragment extends BaseFragment<MineInPresent, MineInView> impl
 
     @Override
     public void requestSuccess(List<UserPostVo> data) {
-        dataList.clear();
+
+        if (((MineFragment) getParentFragment()).isLoadMore()) {
+            ((MineFragment) getParentFragment()).stopLoad();
+        } else {
+            dataList.clear();
+        }
         if (null != data) {
             dataList.addAll(data);
         }
@@ -143,6 +164,14 @@ public class MineInFragment extends BaseFragment<MineInPresent, MineInView> impl
             nonePromptTv.setVisibility(View.GONE);
         }
         smartAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void error(String msg) {
+//        ToastUtils.showToast(msg);
+        if (((MineFragment) getParentFragment()).isLoadMore()) {
+            ((MineFragment) getParentFragment()).stopLoad();
+        }
     }
 
     void videoInfo(int postId, int type) {

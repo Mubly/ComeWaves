@@ -22,6 +22,10 @@ import java.util.logging.Level;
 import okhttp3.OkHttpClient;
 
 public class CrossApp extends Application {
+    /**
+     * 首页按返回键的次数
+     */
+    public static int BackKeyCount = 0;
     private static CrossApp sCrossApp;
     private static UMShareAPI mShareAPI;
 

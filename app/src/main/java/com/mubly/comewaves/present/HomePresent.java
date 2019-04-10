@@ -59,14 +59,14 @@ public class HomePresent extends BasePresenter<HomeView> {
                 .subscribe(new RxObserver<ResponseData<SmartBeanVo>>() {
                     @Override
                     public void _onNext(ResponseData<SmartBeanVo> listResponseData) {
-//                        if (isAttachView()) {
-//                            if (listResponseData.getCode() == Constant.SuccessCode) {
-//                                getMvpView().doPraise(listResponseData.getData());
-//                            } else {
-//                                getMvpView().checkNetCode(listResponseData.getCode(), listResponseData.getMsg());
-//                            }
-//
-//                        }
+                        if (isAttachView()) {
+                            if (listResponseData.getCode() == Constant.SuccessCode) {
+
+                            } else {
+                                getMvpView().checkNetCode(listResponseData.getCode(), listResponseData.getMsg());
+                            }
+
+                        }
                     }
 
                     @Override
@@ -74,6 +74,32 @@ public class HomePresent extends BasePresenter<HomeView> {
 //                        if (null == getMvpView()) {
 //                            return;
 //                        }
+                    }
+                });
+    }
+
+    public void doCollection(int post_id) {
+        Apis.doCollection(post_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxObserver<ResponseData<SmartBeanVo>>() {
+                    @Override
+                    public void _onNext(ResponseData<SmartBeanVo> listResponseData) {
+                        if (isAttachView()) {
+                            if (listResponseData.getCode() == Constant.SuccessCode) {
+
+                            } else {
+                                getMvpView().checkNetCode(listResponseData.getCode(), listResponseData.getMsg());
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        if (null == getMvpView()) {
+                            return;
+                        }
                     }
                 });
     }

@@ -11,6 +11,7 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.view.activity.MessageCreateActivity;
 
 import butterknife.BindView;
@@ -48,9 +49,13 @@ public class ReleaseFragment extends BaseFragment {
         Intent intent = new Intent(mContext, MessageCreateActivity.class);
         switch (view.getId()) {
             case R.id.make_video_message:
+                if (!CommUtil.isLogin(mContext))
+                    return;
                 intent.putExtra("type", Constant.PULL_VIDEO_CODE);
                 break;
             case R.id.make_photo_message:
+                if (!CommUtil.isLogin(mContext))
+                    return;
                 intent.putExtra("type", Constant.PULL_IMAGE_CODE);
                 break;
         }

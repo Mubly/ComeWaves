@@ -173,8 +173,9 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
                                     .maxSelectNum(selectNum)
 //                                    .videoMaxSecond(15)// 显示多少秒以内的视频or音频也可适用 int
                                     .videoMinSecond(10)// 显示多少秒以内的视频or音频也可适用 int
-                                    .recordVideoSecond(15)//视频秒数录制 默认60s int
+                                    .recordVideoSecond(100)//视频秒数录制 默认60s int
                                     .selectionMedia(selectList)
+                                    .isCamera(true)
                                     .forResult(PictureConfig.CHOOSE_REQUEST);
                         } else {
                             if (data.getPictureType().contains("mp4")) {
@@ -271,7 +272,7 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
         final String contentInfo = input_et.getText().toString();
 
 //        mPresenter.videoUpdate(contentInfo, addressStr, mLongitude, mLatitude, sing, new File(voideImageList.get(0).getPath()), new File(videoImg));
-        mPresenter.videodateQN(uploadManager, qiNToken, contentInfo, addressStr, mLongitude, mLatitude, sing, voideImageList.get(0).getPath(), videoImg);
+        mPresenter.videodateQN(uploadManager, qiNToken, contentInfo, poiName, mLongitude, mLatitude, sing, voideImageList.get(0).getPath(), videoImg);
         finish();
     }
 

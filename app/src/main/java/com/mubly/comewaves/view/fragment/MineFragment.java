@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ import com.mubly.comewaves.view.interfaceview.MineView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +95,7 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     SmartRefreshLayout smartRefreshLayout;
     @BindView(R.id.ver_line)
     View fansLine;
-//    Unbinder unbinder;
+    int currentType = 1;
 
     @Override
 
@@ -123,12 +125,19 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
                 }
             }
         });
-        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+        smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                LiveDataBus.get().with("refreshUserInfoMore").setValue(currentType);
+                refreshlayout.finishLoadmore(3000, false);
+            }
+
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 LiveDataBus.get().with("refreshUserInfo").setValue(true);
             }
         });
+
     }
 
     @Override
@@ -150,6 +159,22 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
         mViewPage.setAdapter(new MyViewPageAdapter(getChildFragmentManager(), title, fragmentList));
         mViewPage.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPage);
+        mViewPage.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                currentType = i;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
 
@@ -225,9 +250,10 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     }
 
     private void takeAvatorPhoto() {
-        PictureSelector.create(this)
+        PictureSelector.create(MineFragment.this)
                 .openGallery(PictureMimeType.ofImage())
                 .previewImage(true)
+                .isCamera(true)
                 .compress(true)
                 .maxSelectNum(1)
                 .forResult(PictureConfig.CHOOSE_REQUEST);
@@ -257,5 +283,17 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
 
     private void updateUserAvtar(String compressPath) {
 
+    }
+
+    public void stopLoad() {
+        smartRefreshLayout.finishLoadmore();
+    }
+
+    public void disenableLoad() {
+        smartRefreshLayout.setEnableLoadmore(false);
+    }
+
+    public boolean isLoadMore() {
+        return smartRefreshLayout.isLoading();
     }
 }

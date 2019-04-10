@@ -5,7 +5,6 @@
     android:id="@+id/mine_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:srlEnableLoadmore="false"
     tools:context=".view.fragment.HomeFragment">
 
     <com.scwang.smartrefresh.layout.header.ClassicsHeader
@@ -14,7 +13,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

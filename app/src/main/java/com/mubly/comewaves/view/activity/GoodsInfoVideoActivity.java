@@ -188,6 +188,8 @@ public class GoodsInfoVideoActivity extends BaseActivity<CommentInfoPresent, Com
                 orientationUtils.resolveByClick();
             }
         });
+        //是否需要进行流量提醒
+        videoPlayer.setNeedShowWifiTip(false);
         //是否可以滑动调整
         videoPlayer.setIsTouchWiget(true);
         //设置返回按键功能
@@ -208,6 +210,11 @@ public class GoodsInfoVideoActivity extends BaseActivity<CommentInfoPresent, Com
     @Override
     public void doAttention(SmartBeanVo smartBeanVo) {
 
+    }
+
+    @Override
+    public void replyError(String msg) {
+        CommUtil.hideKeyboard(inputEt);
     }
 
 

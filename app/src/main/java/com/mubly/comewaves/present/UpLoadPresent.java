@@ -2,6 +2,7 @@ package com.mubly.comewaves.present;
 
 import android.text.TextUtils;
 
+import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BaseMvpView;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.base.ResponseData;
@@ -32,7 +33,12 @@ public class UpLoadPresent<T extends UpLoadView> extends BasePresenter<T> {
                     @Override
                     public void _onNext(ResponseData<SmartBeanVo> userInfoVoResponseData) {
                         if (isAttachView()) {
-                            mvpView.getUpLoadToken(userInfoVoResponseData.getData().qiniu_token);
+                            if (userInfoVoResponseData.getCode() == Constant.SuccessCode) {
+                                mvpView.getUpLoadToken(userInfoVoResponseData.getData().qiniu_token);
+                            } else {
+                                mvpView.checkNetCode(userInfoVoResponseData.getCode(),userInfoVoResponseData.getMsg());
+                            }
+
                         }
 
                     }

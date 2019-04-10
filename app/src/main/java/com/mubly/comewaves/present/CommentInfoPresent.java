@@ -101,6 +101,7 @@ public class CommentInfoPresent extends BasePresenter<CommentInfoView> {
                             if (listResponseData.getCode() == Constant.SuccessCode) {
                                 getMvpView().replyCommentSuccess();
                             } else {
+                                getMvpView().replyError("");
                                 getMvpView().checkNetCode(listResponseData.getCode(), listResponseData.getMsg());
                             }
 

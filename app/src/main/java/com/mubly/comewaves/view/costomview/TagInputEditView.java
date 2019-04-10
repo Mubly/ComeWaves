@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TagInputEditView extends AppCompatEditText {
-    // 默认,话题文本高亮颜色
-    private static final int FOREGROUND_COLOR = Color.parseColor("#FF8C00");
+    // 默认,话题文本高亮颜色 Color.parseColor("#FF8C00")
+    private static final int FOREGROUND_COLOR = Color.BLUE;
     private int mForegroundColor = FOREGROUND_COLOR;// 话题文本高亮颜色
     private String startKey = "#";
     private String endKey = " ";

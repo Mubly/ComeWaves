@@ -1,5 +1,6 @@
 package com.mubly.comewaves.present;
 
+import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.base.ResponseData;
 import com.mubly.comewaves.common.network.Apis;
@@ -23,7 +24,11 @@ public class MineInPresent extends BasePresenter<MineInView> {
                     @Override
                     public void _onNext(ResponseData<List<UserPostVo>> listResponseData) {
                         if (isAttachView()) {
-                            mvpView.requestSuccess(listResponseData.getData());
+                            if (listResponseData.getCode() == Constant.SuccessCode) {
+                                mvpView.requestSuccess(listResponseData.getData());
+                            } else {
+                                mvpView.error(listResponseData.getMsg());
+                            }
                         }
 
                     }

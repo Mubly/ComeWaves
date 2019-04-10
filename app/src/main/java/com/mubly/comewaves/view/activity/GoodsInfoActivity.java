@@ -192,6 +192,11 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
     }
 
     @Override
+    public void replyError(String msg) {
+        CommUtil.hideKeyboard(inputEt);
+    }
+
+    @Override
     public void initView() {
         super.initView();
         goodsInfoImgBanner.setImageLoader(new GlideImageLoader());
@@ -215,16 +220,24 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
                 ToastUtils.showToast("暂未开放，敬请期待");
                 break;
             case R.id.praise_tv:
+                if (!CommUtil.isLogin(mContext))
+                    return;
                 mPresenter.doPraise(postId);
                 break;
             case R.id.comment_count:
+                if (!CommUtil.isLogin(mContext))
+                    return;
                 editLayout.setVisibility(View.VISIBLE);
                 CommUtil.showKeyboard(inputEt);
                 break;
             case R.id.attent_count:
+                if (!CommUtil.isLogin(mContext))
+                    return;
                 mPresenter.doCollection(postId);
                 break;
             case R.id.comment_open_more_tv:
+                if (!CommUtil.isLogin(mContext))
+                    return;
                 Intent intent = new Intent(this, CommentActivity.class);
                 intent.putExtra("postId", postId);
                 startActivity(intent);

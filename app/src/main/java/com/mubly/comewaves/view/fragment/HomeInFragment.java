@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.Constant;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.common.utils.GlideRoundTransform;
 import com.mubly.comewaves.common.utils.TextViewUtils;
@@ -39,6 +41,7 @@ import com.mubly.comewaves.videoplayer.RecyclerAutoDetialAdapter;
 import com.mubly.comewaves.videoplayer.RecyclerBaseAdapter;
 import com.mubly.comewaves.videoplayer.ScrollCalculatorHelper;
 import com.mubly.comewaves.view.activity.GoodsInfoActivity;
+import com.mubly.comewaves.view.activity.PhoneLoginActivity;
 import com.mubly.comewaves.view.costomview.CircleImageView;
 import com.mubly.comewaves.view.costomview.PileLayout;
 import com.mubly.comewaves.view.interfaceview.HomeView;
@@ -109,6 +112,11 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
                 public void callBack(HomeBean homeBean) {
                     mPresenter.doPraise(homeBean.getPost_id());
                 }
+
+                @Override
+                public void callAttent(HomeBean homeBean) {
+                    mPresenter.doCollection(homeBean.getPost_id());
+                }
             });
             linearLayoutManager = new LinearLayoutManager(mContext);
             mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -163,6 +171,9 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
                     praiseTv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if (!isLogin()){
+                                return;
+                            }
                             mPresenter.doPraise(data.getPost_id());
                             String count = praiseTv.getText().toString();
                             Drawable drawable = null;
@@ -179,6 +190,32 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
 
                             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                             praiseTv.setCompoundDrawables(drawable, null, null, null);
+                        }
+                    });
+
+                    final TextView attentTv = (TextView) holder.getChildView(R.id.attent_tv);
+                    attentTv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                           if (!isLogin()){
+                               return;
+                           }
+                            mPresenter.doCollection(data.getPost_id());
+                            String count = attentTv.getText().toString();
+                            Drawable drawable = null;
+                            if (data.getCollect_status() == 0) {
+
+                                drawable = mContext.getResources().getDrawable(R.mipmap.attent_red_icon);
+                                attentTv.setText(CommUtil.strLess(count, -1));
+                                data.setCollect_status(1);
+                            } else {
+                                drawable = mContext.getResources().getDrawable(R.mipmap.attent_no_icon);
+                                attentTv.setText(CommUtil.strLess(count, 1));
+                                data.setCollect_status(0);
+                            }
+
+                            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                            attentTv.setCompoundDrawables(drawable, null, null, null);
                         }
                     });
                     holder.getConvertView().setOnClickListener(new View.OnClickListener() {
@@ -250,7 +287,7 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
 
                         if (aBoolean && isInit && type == Constant.VIDEO_TYPE_CODE) {
                             GSYVideoManager.onPause();
-                        } else if ( isInit && type == Constant.VIDEO_TYPE_CODE) {
+                        } else if (isInit && type == Constant.VIDEO_TYPE_CODE) {
                             GSYVideoManager.onResume();
                         }
                     }
@@ -344,4 +381,11 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
         GSYVideoManager.releaseAllVideos();
     }
 
+    private boolean isLogin() {
+        if (TextUtils.isEmpty(AppConfig.token.get())) {
+            startActivity(new Intent(mContext, PhoneLoginActivity.class));
+            return false;
+        }
+        return true;
+    }
 }

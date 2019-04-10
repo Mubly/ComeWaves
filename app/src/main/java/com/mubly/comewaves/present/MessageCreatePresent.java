@@ -17,6 +17,7 @@ import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.base.ResponseData;
 import com.mubly.comewaves.common.network.Apis;
 import com.mubly.comewaves.common.network.RxObserver;
+import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.interfaces.CallBack;
 import com.mubly.comewaves.model.interfaces.CallPoiListBack;
 import com.mubly.comewaves.model.livedatabus.LiveDataBus;
@@ -72,6 +73,8 @@ public class MessageCreatePresent extends UpLoadPresent<MessageCreateView> {
                     public void _onNext(ResponseData<BaseModel> actWeekBeanResponseData) {
                         if (actWeekBeanResponseData.getCode() == Constant.SuccessCode) {
                             LiveDataBus.get().with("videoUpload").postValue(1.00);
+                        }else {
+                            ToastUtils.showToast(actWeekBeanResponseData.getMsg());
                         }
                     }
 

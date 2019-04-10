@@ -11,7 +11,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
 import android.text.format.Formatter;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,6 +31,7 @@ import com.mubly.comewaves.common.CrossApp;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.common.utils.CommUtil;
+import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.EventBusEvent;
 import com.mubly.comewaves.view.costomview.MyViewPager;
@@ -47,6 +50,9 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TimerTask;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 
 import butterknife.BindView;
@@ -146,7 +152,8 @@ public class MainActivity extends BaseActivity {
         main_mypager.setNoScroll(true);
         main_mypager.setOffscreenPageLimit(5);
         main_mypager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList));
-        main_mypager.setCurrentItem(0);
+        main_mypager.setCurrentItem(1);
+        tabSelect(1);
         main_mypager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -254,7 +261,7 @@ public class MainActivity extends BaseActivity {
                 }
                 double current = (progress * 100);
                 mProgressBar.setProgress((int) current);
-                if (progress==1) {
+                if (progress == 1) {
                     mProgressBar.setVisibility(View.GONE);
                 }
             }
@@ -299,6 +306,7 @@ public class MainActivity extends BaseActivity {
         }
 
     }
+
 
     private UMShareListener umShareListener = new UMShareListener() {
         /**
@@ -410,5 +418,35 @@ public class MainActivity extends BaseActivity {
         }
 
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            CrossApp.BackKeyCount++;
+            if (CrossApp.BackKeyCount >= 2) {
+//                finish();
+                Intent home = new Intent(Intent.ACTION_MAIN);
+                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                home.addCategory(Intent.CATEGORY_HOME);
+                startActivity(home);
+            } else {
+                ToastUtils.showToast("再按一次退出程序");
+                ScheduledThreadPoolExecutor mScheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
+                //10秒之后BackKeyCount设置为0
+                mScheduledThreadPoolExecutor.schedule(new MyTask(), 10, TimeUnit.SECONDS);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 指定时间后执行task任务
+     */
+    class MyTask extends TimerTask {
+        @Override
+        public void run() {
+            CrossApp.BackKeyCount = 0;
+        }
     }
 }

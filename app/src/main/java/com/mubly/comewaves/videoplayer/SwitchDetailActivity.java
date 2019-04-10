@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -25,6 +26,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseMvpView;
+import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.common.utils.TextViewUtils;
 import com.mubly.comewaves.common.utils.ToastUtils;
@@ -35,6 +37,7 @@ import com.mubly.comewaves.model.model.VisitorInfo;
 import com.mubly.comewaves.present.CommentInfoPresent;
 import com.mubly.comewaves.view.activity.BaseActivity;
 import com.mubly.comewaves.view.activity.CommentActivity;
+import com.mubly.comewaves.view.activity.PhoneLoginActivity;
 import com.mubly.comewaves.view.activity.StartActivity;
 import com.mubly.comewaves.view.interfaceview.CommentInfoView;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
@@ -70,6 +73,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
     private TextView userAddress;
     private TextView facousTv;
     private ImageButton uploadVideoOrImg;
+    private Button sendBtn;
 
     public static void startTActivity(Activity activity, View transitionView, int postId) {
         Intent intent = new Intent(activity, SwitchDetailActivity.class);
@@ -131,6 +135,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
                 detailPlayer.startWindowFullscreen(SwitchDetailActivity.this, true, true);
             }
         });
+        detailPlayer.setNeedShowWifiTip(false);
 
         detailPlayer.setSurfaceToPlay();
 
@@ -156,7 +161,8 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
         userAddress = findViewById(R.id.user_address_tv);
         facousTv = findViewById(R.id.to_attention_tv);
         uploadVideoOrImg = findViewById(R.id.img_or_video_ib);
-        contentTv=findViewById(R.id.video_content_tv);
+        contentTv = findViewById(R.id.video_content_tv);
+        sendBtn = findViewById(R.id.send_btn);
 
     }
 
@@ -217,6 +223,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
         praiseCountTv.setOnClickListener(this);
         facousTv.setOnClickListener(this);
         uploadVideoOrImg.setOnClickListener(this);
+        sendBtn.setOnClickListener(this);
         inputEt.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -259,19 +266,26 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.comment_open_more_tv:
+                if (!CommUtil.isLogin(mContext))
+                    return;
                 Intent intent = new Intent(this, CommentActivity.class);
                 intent.putExtra("postId", postId);
                 startActivity(intent);
                 break;
             case R.id.praise_tv://点赞
+                if (!CommUtil.isLogin(mContext))
+                    return;
                 mPresenter.doPraise(postId);
                 break;
             case R.id.comment_count://评论
+                if (!CommUtil.isLogin(mContext))
+                    return;
                 editLayout.setVisibility(View.VISIBLE);
                 CommUtil.showKeyboard(inputEt);
                 break;
             case R.id.attent_count://收藏
-                mPresenter.doCollection(postId);
+                if (CommUtil.isLogin(mContext))
+                    mPresenter.doCollection(postId);
                 break;
             case R.id.top_back_btn:
                 onBackPressed();
@@ -283,9 +297,21 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
             case R.id.img_or_video_ib:
                 ToastUtils.showToast("添加图片或视频");
                 break;
+            case R.id.send_btn://发送消息
+                String contentStr = inputEt.getText().toString();
+                if (!TextUtils.isEmpty(contentStr)) {
+                    CommUtil.hideKeyboard(inputEt);
+                    editLayout.setVisibility(View.GONE);
+                    mPresenter.sendReplyComment(postId, contentStr, 1);
+                } else {
+                    ToastUtils.showToast("请输入内容");
+                }
+                break;
         }
     }
-//收藏
+
+
+    //收藏
     private void setAttent(int b, boolean isCount) {
         Drawable drawable = null;
         String count = attentCount.getText().toString();
@@ -396,6 +422,11 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
     @Override
     public void doAttention(SmartBeanVo smartBeanVo) {
 
+    }
+
+    @Override
+    public void replyError(String msg) {
+        CommUtil.hideKeyboard(inputEt);
     }
 
 

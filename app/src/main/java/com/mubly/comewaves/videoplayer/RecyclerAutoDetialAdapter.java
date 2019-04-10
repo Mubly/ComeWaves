@@ -13,6 +13,8 @@ import com.mubly.comewaves.model.model.HomeBean;
 
 import java.util.List;
 
+import static com.umeng.commonsdk.stateless.UMSLEnvelopeBuild.mContext;
+
 
 /**
  * Created by guoshuyu on 2017/1/9.
@@ -53,6 +55,8 @@ public class RecyclerAutoDetialAdapter extends RecyclerView.Adapter {
         recyclerItemViewHolder.praiseTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!CommUtil.isLogin(context))
+                    return;
                 String count = recyclerItemViewHolder.praiseTv.getText().toString();
                 Drawable drawable = null;
                 if (itemDataList.get(position).getLike_status() == 0) {
@@ -70,6 +74,33 @@ public class RecyclerAutoDetialAdapter extends RecyclerView.Adapter {
                 recyclerItemViewHolder.praiseTv.setCompoundDrawables(drawable, null, null, null);
                 if (null != callHolderBack) {
                     callHolderBack.callBack(itemDataList.get(position));
+                }
+            }
+        });
+
+        //收藏
+        recyclerItemViewHolder.attentTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!CommUtil.isLogin(context))
+                    return;
+                String count = recyclerItemViewHolder.attentTv.getText().toString();
+                Drawable drawable = null;
+                if (itemDataList.get(position).getCollect_status() == 0) {
+
+                    drawable = context.getResources().getDrawable(R.mipmap.attent_red_icon);
+                    recyclerItemViewHolder.attentTv.setText(CommUtil.strLess(count, -1));
+                    itemDataList.get(position).setCollect_status(1);
+                } else {
+                    drawable = context.getResources().getDrawable(R.mipmap.attent_no_icon);
+                    recyclerItemViewHolder.attentTv.setText(CommUtil.strLess(count, 1));
+                    itemDataList.get(position).setCollect_status(0);
+                }
+
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                recyclerItemViewHolder.attentTv.setCompoundDrawables(drawable, null, null, null);
+                if (null != callHolderBack) {
+                    callHolderBack.callAttent(itemDataList.get(position));
                 }
             }
         });
@@ -93,6 +124,7 @@ public class RecyclerAutoDetialAdapter extends RecyclerView.Adapter {
 
     public interface CallHolderBack {
         void callBack(HomeBean homeBean);
+        void callAttent(HomeBean homeBean);
     }
 
 }
