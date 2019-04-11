@@ -3,7 +3,10 @@ package com.mubly.comewaves.view.fragment;
 
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -32,6 +35,7 @@ import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
+import com.mubly.comewaves.model.interfaces.CallBack;
 import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.LoginResBean;
 import com.mubly.comewaves.model.model.UserInfoVo;
@@ -41,11 +45,13 @@ import com.mubly.comewaves.view.activity.MessageCreateActivity;
 import com.mubly.comewaves.view.activity.SettingActivity;
 import com.mubly.comewaves.view.costomview.ScrollViewPage;
 import com.mubly.comewaves.view.interfaceview.MineView;
+import com.qiniu.android.storage.UploadManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -96,6 +102,8 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     @BindView(R.id.ver_line)
     View fansLine;
     int currentType = 1;
+    UploadManager upLoadManager = null;
+    String avtarImgPath;
 
     @Override
 
@@ -201,6 +209,26 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
         }
     }
 
+    @Override
+    public void getUpLoadToken(String qiniu_token) {
+        if (null == upLoadManager) {
+            upLoadManager = new UploadManager();
+        }
+        final File file = new File(avtarImgPath);
+        mPresenter.uploadImg(upLoadManager, avtarImgPath, file.getName(), qiniu_token, new CallBack() {
+            @Override
+            public void callBack(String data) {
+                file.delete();
+                mPresenter.upDateAvtar(data);
+            }
+        });
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+
+    }
+
 
 //    @Override
 //    public void onDestroyView() {
@@ -250,6 +278,7 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     }
 
     private void takeAvatorPhoto() {
+
         PictureSelector.create(MineFragment.this)
                 .openGallery(PictureMimeType.ofImage())
                 .previewImage(true)
@@ -263,25 +292,27 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case PictureConfig.CHOOSE_REQUEST:
-                    // 图片、视频、音频选择结果回调
-                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                    Glide.with(this).load(selectList.get(0).getCompressPath()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
-                    updateUserAvtar(selectList.get(0).getCompressPath());
-//                    dealImageOrVideo(selectList);
-                    // 例如 LocalMedia 里面返回三种path
-                    // 1.media.getPath(); 为原图path
-                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
-                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                    break;
-            }
-        }
+//        if (resultCode == RESULT_OK) {
+//            switch (requestCode) {
+//                case PictureConfig.CHOOSE_REQUEST:
+//                    // 图片、视频、音频选择结果回调
+//                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+//                    Glide.with(this).load(selectList.get(0).getCompressPath()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
+//                    updateUserAvtar(selectList.get(0).getCompressPath());
+////                    dealImageOrVideo(selectList);
+//                    // 例如 LocalMedia 里面返回三种path
+//                    // 1.media.getPath(); 为原图path
+//                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+//                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+//                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+//                    break;
+//            }
+//        }
     }
 
     private void updateUserAvtar(String compressPath) {
+        avtarImgPath = compressPath;
+        mPresenter.getUpLoadToken();
 
     }
 
@@ -296,4 +327,5 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     public boolean isLoadMore() {
         return smartRefreshLayout.isLoading();
     }
+
 }

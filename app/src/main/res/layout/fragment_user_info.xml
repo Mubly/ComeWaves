@@ -25,9 +25,9 @@
             android:id="@+id/setting_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_0dp"
-            android:visibility="gone"
             android:scaleType="centerCrop"
             android:src="@drawable/start_img"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_info_top" />
 
@@ -307,8 +307,8 @@
             <!--店铺电话-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:visibility="gone"
-                android:layout_height="@dimen/size_36dp">
+                android:layout_height="@dimen/size_36dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/store_phone_lebel"
@@ -347,8 +347,8 @@
             <!--营业时间-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:visibility="gone"
-                android:layout_height="@dimen/size_36dp">
+                android:layout_height="@dimen/size_36dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/work_time_lebel"
@@ -388,8 +388,8 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:paddingTop="@dimen/size_16dp">
+                android:paddingTop="@dimen/size_16dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/store_address_lebel"
@@ -483,12 +483,10 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
+                <TextView
                     android:id="@+id/user_info_birthday"
                     android:layout_width="@dimen/size_0dp"
                     android:layout_height="match_parent"
-                    android:background="@null"
-                    android:enabled="false"
                     android:gravity="bottom|right"
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
@@ -587,4 +585,24 @@
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/address_picker_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/black_cc000000">
+        <DatePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </DatePicker>
+
+        <com.mubly.comewaves.view.costomview.AddressPickerView
+            android:id="@+id/address_picker_apv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_320dp"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:background="@color/white"></com.mubly.comewaves.view.costomview.AddressPickerView>
+    </FrameLayout>
 </FrameLayout>

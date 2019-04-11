@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/itemTvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingBottom="13dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="13dp"
+        android:text="长安"
+        android:textColor="#262626"
+        android:textSize="17sp"></TextView>
+
+    <ImageView
+        android:id="@+id/item_select_iv"
+        android:layout_width="@dimen/size_20dp"
+        android:layout_height="@dimen/size_20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/size_10dp"
+        android:src="@drawable/icon_address_picker" />
+</RelativeLayout>

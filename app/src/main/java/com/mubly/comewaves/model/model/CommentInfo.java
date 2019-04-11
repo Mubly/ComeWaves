@@ -196,6 +196,15 @@ public class CommentInfo implements Serializable {
         private int like_status;
         private User form_user;
         private User user;
+        private List<CombineBean> combine;
+
+        public List<CombineBean> getCombine() {
+            return combine;
+        }
+
+        public void setCombine(List<CombineBean> combine) {
+            this.combine = combine;
+        }
 
         public User getForm_user() {
             return form_user;

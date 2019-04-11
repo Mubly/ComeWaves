@@ -86,9 +86,7 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
     }
 
     private void initCommentView(BaseRecyclerViewAdapter.VH holder, final CommentInfo data, int position) {
-        SmartAdapter imgAdapter = null;
         RecyclerView imgRv;
-        SmartAdapter innAdapter = null;
         RecyclerView innRv;
         List<CommentInfo.CombineBean> imageUrlList;
         ImageView avtarImg = (ImageView) holder.getChildView(R.id.user_avtar_img);
@@ -101,10 +99,10 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
         if (null != data.getCombine() && data.getCombine().size() > 0) {
             imageUrlList = new ArrayList<>();
             imageUrlList.addAll(data.getCombine());
-            initImgView(imgAdapter, imgRv, imageUrlList, data.getCombine_status());
+            initImgView(imgRv, imageUrlList, data.getCombine_status());
         }
         if (null != data.getReport_combine() && data.getReport_combine().size() > 0) {
-            initInnReply(innAdapter, innRv, data.getReport_combine());
+            initInnReply(innRv, data.getReport_combine());
         }
         holder.getView(R.id.user_name_tv).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +115,8 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
         });
     }
 
-    private void initInnReply(SmartAdapter innAdapter, RecyclerView innRv, List<CommentInfo.ReportCombine> reply) {
-        innAdapter = new SmartAdapter<CommentInfo.ReportCombine>(reply) {
+    private void initInnReply(RecyclerView innRv, List<CommentInfo.ReportCombine> reply) {
+        SmartAdapter innAdapter = new SmartAdapter<CommentInfo.ReportCombine>(reply) {
             @Override
             public int getLayout(int viewType) {
                 return R.layout.item_comment_inn_view;
@@ -136,6 +134,8 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
 
                 holder.setText(R.id.comment_inn_reply_time_tv, data.getCreated_time());
                 holder.setText(R.id.comment_inn_reply_content, data.getContent());
+                RecyclerView imginnRv = (RecyclerView) holder.getChildView(R.id.comment_inn_img_video_rv);
+                initinnImgView(imginnRv,data.getCombine(),data.getType());
                 holder.getView(R.id.user_inn_name_tv).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -153,8 +153,33 @@ public class CommentActivity extends BaseActivity<CommentInfoPresent, CommentInf
         innRv.setAdapter(innAdapter);
     }
 
-    private void initImgView(SmartAdapter imgAdapter, RecyclerView imgRv, List<CommentInfo.CombineBean> imageUrlList, final int type) {
-        imgAdapter = new SmartAdapter<CommentInfo.CombineBean>(imageUrlList) {
+    private void initImgView(RecyclerView imgRv, List<CommentInfo.CombineBean> imageUrlList, final int type) {
+        SmartAdapter imgAdapter = new SmartAdapter<CommentInfo.CombineBean>(imageUrlList) {
+            @Override
+            public int getLayout(int viewType) {
+                return R.layout.item_square_img_layout;
+            }
+
+            @Override
+            public void dealView(VH holder, CommentInfo.CombineBean data, int position) {
+                if (type == 2) {
+                    holder.setNetImage(mContext, R.id.square_img, data.getImg());
+                } else if (type == 3) {
+                    holder.setNetImage(mContext, R.id.square_img, data.getVideo());
+                }
+
+            }
+
+
+        };
+        imgRv.setLayoutManager(new GridLayoutManager(mContext, 3));
+        imgRv.setAdapter(imgAdapter);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+        imgRv.addItemDecoration(decoration);
+    }
+
+    private void initinnImgView(RecyclerView imgRv, List<CommentInfo.CombineBean> imageUrlList, final int type) {
+        SmartAdapter imgAdapter = new SmartAdapter<CommentInfo.CombineBean>(imageUrlList) {
             @Override
             public int getLayout(int viewType) {
                 return R.layout.item_square_img_layout;

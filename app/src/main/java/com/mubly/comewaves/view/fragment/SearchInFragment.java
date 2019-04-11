@@ -34,6 +34,9 @@ import com.mubly.comewaves.view.costomview.AsymmetricItem;
 import com.mubly.comewaves.view.costomview.AsymmetricRecyclerView;
 import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
 import com.mubly.comewaves.view.interfaceview.SearchView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +49,11 @@ import butterknife.BindView;
 public class SearchInFragment extends BaseFragment<SearchPresent, SearchView> implements SearchView {
     @BindView(R.id.search_content_rv)
     AsymmetricRecyclerView mRecyclerView;
+    @BindView(R.id.search_refresh_layout)
+    SmartRefreshLayout smartRefreshLayout;
     List<DemoItem> dataList = new ArrayList<>();
     private int type;
-
+    private int page = 0;
     RecyclerViewAdapter adapter = null;
 
     public static SearchInFragment newInstance(int type) {
@@ -74,7 +79,7 @@ public class SearchInFragment extends BaseFragment<SearchPresent, SearchView> im
     @Override
     public void initData() {
         super.initData();
-        mPresenter.getCategaryTwo(type);
+        mPresenter.getCategaryTwo(type, page);
     }
 
     @Override
@@ -91,8 +96,8 @@ public class SearchInFragment extends BaseFragment<SearchPresent, SearchView> im
         mRecyclerView.setOnItemClickListener(new AsymmetricRecyclerView.ItemOnClickListener() {
             @Override
             public void onItemClick(int index, View v) {
-                Intent intent=new Intent(mContext, SearchInfoActivity.class);
-                intent.putExtra("categoryId",dataList.get(index).getCate_id());
+                Intent intent = new Intent(mContext, SearchInfoActivity.class);
+                intent.putExtra("categoryId", dataList.get(index).getCate_id());
                 startActivity(intent);
             }
         });
@@ -101,12 +106,32 @@ public class SearchInFragment extends BaseFragment<SearchPresent, SearchView> im
     @Override
     public void initEvent() {
         super.initEvent();
+        smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                page++;
+                initData();
+            }
 
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 0;
+                initData();
+            }
+        });
     }
 
     @Override
     public void getOneTab(List<CategoryVo> categoryVoList) {
-        dataList.clear();
+        if (smartRefreshLayout.isLoading()) {
+            smartRefreshLayout.finishLoadmore();
+        } else if (smartRefreshLayout.isRefreshing()) {
+            smartRefreshLayout.finishRefresh();
+            dataList.clear();
+        } else {
+            dataList.clear();
+        }
+
         dataList.addAll(CommUtil.creatItems(categoryVoList));
         adapter.notifyDataSetChanged();
     }

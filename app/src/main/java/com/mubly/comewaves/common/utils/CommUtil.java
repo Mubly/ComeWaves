@@ -710,6 +710,12 @@ public class CommUtil {
         return res;
     }
 
+    public static String dateToStr(Date date) {
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        res = simpleDateFormat.format(date);
+        return res;
+    }
     /**
      * 保留2位小数
      *

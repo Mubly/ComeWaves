@@ -11,7 +11,9 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -53,9 +55,7 @@ public class SearchFragment extends BaseFragment<SearchPresent, SearchView> impl
     @BindView(R.id.search_tablayout)
     TabLayout mTabLayout;
     @BindView(R.id.search_viewpage)
-    ScrollViewPage mViewPage;
-    @BindView(R.id.search_refresh_layout)
-    SmartRefreshLayout smartRefreshLayout;
+    ViewPager mViewPage;
     //    @BindView(R.id.search_scroll_view)
 //    NestedScrollView mScrollView;
     List<String> title = new ArrayList<>();
@@ -84,17 +84,7 @@ public class SearchFragment extends BaseFragment<SearchPresent, SearchView> impl
     @Override
     public void initEvent() {
         super.initEvent();
-        smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadmore();
-            }
 
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh();
-            }
-        });
     }
 
     @Override
@@ -153,7 +143,7 @@ public class SearchFragment extends BaseFragment<SearchPresent, SearchView> impl
     }
 
 
-    private class myPageAdapter extends FragmentStatePagerAdapter {
+    private class myPageAdapter extends FragmentPagerAdapter {
         List<String> titleList;
 
         public myPageAdapter(FragmentManager fm, List<String> titleList) {
@@ -163,7 +153,6 @@ public class SearchFragment extends BaseFragment<SearchPresent, SearchView> impl
 
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-            super.destroyItem(container, position, object);
         }
 
         @Override

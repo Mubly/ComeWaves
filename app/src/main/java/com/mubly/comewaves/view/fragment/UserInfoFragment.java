@@ -10,9 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -27,10 +32,13 @@ import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.model.UserInfoVo;
 import com.mubly.comewaves.present.UserInfoPresent;
+import com.mubly.comewaves.view.activity.MainActivity;
+import com.mubly.comewaves.view.costomview.AddressPickerView;
 import com.mubly.comewaves.view.interfaceview.UserInfoView;
 import com.qiniu.android.storage.UploadManager;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,7 +64,7 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresent, UserInfoView
     @BindView(R.id.user_info_sex)
     EditText userInfoSex;
     @BindView(R.id.user_info_birthday)
-    EditText userInfoBirthday;
+    TextView userInfoBirthday;
     @BindView(R.id.user_info_address)
     EditText userInfoAddress;
     @BindView(R.id.user_info_school)
@@ -65,6 +73,10 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresent, UserInfoView
     TextView editTypeBtn;
     @BindView(R.id.user_info_top)
     ImageView userInfoBg;
+    @BindView(R.id.address_picker_layout)
+    FrameLayout addressLayout;
+    @BindView(R.id.address_picker_apv)
+    AddressPickerView addressSelect;
     private boolean isEditStatus;
     UserInfoVo userInfoVo;
     private String qiNToken;
@@ -155,7 +167,7 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresent, UserInfoView
         userInfoUsername.setEnabled(true);
         userInfoSignature.setEnabled(true);
         userInfoSex.setEnabled(true);
-        userInfoBirthday.setEnabled(true);
+        userInfoBirthday.setClickable(true);
         userInfoAddress.setEnabled(true);
         userInfoSchool.setEnabled(true);
     }
@@ -164,7 +176,7 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresent, UserInfoView
         userInfoUsername.setEnabled(false);
         userInfoSignature.setEnabled(false);
         userInfoSex.setEnabled(false);
-        userInfoBirthday.setEnabled(false);
+        userInfoBirthday.setClickable(false);
         userInfoAddress.setEnabled(false);
         userInfoSchool.setEnabled(false);
     }
@@ -172,6 +184,13 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresent, UserInfoView
     @Override
     public void initEvent() {
         super.initEvent();
+        addressSelect.setOnAddressPickerSure(new AddressPickerView.OnAddressPickerSureListener() {
+            @Override
+            public void onSureClick(String address, String provinceCode, String cityCode, String districtCode) {
+                addressLayout.setVisibility(View.GONE);
+                addressSelect.setVisibility(View.GONE);
+            }
+        });
         editTypeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,6 +220,22 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresent, UserInfoView
                 updateAvtar();
             }
         });
+        userInfoBirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choseTime();
+            }
+        });
+    }
+
+    private void choseTime() {
+        TimePickerView pvTime = new TimePickerBuilder(mContext, new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                userInfoBirthday.setText(CommUtil.dateToStr(date));
+            }
+        }).build();
+        pvTime.show();
     }
 
     private void updateAvtar() {

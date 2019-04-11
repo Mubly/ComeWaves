@@ -422,9 +422,10 @@ public class Apis {
     }
 
     // 搜索页二级分类（列表内容）
-    public static Observable<ResponseData<List<CategoryVo>>> getSearchTab2(int cate_id) {
+    public static Observable<ResponseData<List<CategoryVo>>> getSearchTab2(int cate_id,int page) {
         return OkGo.<ResponseData<List<CategoryVo>>>post(SEARCH_TWO_CATEGARY_URL)
                 .params("cate_id", cate_id)
+                .params("page", page)
                 .converter(new Converter<ResponseData<List<CategoryVo>>>() {
                     @Override
                     public ResponseData<List<CategoryVo>> convertResponse(Response response) throws Throwable {
