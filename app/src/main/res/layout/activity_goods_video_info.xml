@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_10dp"
                 android:paddingLeft="@dimen/size_14dp"
-                android:text="暂无点赞"
+                tools:text="暂无点赞"
                 android:textColor="@color/color_262628"
                 android:textSize="@dimen/size_10dp"
                 app:layout_constraintLeft_toLeftOf="parent"

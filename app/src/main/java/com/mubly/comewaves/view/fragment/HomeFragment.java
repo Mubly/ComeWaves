@@ -5,13 +5,17 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.TextView;
 
 
+import com.amap.api.location.AMapLocation;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
 
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.model.adapter.MyViewPageAdapter;
+import com.mubly.comewaves.model.interfaces.CallBackObject;
 
 
 import java.util.ArrayList;
@@ -19,6 +23,8 @@ import java.util.List;
 
 
 import butterknife.BindView;
+
+import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 
 
 /**
@@ -29,7 +35,8 @@ public class HomeFragment extends BaseFragment {
     TabLayout mTablayout;
     @BindView(R.id.home_viewpage)
     ViewPager mViewPager;
-
+    @BindView(R.id.top_icon)
+    TextView addressCity;
     MyViewPageAdapter myViewPageAdapter;
     private List<String> titles = new ArrayList<>();
     List<Fragment> fragments = new ArrayList<>();
@@ -48,6 +55,23 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void initView(View rootView) {
         super.initView(rootView);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                CommUtil.getLocal(mContext, new CallBackObject<AMapLocation>() {
+
+                    @Override
+                    public void callBack(final AMapLocation aMapLocation) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                addressCity.setText(aMapLocation.getCity());
+                            }
+                        });
+                    }
+                });
+            }
+        }).start();
     }
 
     @Override

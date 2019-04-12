@@ -52,6 +52,6 @@
         android:id="@+id/wait_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/start_img"
+        android:background="@drawable/splash_img"
         tools:visibility="gone" />
 </FrameLayout>

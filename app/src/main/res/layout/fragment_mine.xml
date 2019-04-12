@@ -23,6 +23,7 @@
                 android:id="@+id/top_bg_img"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_0dp"
+                android:background="@color/gray_aph80"
                 app:layout_constraintDimensionRatio="375:160"
                 app:layout_constraintTop_toTopOf="parent"></ImageView>
 
@@ -67,8 +68,8 @@
                 android:layout_marginRight="@dimen/size_10dp"
                 android:background="@drawable/window2222bg"
                 android:orientation="vertical"
-                android:visibility="gone"
                 android:paddingLeft="@dimen/size_20dp"
+                android:visibility="gone"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/openMore">
 
@@ -115,6 +116,7 @@
                 android:layout_marginTop="@dimen/size_16dp"
                 android:layout_marginRight="@dimen/size_16dp"
                 android:orientation="vertical"
+                android:visibility="invisible"
                 android:paddingLeft="@dimen/size_20dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/top_bg_img">
@@ -143,6 +145,7 @@
                 android:layout_height="@dimen/size_30dp"
                 android:layout_marginTop="@dimen/size_4dp"
                 android:layout_marginBottom="@dimen/size_4dp"
+                android:visibility="invisible"
                 android:background="@color/line_C0BFBF"
                 app:layout_constraintBottom_toBottomOf="@id/attention_layout"
                 app:layout_constraintRight_toLeftOf="@id/attention_layout"
@@ -154,9 +157,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_16dp"
                 android:layout_marginRight="@dimen/size_16dp"
-
                 android:orientation="vertical"
                 android:paddingRight="@dimen/size_20dp"
+                android:visibility="invisible"
                 app:layout_constraintRight_toLeftOf="@id/ver_line"
                 app:layout_constraintTop_toBottomOf="@id/top_bg_img">
 
@@ -196,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/size_16dp"
                 android:layout_marginTop="@dimen/size_6dp"
-                android:text="钉钉账号:34865"
+                android:text="来浪账号:"
                 android:textColor="@color/text_555555"
                 android:textSize="@dimen/size_12dp"
                 app:layout_constraintLeft_toLeftOf="parent"

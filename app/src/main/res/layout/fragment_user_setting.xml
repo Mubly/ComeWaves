@@ -31,6 +31,7 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/size_20dp"
                 android:text="账号与安全"
+                android:visibility="gone"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size_14dp"
                 />
@@ -41,6 +42,7 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/size_20dp"
                 android:text="用户认证"
+                android:visibility="gone"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size_14dp"
               />
@@ -51,6 +53,7 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/size_20dp"
                 android:text="系统设置"
+                android:visibility="gone"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size_14dp" />
 
@@ -60,6 +63,7 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/size_20dp"
                 android:text="帮助与反馈"
+                android:visibility="gone"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size_14dp"
                  />
@@ -69,7 +73,8 @@
                 android:layout_height="@dimen/size_50dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/size_20dp"
-                android:text="关于钉够"
+                android:text="关于来浪"
+                android:visibility="gone"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size_14dp"
                  />

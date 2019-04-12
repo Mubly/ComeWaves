@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -33,6 +34,7 @@ import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.common.utils.ToastUtils;
+import com.mubly.comewaves.model.interfaces.CallBackObject;
 import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.EventBusEvent;
 import com.mubly.comewaves.view.costomview.MyViewPager;
@@ -41,6 +43,7 @@ import com.mubly.comewaves.view.fragment.IsHadFragment;
 import com.mubly.comewaves.view.fragment.MineFragment;
 import com.mubly.comewaves.view.fragment.ReleaseFragment;
 import com.mubly.comewaves.view.fragment.SearchFragment;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareListener;
@@ -179,7 +182,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void requestRxPermissions() {
-        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
+        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
             @Override
             public void accept(Boolean aBoolean) throws Exception {
                 if (!aBoolean) {
@@ -432,10 +435,14 @@ public class MainActivity extends BaseActivity {
                 home.addCategory(Intent.CATEGORY_HOME);
                 startActivity(home);
             } else {
-                ToastUtils.showToast("再按一次退出程序");
-                ScheduledThreadPoolExecutor mScheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
-                //10秒之后BackKeyCount设置为0
-                mScheduledThreadPoolExecutor.schedule(new MyTask(), 10, TimeUnit.SECONDS);
+                if (GSYVideoManager.backFromWindowFull(this)) {
+                    CrossApp.BackKeyCount--;
+                } else {
+                    ToastUtils.showToast("再按一次退出程序");
+                    ScheduledThreadPoolExecutor mScheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
+                    //10秒之后BackKeyCount设置为0
+                    mScheduledThreadPoolExecutor.schedule(new MyTask(), 10, TimeUnit.SECONDS);
+                }
             }
         }
         return false;

@@ -53,8 +53,8 @@ import static android.app.Activity.RESULT_OK;
 public class UserInfoFragment extends BaseFragment<UserInfoPresent, UserInfoView> implements UserInfoView {
     @BindView(R.id.user_avtar_iv)
     ImageView avtarImg;
-    @BindView(R.id.setting_bg)
-    ImageView bottomBgImg;
+//    @BindView(R.id.setting_bg)
+//    ImageView bottomBgImg;
     @BindView(R.id.user_info_username)
     EditText userInfoUsername;
     @BindView(R.id.user_info_account)
@@ -126,6 +126,7 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresent, UserInfoView
             userInfoBirthday.setText(userInfoVo.getBirthday());
             userInfoAddress.setText(userInfoVo.getLocation());
             userInfoSchool.setText(userInfoVo.getSchool());
+            userInfoAccount.setText(userInfoVo.getDing_num());
         }
         mPresenter.getUpLoadToken();
     }

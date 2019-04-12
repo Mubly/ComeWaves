@@ -200,7 +200,7 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
         attentAmountTv.setText(userInfoVo.getAttention_num() + "");
         fansAmountTv.setText(userInfoVo.getFans_num() + "");
         userNameTv.setText(userInfoVo.getUser_name());
-        accountDingTv.setText(userInfoVo.getDing_num());
+        accountDingTv.setText("来浪账号:"+userInfoVo.getDing_num());
         if (!TextUtils.isEmpty(userInfoVo.getSignature())) {
             mottoContentTv.setText(userInfoVo.getSignature());
         }
@@ -271,9 +271,9 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
             fansLine.setVisibility(View.GONE);
         } else {
             showMoreLayout.setVisibility(View.GONE);
-            attentionLayout.setVisibility(View.VISIBLE);
-            fansLayout.setVisibility(View.VISIBLE);
-            fansLine.setVisibility(View.VISIBLE);
+//            attentionLayout.setVisibility(View.VISIBLE);
+//            fansLayout.setVisibility(View.VISIBLE);
+//            fansLine.setVisibility(View.VISIBLE);
         }
     }
 
@@ -281,10 +281,14 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
 
         PictureSelector.create(MineFragment.this)
                 .openGallery(PictureMimeType.ofImage())
-                .previewImage(true)
-                .isCamera(true)
-                .compress(true)
                 .maxSelectNum(1)
+                .compress(true)
+                .enableCrop(true)
+                .showCropFrame(true)
+                .circleDimmedLayer(true)
+                .scaleEnabled(true)
+                .isDragFrame(true)
+                .showCropGrid(false)
                 .forResult(PictureConfig.CHOOSE_REQUEST);
     }
 
@@ -292,22 +296,22 @@ public class MineFragment extends BaseFragment<MinePresent, MineView> implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK) {
-//            switch (requestCode) {
-//                case PictureConfig.CHOOSE_REQUEST:
-//                    // 图片、视频、音频选择结果回调
-//                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-//                    Glide.with(this).load(selectList.get(0).getCompressPath()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
-//                    updateUserAvtar(selectList.get(0).getCompressPath());
-////                    dealImageOrVideo(selectList);
-//                    // 例如 LocalMedia 里面返回三种path
-//                    // 1.media.getPath(); 为原图path
-//                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-//                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
-//                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-//                    break;
-//            }
-//        }
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片、视频、音频选择结果回调
+                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                    Glide.with(this).load(selectList.get(0).getCompressPath()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(userAvtarImg);
+                    updateUserAvtar(selectList.get(0).getCompressPath());
+//                    dealImageOrVideo(selectList);
+                    // 例如 LocalMedia 里面返回三种path
+                    // 1.media.getPath(); 为原图path
+                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                    break;
+            }
+        }
     }
 
     private void updateUserAvtar(String compressPath) {

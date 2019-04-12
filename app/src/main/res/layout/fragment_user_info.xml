@@ -14,22 +14,22 @@
             android:id="@+id/user_info_top"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_0dp"
+            android:background="@color/gray_aph80"
             android:scaleType="centerCrop"
-            android:src="@drawable/ishad_3"
             app:layout_constraintDimensionRatio="375:160"
             app:layout_constraintTop_toTopOf="parent">
 
         </ImageView>
 
-        <ImageView
-            android:id="@+id/setting_bg"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_0dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/start_img"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_info_top" />
+        <!--<ImageView-->
+        <!--android:id="@+id/setting_bg"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/size_0dp"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@drawable/start_img"-->
+        <!--android:visibility="gone"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/user_info_top" />-->
 
         <ImageView
             android:id="@+id/user_avtar_iv"
@@ -207,7 +207,7 @@
                     android:gravity="bottom|right"
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_4dp"
-                    android:text="245235"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/size_14dp"
                     app:layout_constraintLeft_toRightOf="@id/ding_account_lebel"
@@ -590,19 +590,19 @@
         android:id="@+id/address_picker_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@color/black_cc000000">
+        android:background="@color/black_cc000000"
+        android:visibility="gone">
+
         <DatePicker
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </DatePicker>
+            android:layout_height="wrap_content"></DatePicker>
 
         <com.mubly.comewaves.view.costomview.AddressPickerView
             android:id="@+id/address_picker_apv"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_320dp"
             android:layout_gravity="bottom"
-            android:visibility="gone"
-            android:background="@color/white"></com.mubly.comewaves.view.costomview.AddressPickerView>
+            android:background="@color/white"
+            android:visibility="gone"></com.mubly.comewaves.view.costomview.AddressPickerView>
     </FrameLayout>
 </FrameLayout>
