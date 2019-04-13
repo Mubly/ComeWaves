@@ -44,6 +44,7 @@ import static com.mubly.comewaves.common.network.ApiUrls.GET_USER_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.HOME_INFO_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.IMAGE_UPLOAD_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.IMG_VIDEO_UPLOAD_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.MUIL_IMAGE_UPLOAD_QINIU_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.MY_TOPIC_AND_FOCUS_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.ONE_PASS_login_Url;
 import static com.mubly.comewaves.common.network.ApiUrls.PRAISE_URL;
@@ -110,7 +111,6 @@ public class Apis {
 
                         Type type = new TypeToken<ResponseData<List<HomeBean>>>() {
                         }.getType();
-//                        Log.i("asef",type.getTypeName()+"^^^");
 //                        return gson.fromJson(response.body().string(), type);
                         ResponseData<List<HomeBean>> data = gson.fromJson(response.body().string(), type);
 
@@ -213,6 +213,7 @@ public class Apis {
                 .adapt(new ObservableBody<ResponseData<BaseModel>>());
 
     }
+
     // 视频上传七牛
     public static Observable<ResponseData<BaseModel>> videoUpload2(String post_info, String location, String through, String weft, String sign, String video, String img) {
         return OkGo.<ResponseData<BaseModel>>post(VIDEO_UPLOAD_URL2)
@@ -235,6 +236,7 @@ public class Apis {
                 .adapt(new ObservableBody<ResponseData<BaseModel>>());
 
     }
+
     // 图片上传
     public static Observable<ResponseData<BaseModel>> imageUpload(String post_info, String cate_id, String location, String through, String weft, String sign, File video, File img) {
         return OkGo.<ResponseData<BaseModel>>post(IMAGE_UPLOAD_URL)
@@ -258,6 +260,26 @@ public class Apis {
 
     }
 
+    //七牛多图上传
+    public static Observable<ResponseData<BaseModel>> imageUploadMore(final String post_info, final String location, final String through, final String weft, final String sign, final String files) {
+        return OkGo.<ResponseData<BaseModel>>post(MUIL_IMAGE_UPLOAD_QINIU_URL)
+                .params("post_info", post_info)
+                .params("location", location)
+                .params("through", through)
+                .params("sign", sign)
+                .params("weft", weft)
+                .params("img", files)
+                .converter(new Converter<ResponseData<BaseModel>>() {
+                    @Override
+                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<BaseModel>>());
+
+    }
 
     public static Observable<ResponseData<BaseModel>> imageVideoUpload(String common_id, String cate_id, String location, String through, String weft, String sign, File video, File img) {
         return OkGo.<ResponseData<BaseModel>>post(IMG_VIDEO_UPLOAD_URL)
@@ -422,7 +444,7 @@ public class Apis {
     }
 
     // 搜索页二级分类（列表内容）
-    public static Observable<ResponseData<List<CategoryVo>>> getSearchTab2(int cate_id,int page) {
+    public static Observable<ResponseData<List<CategoryVo>>> getSearchTab2(int cate_id, int page) {
         return OkGo.<ResponseData<List<CategoryVo>>>post(SEARCH_TWO_CATEGARY_URL)
                 .params("cate_id", cate_id)
                 .params("page", page)

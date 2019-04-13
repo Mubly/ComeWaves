@@ -21,6 +21,9 @@ public class ApiUrls {
     public static final String USERINFO_UPDATE_URL = BASE_URL + "user/postpersonal";  //修改用户信息
     public static final String IMAGE_UPLOAD_URL = BASE_URL + "post/postaddpictureweChat";  //图片上传
     public static final String MUIL_IMAGE_UPLOAD_URL = BASE_URL + "post/posttextimgs";  //多图片上传
+
+    public static final String MUIL_IMAGE_UPLOAD_QINIU_URL = BASE_URL + "post/postaddtextimgtwo";  //多图片上传（七牛）
+
     public static final String VIDEO_UPLOAD_URL = BASE_URL + "post/postaddvideo";  //视频上传
 
     public static final String VIDEO_UPLOAD_URL2 = BASE_URL + "post/postaddvideotwo";  //视频上传

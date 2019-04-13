@@ -44,6 +44,7 @@ import com.mubly.comewaves.view.activity.GoodsInfoActivity;
 import com.mubly.comewaves.view.activity.PhoneLoginActivity;
 import com.mubly.comewaves.view.costomview.CircleImageView;
 import com.mubly.comewaves.view.costomview.PileLayout;
+import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
 import com.mubly.comewaves.view.interfaceview.HomeView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -121,6 +122,8 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
             linearLayoutManager = new LinearLayoutManager(mContext);
             mRecyclerView.setLayoutManager(linearLayoutManager);
             mRecyclerView.setAdapter(recyclerNormalAdapter);
+            SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+            mRecyclerView.addItemDecoration(decoration);
             mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
                 int firstVisibleItem, lastVisibleItem;
@@ -128,6 +131,7 @@ public class HomeInFragment extends BaseFragment<HomePresent, HomeView> implemen
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
+                    //导入列表的滑动状态
                     scrollCalculatorHelper.onScrollStateChanged(recyclerView, newState);
                 }
 

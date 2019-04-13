@@ -125,25 +125,27 @@ public class TagInputEditView extends AppCompatEditText {
 
     private void refreshTagList(String content) {
         tagList.clear();
-        if (startKey.equals(endKey)) {//开始与结束的key是一样的
-
-        } else {//开始与结束的key是不一样的
-            noEquals(content);
-        }
+//        if (startKey.equals(endKey)) {//开始与结束的key是一样的
+//
+//        } else
+//            {//开始与结束的key是不一样的
+        noEquals(content);
+//        }
 
     }
 
     private void noEquals(String content) {
+        if (!content.contains(startKey))
+            return;
         String[] contentSplit = content.split(startKey);
         for (int i = 1; i < contentSplit.length; i++) {
             String continKeyValue = contentSplit[i];
-            if (continKeyValue.endsWith(endKey)) {
+            if (continKeyValue.contains(endKey)) {
                 String tagKey = startKey + continKeyValue.substring(0, continKeyValue.indexOf(endKey)) + endKey;
                 tagList.add(tagKey);
+            } else {//暂时不要
+                tagList.add(startKey + continKeyValue + endKey);
             }
-//            else {//暂时不要
-//                tagList.add(startKey+continKeyValue+endKey);
-//            }
 
         }
     }

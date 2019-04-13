@@ -173,17 +173,17 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
         }
 
         setPraise(topicInfoVo.post.getLike_status(), false);
-        setAttent(topicInfoVo.post.getCollect_status(), false);
+        setCollection(topicInfoVo.post.getCollect_status(), false);
     }
 
     @Override
     public void doPraise(SmartBeanVo smartBeanVo) {
-
+        setPraise(smartBeanVo.status, true);
     }
 
     @Override
     public void doCollection(SmartBeanVo smartBeanVo) {
-
+        setCollection(smartBeanVo.status, true);
     }
 
     @Override
@@ -245,7 +245,7 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
         }
     }
 
-    private void setAttent(int b, boolean isCount) {
+    private void setCollection(int b, boolean isCount) {
         Drawable drawable = null;
         String count = attentCount.getText().toString();
 

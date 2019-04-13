@@ -28,6 +28,9 @@ import com.mubly.comewaves.view.activity.GoodsInfoActivity;
 import com.mubly.comewaves.view.activity.IsHadCommentActivity;
 import com.mubly.comewaves.view.costomview.SpacesItemDecoration;
 import com.mubly.comewaves.view.interfaceview.IsHadView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +45,9 @@ public class IsHadInFragment extends BaseFragment<IsHadPresent, IsHadView> imple
     @BindView(R.id.ishadin_comment_rv)
     RecyclerView mRecyclerView;
     SmartAdapter smartAdapter;
-    List<String> title = new ArrayList<>();
+    @BindView(R.id.ishad_refresh_layout)
+    SmartRefreshLayout smartRefreshLayout;
     List<HomeBean> dataList = new ArrayList<>();
-    //    @BindView(R.id.ishadin_tv)
-//    TextView mText;
     private int page = 0;
 
     public static IsHadInFragment newInstance(int type) {
@@ -66,7 +68,6 @@ public class IsHadInFragment extends BaseFragment<IsHadPresent, IsHadView> imple
     @Override
     public void initView(View rootView) {
         super.initView(rootView);
-//        mText.setText("类型：" + getArguments().getInt("type"));
         smartAdapter = new SmartAdapter<HomeBean>(dataList) {
             @Override
             public int getLayout(int viewType) {
@@ -76,7 +77,7 @@ public class IsHadInFragment extends BaseFragment<IsHadPresent, IsHadView> imple
             @Override
             public void dealView(VH holder, final HomeBean data, int position) {
                 ImageView mImageView = (ImageView) holder.getChildView(R.id.ishad_content_img);
-                Glide.with(mContext).load(data.getFirst_url()).apply(RequestOptions.bitmapTransform(new RoundedCorners(40))).into(mImageView);
+                Glide.with(mContext).load(data.getFirst_url()).apply(RequestOptions.placeholderOf(R.drawable.ishad_1).bitmapTransform(new RoundedCorners(40))).into(mImageView);
                 ImageView avtarImg = (ImageView) holder.getChildView(R.id.ishad_avtar_img);
                 Glide.with(mContext).load(data.getUser_head()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(avtarImg);
                 holder.setText(R.id.ishad_content_tv, data.getPost_info());
@@ -99,11 +100,9 @@ public class IsHadInFragment extends BaseFragment<IsHadPresent, IsHadView> imple
 
 
         };
-
-//        mRecyclerView.setNestedScrollingEnabled(false);
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(manager);
 
+        mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(smartAdapter);
         SpacesItemDecoration decoration = new SpacesItemDecoration(12);
         mRecyclerView.addItemDecoration(decoration);
@@ -125,8 +124,34 @@ public class IsHadInFragment extends BaseFragment<IsHadPresent, IsHadView> imple
     }
 
     @Override
+    public void initEvent() {
+        super.initEvent();
+        smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                page++;
+                initData();
+            }
+
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 0;
+                initData();
+            }
+        });
+    }
+
+    @Override
     public void shoSuccess(List<HomeBean> data) {
-        dataList.clear();
+        if (smartRefreshLayout.isRefreshing()) {
+            smartRefreshLayout.finishRefresh();
+            dataList.clear();
+        } else if (smartRefreshLayout.isLoading()) {
+            smartRefreshLayout.finishLoadmore();
+        } else {
+            dataList.clear();
+        }
+
         if (null != data) {
             dataList.addAll(data);
         }

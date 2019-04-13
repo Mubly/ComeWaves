@@ -131,6 +131,7 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseMvp
 
     @Override
     public void hideProgress() {
+
         if (getProgressDialog().isShowing())
             progressDialog.dismiss();
     }

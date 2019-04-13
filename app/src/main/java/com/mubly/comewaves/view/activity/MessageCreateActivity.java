@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -285,7 +286,16 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
                 fileList.add(new File(voideImageList.get(i).getCompressPath()));
             }
         }
-        mPresenter.upLoadeImgMore(contentInfo, addressStr, mLongitude, mLatitude, fileList);
+//        mPresenter.upLoadeImgMore(contentInfo, addressStr, mLongitude, mLatitude, fileList);
+        voideImageList.remove(voideImageList.size() - 1);
+        showProgress("发布中……");
+        mPresenter.uploadImgMore(uploadManager, voideImageList, qiNToken, new CallBackObject<String>() {
+            @Override
+            public void callBack(String o) {
+
+                mPresenter.upLoadeImgMore(contentInfo, poiName, mLongitude, mLatitude, getSignStr(), o);
+            }
+        });
     }
 
     @Override
@@ -353,11 +363,25 @@ public class MessageCreateActivity extends BaseActivity<MessageCreatePresent, Me
 
     @Override
     public void upLoadImgSuccess(String keyRes, int type) {
-
+        hideProgress();
+        finish();
     }
 
     @Override
     public void upLoadImgFail(String error, int type) {
 
+    }
+
+    private String getSignStr() {
+        String sign = "";
+        for (String str : input_et.getTagList()) {
+            if (TextUtils.isEmpty(sign)) {
+                sign = str.substring(1,str.length()-1);
+            } else {
+                sign = sign + "," + str.substring(1,str.length()-1);
+            }
+        }
+
+        return sign;
     }
 }

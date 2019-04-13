@@ -312,7 +312,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
 
 
     //收藏
-    private void setAttent(int b, boolean isCount) {
+    private void setCollection(int b, boolean isCount) {
         Drawable drawable = null;
         String count = attentCount.getText().toString();
 
@@ -406,7 +406,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
         attentCount.setText(topicInfoVo.post.getCollection_num() + "");//收藏
         commentCount.setText(topicInfoVo.post.getReport_num() + "");
         setPraise(topicInfoVo.post.getLike_status(), false);
-        setAttent(topicInfoVo.post.getCollect_status(), false);
+        setCollection(topicInfoVo.post.getCollect_status(), false);
     }
 
     @Override
@@ -416,7 +416,7 @@ public class SwitchDetailActivity extends BaseActivity<CommentInfoPresent, Comme
 
     @Override
     public void doCollection(SmartBeanVo smartBeanVo) {
-        setAttent(smartBeanVo.status, true);
+        setCollection(smartBeanVo.status, true);
     }
 
     @Override

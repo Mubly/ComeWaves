@@ -48,6 +48,8 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.youth.banner.transformer.DefaultTransformer;
+import com.youth.banner.transformer.ScaleInOutTransformer;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -205,28 +207,8 @@ public class MainActivity extends BaseActivity {
                 tabSelect(1);
                 break;
             case R.id.ll_release:
-//                startActivity(new Intent(mContext, MessageCreateActivity.class));
                 main_mypager.setCurrentItem(2);
                 tabSelect(2);
-//                rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
-//                    @Override
-//                    public void accept(Boolean aBoolean) throws Exception {
-//                        if (aBoolean){
-//                            //申请的权限全部允许
-//                            Toast.makeText(MainActivity.this, "允许了权限!", Toast.LENGTH_SHORT).show();
-//                            PictureSelector.create(MainActivity.this)
-//                                    .openCamera(PictureMimeType.ofImage())
-//                                    .previewVideo(true)
-//                                    .videoQuality(0)
-//                                    .videoMaxSecond(15)
-//                                    .videoMinSecond(5)
-//                                    .forResult(PictureConfig.CHOOSE_REQUEST);
-//                        }else{
-//                            //只要有一个权限被拒绝，就会执行
-//                            Toast.makeText(MainActivity.this, "未授权权限，部分功能不能使用", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
 
                 break;
             case R.id.ll_info:
@@ -270,24 +252,6 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case PictureConfig.CHOOSE_REQUEST:
-                    // 图片、视频、音频选择结果回调
-                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                    // 例如 LocalMedia 里面返回三种path
-                    // 1.media.getPath(); 为原图path
-                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
-                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                    break;
-            }
-        }
     }
 
 

@@ -21,6 +21,7 @@ import com.mubly.comewaves.common.utils.ToastUtils;
 import com.mubly.comewaves.model.interfaces.CallBack;
 import com.mubly.comewaves.model.interfaces.CallPoiListBack;
 import com.mubly.comewaves.model.livedatabus.LiveDataBus;
+import com.mubly.comewaves.model.model.SmartBeanVo;
 import com.mubly.comewaves.view.interfaceview.MessageCreateView;
 import com.qiniu.android.storage.UploadManager;
 
@@ -73,7 +74,7 @@ public class MessageCreatePresent extends UpLoadPresent<MessageCreateView> {
                     public void _onNext(ResponseData<BaseModel> actWeekBeanResponseData) {
                         if (actWeekBeanResponseData.getCode() == Constant.SuccessCode) {
                             LiveDataBus.get().with("videoUpload").postValue(1.00);
-                        }else {
+                        } else {
                             ToastUtils.showToast(actWeekBeanResponseData.getMsg());
                         }
                     }
@@ -164,6 +165,56 @@ public class MessageCreatePresent extends UpLoadPresent<MessageCreateView> {
                 });
     }
 
+    public void upLoadeImgMore(final String post_info, final String location, final String through, final String weft, final String sign, final String files) {
+        Apis.imageUploadMore(post_info, location, through, weft, sign, files)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxObserver<ResponseData<BaseModel>>() {
+                    @Override
+                    public void _onNext(ResponseData<BaseModel> userInfoVoResponseData) {
+                        if (isAttachView()) {
+                            if (userInfoVoResponseData.getCode() == Constant.SuccessCode) {
+                                mvpView.upLoadImgSuccess(null,0);
+                            } else {
+                                mvpView.hideProgress();
+                                mvpView.checkNetCode(userInfoVoResponseData.getCode(), userInfoVoResponseData.getMsg());
+                            }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        if (isAttachView()) {
+                            mvpView.hideProgress();
+                            mvpView.showError(errorMessage);
+                        }
+
+                    }
+                });
+    }
+
+    private void imgUpLoadTwo(String post_info, String location, String through, String weft, String sign, String video, String img) {
+        Apis.videoUpload2(post_info, location, through, weft, sign, video, img)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxObserver<ResponseData<BaseModel>>() {
+                    @Override
+                    public void _onNext(ResponseData<BaseModel> actWeekBeanResponseData) {
+                        if (actWeekBeanResponseData.getCode() == Constant.SuccessCode) {
+                            LiveDataBus.get().with("videoUpload").postValue(1.00);
+                        } else {
+                            ToastUtils.showToast(actWeekBeanResponseData.getMsg());
+                        }
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                    }
+                });
+    }
+
     public void upLoadeImgMore(final String post_info, final String location, final String through, final String weft, final List<File> files) {
         Observable.create(new ObservableOnSubscribe<Progress>() {
             @Override
@@ -239,7 +290,7 @@ public class MessageCreatePresent extends UpLoadPresent<MessageCreateView> {
                 });
     }
 
-    public void gainPoiList(Context context, String mLatitude, String mLongitude,String adCode, final CallPoiListBack callPoiListBack) {
+    public void gainPoiList(Context context, String mLatitude, String mLongitude, String adCode, final CallPoiListBack callPoiListBack) {
         PoiSearch.Query query = new PoiSearch.Query("", "", adCode);
         query.setPageSize(20);
         PoiSearch poiSearch = new PoiSearch(context, query);

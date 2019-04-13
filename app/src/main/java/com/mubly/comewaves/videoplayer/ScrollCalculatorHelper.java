@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.mubly.comewaves.common.utils.ToastUtils;
 import com.shuyu.gsyvideoplayer.utils.NetworkUtils;
 import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer;
 
@@ -38,6 +39,12 @@ public class ScrollCalculatorHelper {
 
     public void onScrollStateChanged(RecyclerView view, int scrollState) {
         switch (scrollState) {
+            /**new State 一共有三种状态
+             * SCROLL_STATE_IDLE：目前RecyclerView不是滚动，也就是静止
+             * SCROLL_STATE_DRAGGING：RecyclerView目前被外部输入如用户触摸输入（处于拖动状态）。
+             * SCROLL_STATE_SETTLING：RecyclerView目前动画虽然不是在最后一个位置外部控制（自动滚动状态）。
+             * 这里进行加载更多数据的操作
+             */
             case RecyclerView.SCROLL_STATE_IDLE:
                 playVideo(view);
                 break;
@@ -45,12 +52,13 @@ public class ScrollCalculatorHelper {
     }
 
     public void onScroll(RecyclerView view, int firstVisibleItem, int lastVisibleItem, int visibleItemCount) {
-        if (firstVisible == firstVisibleItem) {
-            return;
-        }
+//        if (firstVisible == firstVisibleItem) {
+//            return;
+//        }
         firstVisible = firstVisibleItem;
         lastVisible = lastVisibleItem;
         visibleCount = visibleItemCount;
+//        playVideo(view);
     }
 
 
@@ -71,9 +79,10 @@ public class ScrollCalculatorHelper {
                 GSYBaseVideoPlayer player = (GSYBaseVideoPlayer) layoutManager.getChildAt(i).findViewById(playId);
                 Rect rect = new Rect();
                 player.getLocalVisibleRect(rect);
-                int height = player.getHeight();
+                int height = player.getHeight();//播放器高度
                 //说明第一个完全可视
-                if (rect.top == 0 && rect.bottom == height) {
+//
+                if (  rect.top == 0 &&rect.bottom == height) {
                     gsyBaseVideoPlayer = player;
                     if ((player.getCurrentPlayer().getCurrentState() == GSYBaseVideoPlayer.CURRENT_STATE_NORMAL
                             || player.getCurrentPlayer().getCurrentState() == GSYBaseVideoPlayer.CURRENT_STATE_ERROR)) {
@@ -141,6 +150,7 @@ public class ScrollCalculatorHelper {
 //        }
         gsyBaseVideoPlayer.startPlayLogic();
     }
+//    当前网络，是否确认播放
 
     private void showWifiDialog(final GSYBaseVideoPlayer gsyBaseVideoPlayer, Context context) {
         if (!NetworkUtils.isAvailable(context)) {
