@@ -129,12 +129,19 @@ public class UpLoadPresent<T extends UpLoadView> extends BasePresenter<T> {
             }
         });
     }
+
     private void imgUpload(final UploadManager mUploadManager, final List<LocalMedia> localMediaList, final String token, final String[] imgList, final int[] index, final CallBackObject callBackObject) {
         File file = new File(localMediaList.get(index[0]).getCompressPath());
         uploadImg(mUploadManager, localMediaList.get(index[0]).getCompressPath(), file.getName(), token, new CallBack() {
             @Override
             public void callBack(String data) {
-                imgList[0] = imgList[0] +","+ data;
+                if (TextUtils.isEmpty(imgList[0])) {
+                    imgList[0] = data;
+                } else {
+                    imgList[0] = imgList[0] + "," + data;
+
+                }
+
                 index[0]++;
                 if (index[0] == localMediaList.size() && null != callBackObject) {
                     callBackObject.callBack(imgList[0]);

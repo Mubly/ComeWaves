@@ -73,11 +73,10 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
     @BindView(R.id.input_et)
     EditText inputEt;
     @BindView(R.id.video_content_tv)
-     TextView contentTv;
+    TextView contentTv;
     private int type;
     private int postId;
     private List<String> imgList = new ArrayList<>();
-
 
 
     @Override
@@ -159,7 +158,7 @@ public class GoodsInfoActivity extends BaseActivity<CommentInfoPresent, CommentI
         }
         contentTv.setText(TextViewUtils.getWeiBoContent(mContext, topicInfoVo.post.getPost_info(), contentTv));
         praiseTv.setText(topicInfoVo.post.getFabulous_num() + "");//喜欢
-        attentCount.setText(topicInfoVo.post.getCollection_num() + "");//收藏
+        attentCount.setText(String.valueOf(topicInfoVo.post.getCollection_num()));//收藏
         commentCount.setText(topicInfoVo.post.getReport_num() + "");
         imgList.clear();
         if (null != topicInfoVo.post.getPhoto_url() && topicInfoVo.post.getPhoto_url().size() > 0) {
