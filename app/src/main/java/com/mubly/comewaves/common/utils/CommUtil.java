@@ -31,6 +31,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.google.gson.Gson;
 import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.CrossApp;
 import com.mubly.comewaves.common.sharedpreference.AppConfig;
 import com.mubly.comewaves.model.interfaces.CallBackObject;
 import com.mubly.comewaves.model.model.CategoryVo;
@@ -252,23 +253,20 @@ public class CommUtil {
         return screenWidth;
     }
 
-    public static int getScreenWidth(final Context context) {
-        if (context == null) {
-            return 0;
-        }
-        return getDisplayMetrics(context).widthPixels;
+    public static int getScreenWidth() {
+        return getDisplayMetrics().widthPixels;
     }
 
     /**
      * Returns a valid DisplayMetrics object
      *
-     * @param context valid context
+     * @param
      * @return DisplayMetrics object
      */
-    private static DisplayMetrics getDisplayMetrics(final Context context) {
+    private static DisplayMetrics getDisplayMetrics() {
         final WindowManager
                 windowManager =
-                (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                (WindowManager) CrossApp.get().getSystemService(Context.WINDOW_SERVICE);
         final DisplayMetrics metrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(metrics);
         return metrics;

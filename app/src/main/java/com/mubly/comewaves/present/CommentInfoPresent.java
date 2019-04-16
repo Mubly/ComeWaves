@@ -1,5 +1,6 @@
 package com.mubly.comewaves.present;
 
+import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.Log;
 
@@ -13,11 +14,21 @@ import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.base.ResponseData;
 import com.mubly.comewaves.common.network.Apis;
 import com.mubly.comewaves.common.network.RxObserver;
+import com.mubly.comewaves.common.utils.ToastUtils;
+import com.mubly.comewaves.model.interfaces.CallBack;
 import com.mubly.comewaves.model.livedatabus.LiveDataBus;
 import com.mubly.comewaves.model.model.CommentInfo;
 import com.mubly.comewaves.model.model.SmartBeanVo;
 import com.mubly.comewaves.model.model.TopicInfoVo;
 import com.mubly.comewaves.view.interfaceview.CommentInfoView;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UpProgressHandler;
+import com.qiniu.android.storage.UploadManager;
+import com.qiniu.android.storage.UploadOptions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.List;
@@ -222,6 +233,129 @@ public class CommentInfoPresent extends BasePresenter<CommentInfoView> {
                     }
                 });
     }
+
+    //    获取七牛云上传Token
+    public void getUpLoadToken() {
+        Apis.getUpLoadToken()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxObserver<ResponseData<SmartBeanVo>>() {
+                    @Override
+                    public void _onNext(ResponseData<SmartBeanVo> userInfoVoResponseData) {
+                        if (isAttachView()) {
+                            if (userInfoVoResponseData.getCode() == Constant.SuccessCode) {
+//                                mvpView.getUpLoadToken(userInfoVoResponseData.getData().qiniu_token);
+                            } else {
+                                mvpView.checkNetCode(userInfoVoResponseData.getCode(), userInfoVoResponseData.getMsg());
+                            }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        if (isAttachView()) {
+//                            mvpView.showError(errorMessage);
+                        }
+
+                    }
+                });
+    }
+//    七牛视频上传
+    public void videodateQN(final UploadManager mUploadManager, final String qiNToken, final String post_info, final String location, final String through, final String weft, final String sign, String video, final String img) {
+        final File file = new File(video);
+        uploadVideo(mUploadManager, video, file.getName(), qiNToken, new CallBack() {
+            @Override
+            public void callBack(final String data1) {
+                if (null == data1)
+                    return;
+                file.delete();
+                final File fileImg = new File(img);
+                uploadImg(mUploadManager, img, fileImg.getName(), qiNToken, new CallBack() {
+                    @Override
+                    public void callBack(String data2) {
+
+                        fileImg.delete();
+                        videoUpLoadTwo(post_info, location, through, weft, sign, data1, data2);
+                    }
+                });
+            }
+        });
+    }
+    private void videoUpLoadTwo(String post_info, String location, String through, String weft, String sign, String video, String img) {
+        Apis.videoUpload2(post_info, location, through, weft, sign, video, img)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxObserver<ResponseData<BaseModel>>() {
+                    @Override
+                    public void _onNext(ResponseData<BaseModel> actWeekBeanResponseData) {
+                        if (actWeekBeanResponseData.getCode() == Constant.SuccessCode) {
+                            LiveDataBus.get().with("videoUpload").postValue(1.00);
+                        } else {
+                            ToastUtils.showToast(actWeekBeanResponseData.getMsg());
+                        }
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                    }
+                });
+    }
+    public void uploadImg(UploadManager mUploadManager, String path, String key, String token, final CallBack callback) {
+        mUploadManager.put(path, key, token, new UpCompletionHandler() {
+            @Override
+            public void complete(String key, ResponseInfo info, JSONObject response) {
+                if (info.isOK()) {
+                    try {
+                        if (!response.has("key"))
+                            return;
+                        String keyRes = response.getString("key");
+                        if (TextUtils.isEmpty(keyRes))
+                            return;
+                        if (null != callback)
+                            callback.callBack(keyRes);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    if (null != callback)
+                        callback.callBack(null);
+                }
+            }
+        }, null);
+    }
+    public void uploadVideo(UploadManager mUploadManager, String path, String key, String token, final CallBack callBack) {
+        mUploadManager.put(path, key, token, new UpCompletionHandler() {
+            @Override
+            public void complete(String key, ResponseInfo info, JSONObject response) {
+                if (info.isOK()) {
+                    try {
+                        if (!response.has("key"))
+                            return;
+                        String keyRes = response.getString("key");
+                        if (TextUtils.isEmpty(keyRes))
+                            return;
+                        if (null != callBack)
+                            callBack.callBack(keyRes);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    //视频上传失败
+                    if (null != callBack)
+                        callBack.callBack(null);
+                }
+            }
+        }, new UploadOptions(null, null, false, new UpProgressHandler() {
+            @Override
+            public void progress(String key, double percent) {
+                LiveDataBus.get().with("videoUpload").postValue(percent);
+            }
+        }, null));
+    }
+
 
     public void videoUpdate(final String post_info, final String location, final String through, final String weft, final String sign, final File video, File img) {
         Observable.create(new ObservableOnSubscribe<Progress>() {

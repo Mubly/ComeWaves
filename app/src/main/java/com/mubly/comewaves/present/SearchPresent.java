@@ -38,8 +38,30 @@ public class SearchPresent extends BasePresenter<SearchView> {
                 });
     }
 
-    public void getCategaryTwo(int cateId,int page) {
-        Apis.getSearchTab2(cateId,page)
+    public void getCategaryTwo(int cateId, int page) {
+        Apis.getSearchTab2(cateId, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxObserver<ResponseData<List<CategoryVo>>>() {
+                    @Override
+                    public void _onNext(ResponseData<List<CategoryVo>> categorydatadata) {
+                        if (null == getMvpView()) {
+                            return;
+                        }
+                        getMvpView().getOneTab(categorydatadata.getData());
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        if (null == getMvpView()) {
+                            return;
+                        }
+                    }
+                });
+    }
+
+    public void getCategaryRecom(int page) {
+        Apis.getSearchTabRecom(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxObserver<ResponseData<List<CategoryVo>>>() {

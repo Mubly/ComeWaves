@@ -131,4 +131,6 @@ dependencies {
     implementation 'com.qiniu:qiniu-android-sdk:7.3.15'
 //    选择器
     implementation 'com.contrarywind:Android-PickerView:4.1.7'
+//自带瀑布流上拉加载下拉刷新
+//    implementation 'com.wuxiaolong.pullloadmorerecyclerview:library:1.1.2'
 }

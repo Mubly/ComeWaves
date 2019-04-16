@@ -8,6 +8,8 @@ import android.os.Parcelable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
+import com.mubly.comewaves.R;
+import com.mubly.comewaves.common.utils.CommUtil;
 import com.mubly.comewaves.model.model.HomeBean;
 import com.mubly.comewaves.model.model.ImgItemVo;
 import com.youth.banner.loader.ImageLoader;
@@ -22,6 +24,8 @@ public class DataService extends IntentService {
     public DataService() {
         super("");
     }
+
+    private int screenWith = CommUtil.getScreenWidth();
 
     public static void startService(Context context, List<String> datas, String subtype) {
         Intent intent = new Intent(context, DataService.class);
@@ -54,11 +58,21 @@ public class DataService extends IntentService {
         }
         List<ImgItemVo> imgItemVos = new ArrayList<>();
         for (String data : datas) {
-            Bitmap bitmap = Glide.with(this).asBitmap().load(data).submit().get();
+            Bitmap bitmap = null;
+            try {
+                bitmap = Glide.with(this).asBitmap().load(data).submit().get();
+            } catch (ExecutionException e) {
+                bitmap = Glide.with(this).asBitmap().load(R.drawable.ishad_1).submit().get();
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                bitmap = Glide.with(this).asBitmap().load(R.drawable.ishad_1).submit().get();
+            }
+
             if (bitmap != null) {
                 ImgItemVo imgItemVo = new ImgItemVo();
-                imgItemVo.width = bitmap.getWidth();
-                imgItemVo.height = bitmap.getHeight();
+                imgItemVo.width = (screenWith / 2) - CommUtil.dip2px(this, 12f);
+                imgItemVo.height = (bitmap.getHeight() * imgItemVo.width) / bitmap.getWidth();
                 imgItemVo.subtype = subtype;
                 imgItemVos.add(imgItemVo);
             }

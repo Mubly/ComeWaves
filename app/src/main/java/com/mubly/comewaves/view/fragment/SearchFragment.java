@@ -138,6 +138,8 @@ public class SearchFragment extends BaseFragment<SearchPresent, SearchView> impl
             title.add(categoryVo.cate_name);
             fragmentList.add(SearchInFragment.newInstance(categoryVo.cate_id));
         }
+        fragmentList.add(0,SearchInFragment.newInstance(-1));
+        title.add(0,"推荐");
         mViewPage.setAdapter(new myPageAdapter(getActivity().getSupportFragmentManager(), title));
         mTabLayout.setupWithViewPager(mViewPage);
     }

@@ -51,7 +51,8 @@ public class ApiUrls {
 
     public static final String SEARCH_ONE_CATEGARY_URL = BASE_URL + "search/getonecategory";  //搜索页一级分类
 
-    public static final String SEARCH_TWO_CATEGARY_URL = BASE_URL + "search/gettwocategory";  //搜索页一级分类
+    public static final String SEARCH_TWO_CATEGARY_URL = BASE_URL + "search/gettwocategory";  //搜索页二级分类
+    public static final String SEARCH_TWO_CATEGARY_RECOM_URL = BASE_URL + "search/gethomecategory";  //搜索页二级分类（推荐）
 
     public static final String SEARCH_VIDEO_LIST_URL = BASE_URL + "search/getbyidvideo";  //搜索页视频列表
 

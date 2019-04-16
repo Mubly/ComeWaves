@@ -223,7 +223,7 @@ public final class AdapterImpl implements View.OnClickListener, View.OnLongClick
     // when the item spans multiple columns, we need to account for the horizontal padding
     // and add that to the total final width
     return Math.min(rowWidth + ((columnSpan - 1) * listView.getRequestedHorizontalSpacing()),
-        CommUtil.getScreenWidth(context));
+        CommUtil.getScreenWidth());
   }
 
   private LinearLayout initializeLayout(LinearLayout layout) {

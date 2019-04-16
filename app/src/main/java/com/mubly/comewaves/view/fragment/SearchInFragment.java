@@ -79,7 +79,10 @@ public class SearchInFragment extends BaseFragment<SearchPresent, SearchView> im
     @Override
     public void initData() {
         super.initData();
-        mPresenter.getCategaryTwo(type, page);
+        if (type == -1)
+            mPresenter.getCategaryRecom(page);
+        else
+            mPresenter.getCategaryTwo(type, page);
     }
 
     @Override
@@ -87,7 +90,7 @@ public class SearchInFragment extends BaseFragment<SearchPresent, SearchView> im
         super.initView(rootView);
         adapter = new RecyclerViewAdapter(dataList);
         mRecyclerView.setRequestedColumnCount(3);//设置三行
-        mRecyclerView.setDebugging(true);//Debug模式
+        mRecyclerView.setDebugging(false);//Debug模式
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setRequestedHorizontalSpacing(CommUtil.dip2px(mContext, 3));//横向间隔
         mRecyclerView.addItemDecoration(

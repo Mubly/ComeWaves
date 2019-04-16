@@ -1,6 +1,7 @@
 package com.mubly.comewaves.model.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -52,6 +53,9 @@ public class HomeBean implements Serializable {
     private String user_head;
     private String cate_name;
     private int cate_id;
+    public int width;
+    public int height;
+
 
     public int getStatus() {
         return status;

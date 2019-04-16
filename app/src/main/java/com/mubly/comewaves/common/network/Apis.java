@@ -51,6 +51,7 @@ import static com.mubly.comewaves.common.network.ApiUrls.PRAISE_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.REGISTERED_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.REPLY_COMMENT_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.SEARCH_ONE_CATEGARY_URL;
+import static com.mubly.comewaves.common.network.ApiUrls.SEARCH_TWO_CATEGARY_RECOM_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.SEARCH_TWO_CATEGARY_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.SEARCH_VIDEO_LIST_URL;
 import static com.mubly.comewaves.common.network.ApiUrls.SEND_REPLY_COMMENT_URL;
@@ -458,6 +459,21 @@ public class Apis {
                 })
                 .adapt(new ObservableBody<ResponseData<List<CategoryVo>>>());
     }
+    // 搜索页二级分类（推荐列表内容）
+    public static Observable<ResponseData<List<CategoryVo>>> getSearchTabRecom( int page) {
+        return OkGo.<ResponseData<List<CategoryVo>>>post(SEARCH_TWO_CATEGARY_RECOM_URL)
+                .params("page", page)
+                .converter(new Converter<ResponseData<List<CategoryVo>>>() {
+                    @Override
+                    public ResponseData<List<CategoryVo>> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<List<CategoryVo>>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<List<CategoryVo>>>());
+    }
+
 
     //搜索模块视频列表
     public static Observable<ResponseData<List<SearchVideoVo>>> getSearchVideo(int cate_id) {

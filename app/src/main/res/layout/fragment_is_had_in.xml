@@ -16,8 +16,7 @@
         android:id="@+id/ishadin_comment_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="12dp"
-        android:paddingRight="@dimen/size_12dp"></android.support.v7.widget.RecyclerView>
+  ></android.support.v7.widget.RecyclerView>
 
     <com.scwang.smartrefresh.layout.footer.ClassicsFooter
         android:layout_width="match_parent"
