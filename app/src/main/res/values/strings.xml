@@ -20,4 +20,5 @@
     <string name="title_activity_hot_lebel">HotLebelActivity</string>
     <string name="phoneNoStr">手机号:</string>
     <string name="checkCodelabel">验证码：</string>
+    <string name="enter_prompt2">如何加入钉够，做有品质的购物平台</string>
 </resources>

@@ -36,9 +36,12 @@
         android:theme="@style/AppTheme_App"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme,android:appComponentFactory">
+        <activity android:name=".view.activity.Certification2Activity"></activity>
+        <activity android:name=".view.activity.CertificationActivity" />
+
         <service
             android:name=".common.services.DataService"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity android:name=".view.activity.VideoScreenCropActivity" />
 
