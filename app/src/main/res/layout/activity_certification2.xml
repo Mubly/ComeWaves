@@ -10,21 +10,163 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_layout">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingBottom="@dimen/size_100dp"
             android:paddingLeft="@dimen/size_20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="入驻时间"
-                android:textColor="@color/text_555555"
                 android:layout_marginTop="@dimen/size_8dp"
+                android:text="入驻申请"
+                android:textColor="@color/text_555555"
+                android:textSize="@dimen/size_14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:text="为了尽量缩短审核时间，请保证填写信息的真实性"
+                android:textColor="@color/color_D72D63"
+                android:textSize="@dimen/size_12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_30dp"
+                android:text="申请商家名称"
+                android:textColor="@color/text_555555"
+                android:textSize="@dimen/size_14dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_30dp"
+                android:background="@null"
+                android:hint="例：优衣库万达店"
+                android:textSize="@dimen/size_12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_30dp"
+                android:text="申请商家电话"
+                android:textColor="@color/text_555555"
+                android:textSize="@dimen/size_14dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:text="固定电话"
+                    android:textColor="@color/text_555555"
+                    android:textSize="@dimen/size_14dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:text="移动电话"
+                    android:textColor="@color/text_555555"
+                    android:textSize="@dimen/size_14dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_30dp"
+                android:text="申请商家详细地址"
+                android:textColor="@color/text_555555"
+                android:textSize="@dimen/size_14dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_30dp"
+                android:background="@null"
+                android:hint="省/市/区/街道/门牌"
+                android:textSize="@dimen/size_12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_30dp"
+                android:text="选择经营类型"
+                android:textColor="@color/text_555555"
+                android:textSize="@dimen/size_14dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_30dp"
+                android:background="@null"
+                android:hint="农业/娱乐/旅行/美食/服装/其他"
+                android:textSize="@dimen/size_12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_30dp"
+                android:text="选择经营类范围"
+                android:textColor="@color/text_555555"
+                android:textSize="@dimen/size_14dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_30dp"
+                android:background="@null"
+                android:hint="服装/美食/美妆/护肤/母婴/食品/饰品/家具/电子/其他"
+                android:textSize="@dimen/size_12dp" />
+
+            <RadioGroup
+                android:id="@+id/store_type_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/size_20dp">
+
+                <RadioButton
+                    android:id="@+id/store_type_um"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableRight="@android:drawable/btn_radio"
+                    android:text="企业商户" />
+
+                <RadioButton
+                    android:id="@+id/store_type_pm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:button="@null"
+                    android:drawableRight="@android:drawable/btn_radio"
+                    android:text="个人商户" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_36dp"
+                android:text="企业全称"
+                android:textColor="@color/text_555555"
                 android:textSize="@dimen/size_14dp" />
         </LinearLayout>
     </ScrollView>
