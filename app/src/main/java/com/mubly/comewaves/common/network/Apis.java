@@ -16,6 +16,7 @@ import com.mubly.comewaves.model.model.LoginResBean;
 import com.mubly.comewaves.model.model.SearchVideoVo;
 import com.mubly.comewaves.model.model.SmartBeanVo;
 import com.mubly.comewaves.model.model.StartBean;
+import com.mubly.comewaves.model.model.StoreCertificationReq;
 import com.mubly.comewaves.model.model.TopicInfoVo;
 import com.mubly.comewaves.model.model.UserInfoVo;
 import com.mubly.comewaves.model.model.UserPostVo;
@@ -648,5 +649,33 @@ public class Apis {
                     }
                 })
                 .adapt(new ObservableBody<ResponseData<SmartBeanVo>>());
+    }
+
+    //商户认证
+    public static Observable<ResponseData<BaseModel>> storeCertification(StoreCertificationReq storeCertificationReq) {
+        return OkGo.<ResponseData<BaseModel>>post(ACK_EDIT_USER_INFO_URL)
+                .params("shop_name", storeCertificationReq.shop_name)
+                .params("shop_phone", storeCertificationReq.shop_phone)
+                .params("shop_mobile", storeCertificationReq.shop_mobile)
+                .params("shop_type", storeCertificationReq.shop_type)
+                .params("shop_type_scope", storeCertificationReq.shop_type_scope)
+                .params("shop_all_name", storeCertificationReq.shop_all_name)
+                .params("shop_commercial_type", storeCertificationReq.shop_commercial_type)
+                .params("shop_logo", storeCertificationReq.shop_logo)
+                .params("shop_business_license", storeCertificationReq.shop_business_license)
+                .params("shop_address", storeCertificationReq.shop_address)
+                .params("shop_facade_img", storeCertificationReq.shop_facade_img)
+                .params("shop_inner_img", storeCertificationReq.shop_inner_img)
+                .params("shop_weft", storeCertificationReq.shop_weft)
+                .params("shop_through", storeCertificationReq.shop_through)
+                .converter(new Converter<ResponseData<BaseModel>>() {
+                    @Override
+                    public ResponseData<BaseModel> convertResponse(Response response) throws Throwable {
+                        Type type = new TypeToken<ResponseData<BaseModel>>() {
+                        }.getType();
+                        return gson.fromJson(response.body().string(), type);
+                    }
+                })
+                .adapt(new ObservableBody<ResponseData<BaseModel>>());
     }
 }
