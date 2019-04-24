@@ -11,7 +11,10 @@ import android.widget.TextView;
 import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
+import com.mubly.comewaves.common.utils.ToastUtils;
+import com.mubly.comewaves.view.activity.AccountSafeActivity;
 import com.mubly.comewaves.view.activity.CertificationActivity;
+import com.mubly.comewaves.view.activity.OtherSettingActivity;
 import com.mubly.comewaves.view.activity.SettingActivity;
 
 import butterknife.BindView;
@@ -27,8 +30,13 @@ public class UserSettingFragment extends BaseFragment {
     TextView logionOutBtn;
     @BindView(R.id.user_certification_tv)
     TextView userCertification;
-
-
+    @BindView(R.id.user_other_setting_tv)
+    TextView userOtherSettingTv;
+    @BindView(R.id.user_help_or_response_tv)
+    TextView userHelpOrResponseTv;
+    @BindView(R.id.setting_about_lai_tv)
+    TextView settingAboutLaiTv;
+    Unbinder unbinder;
 
 
     @Override
@@ -54,17 +62,29 @@ public class UserSettingFragment extends BaseFragment {
     }
 
 
-
-
-
-    @OnClick({R.id.user_certification_tv, R.id.item_layout})
+    @OnClick({R.id.user_certification_tv, R.id.item_layout,R.id.user_other_setting_tv, R.id.user_help_or_response_tv, R.id.setting_about_lai_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.user_certification_tv:
                 startActivity(new Intent(mContext, CertificationActivity.class));
                 break;
             case R.id.item_layout:
+                startActivity(new Intent(mContext, AccountSafeActivity.class));
+                break;
+            case R.id.user_other_setting_tv:
+                startActivity(new Intent(mContext, OtherSettingActivity.class));
+                break;
+            case R.id.user_help_or_response_tv:
+                ToastUtils.showToast("暂未开放");
+                break;
+            case R.id.setting_about_lai_tv:
+                ToastUtils.showToast("暂未开放");
                 break;
         }
     }
+
+
+
+
+
 }

@@ -36,7 +36,9 @@
         android:theme="@style/AppTheme_App"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme,android:appComponentFactory">
-        <activity android:name=".view.activity.Certification3Activity"></activity>
+        <activity android:name=".view.activity.OtherSettingActivity"></activity>
+        <activity android:name=".view.activity.AccountSafeActivity" />
+        <activity android:name=".view.activity.Certification3Activity" />
         <activity android:name=".view.activity.Certification2Activity" />
         <activity android:name=".view.activity.CertificationActivity" />
 

@@ -25,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/user_account_and_safe_tv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_50dp"
                 android:layout_marginTop="@dimen/size_20dp"
@@ -32,8 +33,7 @@
                 android:paddingLeft="@dimen/size_20dp"
                 android:text="账号与安全"
                 android:textColor="@color/black"
-                android:textSize="@dimen/size_14dp"
-                android:visibility="gone" />
+                android:textSize="@dimen/size_14dp" />
 
             <TextView
                 android:id="@+id/user_certification_tv"
@@ -41,39 +41,39 @@
                 android:layout_height="@dimen/size_50dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/size_20dp"
-                android:text="用户认证"
+                android:text="商家入驻"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size_14dp" />
 
             <TextView
+                android:id="@+id/user_other_setting_tv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_50dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/size_20dp"
-                android:text="系统设置"
+                android:text="其他设置"
                 android:textColor="@color/black"
-                android:textSize="@dimen/size_14dp"
-                android:visibility="gone" />
+                android:textSize="@dimen/size_14dp" />
 
             <TextView
+                android:id="@+id/user_help_or_response_tv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_50dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/size_20dp"
                 android:text="帮助与反馈"
                 android:textColor="@color/black"
-                android:textSize="@dimen/size_14dp"
-                android:visibility="gone" />
+                android:textSize="@dimen/size_14dp" />
 
             <TextView
+                android:id="@+id/setting_about_lai_tv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_50dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/size_20dp"
                 android:text="关于来浪"
                 android:textColor="@color/black"
-                android:textSize="@dimen/size_14dp"
-                android:visibility="gone" />
+                android:textSize="@dimen/size_14dp" />
         </LinearLayout>
 
         <TextView

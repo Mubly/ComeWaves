@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.activity.OtherSettingActivity">
+
+    <include layout="@layout/view_top_layout"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:paddingLeft="@dimen/size_20dp"
+        android:paddingRight="@dimen/size_20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="上传视频或图片添加水印"
+            android:textColor="@color/color_262626_aph"
+            android:textSize="@dimen/size_14dp" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:checked="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:paddingLeft="@dimen/size_20dp"
+        android:paddingRight="@dimen/size_20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="非wifi环境下自动播放视频"
+            android:textColor="@color/color_262626_aph"
+            android:textSize="@dimen/size_14dp" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:checked="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:paddingLeft="@dimen/size_20dp"
+        android:paddingRight="@dimen/size_20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="清除缓存"
+            android:textColor="@color/color_262626_aph"
+            android:textSize="@dimen/size_14dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="0.11M" />
+    </LinearLayout>
+
+</LinearLayout>
