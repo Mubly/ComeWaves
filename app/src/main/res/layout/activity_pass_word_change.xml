@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.activity.PassWordChangeActivity">
+
+    <include layout="@layout/view_top_layout"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/size_20dp"
+        android:layout_height="@dimen/size_40dp">
+
+        <TextView
+            android:layout_width="@dimen/size_80dp"
+            android:layout_height="match_parent"
+            android:text="原密码"
+            android:textSize="@dimen/size_14dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_262626_aph" />
+        <EditText
+            android:layout_width="match_parent"
+            android:background="@null"
+            android:textSize="@dimen/size_12dp"
+            android:maxLines="1"
+            android:hint="密码必须至少8个字符，同时包含字母和数字"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/size_20dp"
+        android:layout_height="@dimen/size_40dp">
+
+        <TextView
+            android:layout_width="@dimen/size_80dp"
+            android:layout_height="match_parent"
+            android:text="新密码"
+            android:textSize="@dimen/size_14dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_262626_aph" />
+        <EditText
+            android:layout_width="match_parent"
+            android:background="@null"
+            android:textSize="@dimen/size_12dp"
+            android:maxLines="1"
+            android:hint="密码必须至少8个字符，同时包含字母和数字"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/size_20dp"
+        android:layout_height="@dimen/size_40dp">
+
+        <TextView
+            android:layout_width="@dimen/size_80dp"
+            android:layout_height="match_parent"
+            android:text="确认密码"
+            android:textSize="@dimen/size_14dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_262626_aph" />
+        <EditText
+            android:layout_width="match_parent"
+            android:background="@null"
+            android:textSize="@dimen/size_12dp"
+            android:maxLines="1"
+            android:hint="密码必须至少8个字符，同时包含字母和数字"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginRight="@dimen/size_20dp"
+        android:textSize="@dimen/size_14dp"
+        android:text="确定"
+        android:textColor="@color/color_262626_aph"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/size_50dp"
+        android:background="@color/color_f5f5f5"
+        android:layout_height="@dimen/size_40dp" />
+</LinearLayout>

@@ -36,7 +36,10 @@
         android:theme="@style/AppTheme_App"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme,android:appComponentFactory">
-        <activity android:name=".view.activity.OtherSettingActivity"></activity>
+        <activity android:name=".view.activity.PassWordChangeActivity"></activity>
+        <activity android:name=".view.activity.FeedbackActivity" />
+        <activity android:name=".view.activity.AboutLaiActivity" />
+        <activity android:name=".view.activity.OtherSettingActivity" />
         <activity android:name=".view.activity.AccountSafeActivity" />
         <activity android:name=".view.activity.Certification3Activity" />
         <activity android:name=".view.activity.Certification2Activity" />

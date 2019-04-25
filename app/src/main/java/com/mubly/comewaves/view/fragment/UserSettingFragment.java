@@ -12,8 +12,10 @@ import com.mubly.comewaves.R;
 import com.mubly.comewaves.common.base.BaseFragment;
 import com.mubly.comewaves.common.base.BasePresenter;
 import com.mubly.comewaves.common.utils.ToastUtils;
+import com.mubly.comewaves.view.activity.AboutLaiActivity;
 import com.mubly.comewaves.view.activity.AccountSafeActivity;
 import com.mubly.comewaves.view.activity.CertificationActivity;
+import com.mubly.comewaves.view.activity.FeedbackActivity;
 import com.mubly.comewaves.view.activity.OtherSettingActivity;
 import com.mubly.comewaves.view.activity.SettingActivity;
 
@@ -75,10 +77,10 @@ public class UserSettingFragment extends BaseFragment {
                 startActivity(new Intent(mContext, OtherSettingActivity.class));
                 break;
             case R.id.user_help_or_response_tv:
-                ToastUtils.showToast("暂未开放");
+                startActivity(new Intent(mContext, FeedbackActivity.class));
                 break;
             case R.id.setting_about_lai_tv:
-                ToastUtils.showToast("暂未开放");
+                startActivity(new Intent(mContext, AboutLaiActivity.class));
                 break;
         }
     }

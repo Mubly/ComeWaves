@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.activity.AboutLaiActivity">
+
+    <include layout="@layout/view_top_layout"></include>
+
+    <ImageView
+        android:layout_width="@dimen/size_80dp"
+        android:layout_height="@dimen/size_80dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/size_40dp"
+        android:src="@mipmap/app_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/size_40dp"
+        android:text="来浪"
+        android:textColor="@color/color_262626"
+        android:textSize="@dimen/size_30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/size_8dp"
+        android:text="1.0"
+        android:textColor="@color/color_262626"
+        android:textSize="@dimen/size_20dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1px"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginTop="@dimen/size_26dp"
+        android:layout_marginRight="@dimen/size_20dp"
+        android:background="@color/color_262626"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_44dp"
+        android:paddingLeft="@dimen/size_20dp"
+        android:paddingRight="@dimen/size_20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableRight="@mipmap/arrow_right_icon"
+            android:text="功能介绍" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1px"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginRight="@dimen/size_20dp"
+        android:background="@color/color_262626"></View>
+
+    <LinearLayout
+        android:id="@+id/about_app_feek_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_44dp"
+        android:paddingLeft="@dimen/size_20dp"
+        android:paddingRight="@dimen/size_20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableRight="@mipmap/arrow_right_icon"
+            android:text="投诉" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1px"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginRight="@dimen/size_20dp"
+        android:background="@color/color_262626"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_44dp"
+        android:paddingLeft="@dimen/size_20dp"
+        android:paddingRight="@dimen/size_20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableRight="@mipmap/arrow_right_icon"
+            android:text="检查版本" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1px"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginRight="@dimen/size_20dp"
+        android:background="@color/color_262626"></View>
+    <View
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="@dimen/size_1px">
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="《来浪软件许可及服务协议》"
+        android:textSize="@dimen/size_14dp"
+        android:textColor="@color/color_262626"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="和"
+        android:textSize="@dimen/size_14dp"
+        android:textColor="@color/color_262626_aph"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="《来浪隐私保护指引》"
+        android:textSize="@dimen/size_14dp"
+        android:textColor="@color/color_262626"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="来浪公司  版权所有"
+        android:textSize="@dimen/size_12dp"
+        android:layout_marginTop="@dimen/size_8dp"
+        android:layout_marginBottom="@dimen/size_28dp"
+        android:textColor="@color/color_262626_aph"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content" />
+</LinearLayout>

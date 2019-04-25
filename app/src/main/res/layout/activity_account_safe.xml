@@ -32,6 +32,7 @@
             tools:text="16621394987214" />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/change_password_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
         android:paddingLeft="@dimen/size_20dp"
