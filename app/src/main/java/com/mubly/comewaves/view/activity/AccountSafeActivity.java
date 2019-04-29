@@ -20,6 +20,7 @@ public class AccountSafeActivity extends BaseActivity {
 
     @BindView(R.id.top_back_btn)
     ImageButton topBackBtn;
+
     @BindView(R.id.top_tittle)
     TextView topTittle;
 
